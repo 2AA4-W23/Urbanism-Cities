@@ -1,5 +1,6 @@
 package ca.mcmaster.cas.se2aa4.a2.visualizer;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
@@ -32,14 +33,14 @@ public class GraphicRenderer {
             canvas.setColor(old);
         }
 
-        for (Segment s : aMesh.getSegmentsList()) {
-            double x1 = aMesh.getVerticesList().get(s.getV1Idx()).getX();
-            double y1 = aMesh.getVerticesList().get(s.getV1Idx()).getY();
-            double x2 = aMesh.getVerticesList().get(s.getV2Idx()).getX();
-            double y2 = aMesh.getVerticesList().get(s.getV2Idx()).getY();
+        for (Structs.Segment s : aMesh.getSegmentsList()) {
+            double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
+            double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
+            double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
+            double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
             Color old = canvas.getColor();
             canvas.setColor(extractColor(s.getPropertiesList()));
-            Line2D line = new Line2D.Double(x1, y1, x2, y2);
+            Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
             canvas.draw(line);
             canvas.fill(line);
             canvas.setColor(old);
