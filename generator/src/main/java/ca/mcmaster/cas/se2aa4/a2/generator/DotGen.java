@@ -30,20 +30,14 @@ public class DotGen {
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
                 vertices.add(mesh.createVertex(x,y));
-                //vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
                 count++;
                 vertices.add(mesh.createVertex((x + square_size), y));
                 segments.add(mesh.createSegment(count, count-1));
-//                vertices.add(Vertex.newBuilder().setX((double) x + square_size).setY((double) y).build());
-//                segments.add(Segment.newBuilder().setV1Idx(count).setV2Idx(count - 1).build());
                 count++;
                 vertices.add(mesh.createVertex(x, (y + square_size )));
                 segments.add(mesh.createSegment(count, count-2));
-                //vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y + square_size).build());
-                //segments.add(Segment.newBuilder().setV1Idx(count).setV2Idx(count - 2).build());
                 count++;
                 vertices.add(mesh.createVertex((x + square_size), (y + square_size )));
-                //vertices.add(Vertex.newBuilder().setX((double) x + square_size).setY((double) y + square_size).build());
                 count++;
             }
         }
@@ -56,42 +50,27 @@ public class DotGen {
             int green = bag.nextInt(255);
             int blue = bag.nextInt(255);
             String colorCode = red + "," + green + "," + blue;
-            Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-            Vertex colored = Vertex.newBuilder(v).addProperties(color).build();
+            Property color = mesh.createProperty(colorCode);
+            Vertex colored = mesh.createVertexColor(v,color);
             verticesWithColors.add(colored);
         }
 
         List<Segment> segmentsWithColors = new ArrayList<>();
         for (Segment s : segments) {
-            int red = ((Integer
-                    .valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue()
-                            .split(",")[0]))
-                    + (Integer
-                            .valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue()
-                                    .split(",")[0])))
-                    / 2;
-            int blue = ((Integer
-                    .valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue()
-                            .split(",")[1]))
-                    + (Integer
-                            .valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue()
-                                    .split(",")[1])))
-                    / 2;
-            int green = ((Integer
-                    .valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue()
-                            .split(",")[2]))
-                    + (Integer
-                            .valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue()
-                                    .split(",")[2])))
-                    / 2;
+
+
+            int red = (Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV1Idx(s)), 0)).split(",")[0]) + Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV2Idx(s)), 0)).split(",")[0]))/2;
+            int blue = (Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV1Idx(s)), 0)).split(",")[1]) + Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV2Idx(s)), 0)).split(",")[1]))/2;
+            int green = (Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV1Idx(s)), 0)).split(",")[2]) + Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV2Idx(s)), 0)).split(",")[2]))/2;
+
             String colorCode = red + "," + green + "," + blue;
-            Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-            Segment colored = Segment.newBuilder(s).addProperties(color).build();
+            Property color = mesh.createProperty(colorCode);
+            Segment colored = mesh.createSegmentColor(s,color);
+
             segmentsWithColors.add(colored);
         }
+        return mesh.generate(verticesWithColors, segmentsWithColors);
 
-        return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments)
-                .addAllSegments(segmentsWithColors).build();
     }
 
 }

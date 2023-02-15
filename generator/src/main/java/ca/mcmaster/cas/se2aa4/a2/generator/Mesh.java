@@ -30,6 +30,14 @@ public class Mesh  {
         return valuey;
     }
 
+    public int getV1Idx(Segment s) {
+        return s.getV1Idx();
+    }
+
+    public int getV2Idx(Segment s) {
+        return s.getV2Idx();
+    }
+
     public void setX(Vertex v, double x) {
         v.newBuilderForType().setY(x);
     }
@@ -38,6 +46,17 @@ public class Mesh  {
         v.newBuilderForType().setY(y);
     }
 
+    public Property getProperty(Vertex v, int index) {
+        return v.getProperties(index);
+    }
+
+    public Segment getSegment(Segment s) {
+        return s;
+    }
+
+    public String getValue(Property p) {
+        return p.getValue();
+    }
 
     public Vertex createVertex(int x, int y) {
 
@@ -49,17 +68,23 @@ public class Mesh  {
         Segment s = Segment.newBuilder().setV1Idx(vertindex1).setV2Idx(vertindex2).build();
         return s;
     }
-    public void createSegment() {
-        for (int x = 0; x < width; x += square_size) {
-            for (int y = 0; y < height; y += square_size) {
-                vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
-                vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
-            }
-        }
+
+    public Property createProperty(String colorCode) {
+        Property p = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
+        return p;
     }
 
+    public Vertex createVertexColor(Vertex v, Property color) {
+        Vertex vc = Vertex.newBuilder(v).addProperties(color).build();
+        return vc;
+    }
 
-    public Structs.Mesh generate(ArrayList<Vertex> verticesWithColors, ArrayList<Segment> segmentsWithColors) {
+    public Segment createSegmentColor(Segment s, Property color) {
+        Segment sc = Segment.newBuilder(s).addProperties(color).build();
+        return sc;
+    }
+
+    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors) {
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments).addAllSegments(segmentsWithColors).build();
         return mesh;
     }
