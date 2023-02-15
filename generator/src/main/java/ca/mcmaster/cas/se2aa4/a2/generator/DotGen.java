@@ -12,6 +12,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+//import ca.mcmaster.cas.se2aa4.a2.generator.Mesh;
 
 public class DotGen {
 
@@ -22,11 +23,13 @@ public class DotGen {
     public Mesh generate() {
         List<Vertex> vertices = new ArrayList<>();
         List<Segment> segments = new ArrayList<>();
+        ca.mcmaster.cas.se2aa4.a2.generator.Mesh mesh = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
         int count = 0;
 
         // Create all the vertices
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
+                mesh.createVertex(x,y);
                 vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
                 count++;
                 vertices.add(Vertex.newBuilder().setX((double) x + square_size).setY((double) y).build());

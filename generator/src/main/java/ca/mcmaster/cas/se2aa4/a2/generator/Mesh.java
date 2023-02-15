@@ -55,4 +55,10 @@ public class Mesh  {
             }
         }
     }
+
+
+    public Structs.Mesh generate(ArrayList<Vertex> verticesWithColors, ArrayList<Segment> segmentsWithColors) {
+        Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments).addAllSegments(segmentsWithColors).build();
+        return mesh;
+    }
 }
