@@ -9,6 +9,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Mesh  {
     private int width = 500;
     private int height = 500;
@@ -39,6 +40,7 @@ public class Mesh  {
 
 
     public Vertex createVertex(int x, int y) {
+
         Vertex v = Vertex.newBuilder().setX((double) x).setY((double) y).build();
         return v;
     }

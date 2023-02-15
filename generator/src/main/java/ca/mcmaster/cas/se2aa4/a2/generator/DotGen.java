@@ -29,16 +29,21 @@ public class DotGen {
         // Create all the vertices
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
-                mesh.createVertex(x,y);
-                vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
+                vertices.add(mesh.createVertex(x,y));
+                //vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
                 count++;
-                vertices.add(Vertex.newBuilder().setX((double) x + square_size).setY((double) y).build());
-                segments.add(Segment.newBuilder().setV1Idx(count).setV2Idx(count - 1).build());
+                vertices.add(mesh.createVertex((x + square_size), y));
+                segments.add(mesh.createSegment(count, count-1));
+//                vertices.add(Vertex.newBuilder().setX((double) x + square_size).setY((double) y).build());
+//                segments.add(Segment.newBuilder().setV1Idx(count).setV2Idx(count - 1).build());
                 count++;
-                vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y + square_size).build());
-                segments.add(Segment.newBuilder().setV1Idx(count).setV2Idx(count - 2).build());
+                vertices.add(mesh.createVertex(x, (y + square_size )));
+                segments.add(mesh.createSegment(count, count-2));
+                //vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y + square_size).build());
+                //segments.add(Segment.newBuilder().setV1Idx(count).setV2Idx(count - 2).build());
                 count++;
-                vertices.add(Vertex.newBuilder().setX((double) x + square_size).setY((double) y + square_size).build());
+                vertices.add(mesh.createVertex((x + square_size), (y + square_size )));
+                //vertices.add(Vertex.newBuilder().setX((double) x + square_size).setY((double) y + square_size).build());
                 count++;
             }
         }
