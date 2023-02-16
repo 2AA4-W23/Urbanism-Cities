@@ -23,13 +23,38 @@ public class DotGen {
     public Mesh generate() {
         List<Vertex> vertices = new ArrayList<>();
         List<Segment> segments = new ArrayList<>();
+        HashSet<Vertex> verticesDup = new HashSet<>();
         ca.mcmaster.cas.se2aa4.a2.generator.Mesh mesh = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
         int count = 0;
 
         // Create all the vertices
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
+//                Vertex v1 = mesh.createVertex(x,y);
+//                Vertex v2 = mesh.createVertex((x + square_size), y);
+//                Vertex v3 = mesh.createVertex(x, (y + square_size ));
+//                Vertex v4 = mesh.createVertex((x + square_size), (y + square_size ));
+//
+//                if (!vertices.contains(v1)) {
+//                    vertices.add(v1);
+//                    count++;
+//                }
+//                if (!vertices.contains(v2)) {
+//                    vertices.add(v2);
+//                    count++;
+//                }
+//                if (!vertices.contains(v3)) {
+//                    vertices.add(v3);
+//                    count++;
+//                }
+//                if (!vertices.contains(v4)) {
+//                    vertices.add(v4);
+//                    count++;
+//                }
+
+
                 vertices.add(mesh.createVertex(x,y));
+
                 count++;
                 vertices.add(mesh.createVertex((x + square_size), y));
                 segments.add(mesh.createSegment(count, count-1));
