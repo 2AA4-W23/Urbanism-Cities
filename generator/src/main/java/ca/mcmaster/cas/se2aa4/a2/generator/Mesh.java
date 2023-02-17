@@ -4,16 +4,12 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
-//import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
 
 public class Mesh {
-    private int width = 500;
-    private int height = 500;
-    private int square_size = 20;
 
     List<Vertex> vertices = new ArrayList<>();
     List<Vertex> verticesColored = new ArrayList<>();
@@ -21,7 +17,7 @@ public class Mesh {
     List<Segment> segments = new ArrayList<>();
     List<Segment> segmentsColored = new ArrayList<>();
 
-    HashMap<Vertex, Vertex> xy = new HashMap<>();
+    List<Polygon> polygons = new ArrayList<>();
 
     int count = 0;
 
@@ -88,19 +84,15 @@ public class Mesh {
                 .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
     }
 
-    public void createSegments() {
-        for (int i = 0; i < verticesColored.size() - 2; i++) {
-            int temp = 0;
-            segments.add(Segment.newBuilder().setV1Idx(temp).setV2Idx(temp + i).build());
-            segments.add(Segment.newBuilder().setV1Idx(temp).setV2Idx(temp + i).build());
-        }
+    public void createPolygon(int index, int segmentIdx) {
+        polygons.add(Polygon.newBuilder().addSegmentIdxs(index).build());
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors) {
         System.out.println("SIZE: " + vertices.size());
         System.out.println("SIZE SEGMENTS: " + segments.size());
 
-        Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments)
+        Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
                 .addAllSegments(segmentsWithColors).build();
         return mesh;
     }

@@ -2,6 +2,7 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
@@ -44,8 +45,20 @@ public class GraphicRenderer {
             canvas.draw(line);
             canvas.fill(line);
             canvas.setColor(old);
-
         }
+
+        // for (Polygon p : aMesh.getPolygonsList()) {
+        // double centre_x = aMesh.getVerticesList().get(p);
+        // double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
+        // double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
+        // double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
+        // Color old = canvas.getColor();
+        // canvas.setColor(extractColor(s.getPropertiesList()));
+        // Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
+        // canvas.draw(line);
+        // canvas.fill(line);
+        // canvas.setColor(old);
+        // }
 
     }
 
