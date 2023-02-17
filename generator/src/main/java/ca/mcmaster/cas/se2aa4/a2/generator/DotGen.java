@@ -55,27 +55,9 @@ public class DotGen {
 
         List<Segment> segmentsWithColors = new ArrayList<>();
         for (Segment s : segments) {
-            int red = ((Integer
-                    .valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue()
-                            .split(",")[0]))
-                    + (Integer
-                            .valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue()
-                                    .split(",")[0])))
-                    / 2;
-            int blue = ((Integer
-                    .valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue()
-                            .split(",")[1]))
-                    + (Integer
-                            .valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue()
-                                    .split(",")[1])))
-                    / 2;
-            int green = ((Integer
-                    .valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue()
-                            .split(",")[2]))
-                    + (Integer
-                            .valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue()
-                                    .split(",")[2])))
-                    / 2;
+            int red = ((Integer.valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue().split(",")[0])) + (Integer.valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue().split(",")[0]))) / 2;
+            int blue = ((Integer.valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue().split(",")[1])) + (Integer.valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue().split(",")[1]))) / 2;
+            int green = ((Integer.valueOf(verticesWithColors.get(s.getV1Idx()).getProperties(0).getValue().split(",")[2])) + (Integer.valueOf(verticesWithColors.get(s.getV2Idx()).getProperties(0).getValue().split(",")[2]))) / 2;
             String colorCode = red + "," + green + "," + blue;
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
             Segment colored = Segment.newBuilder(s).addProperties(color).build();
