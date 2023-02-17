@@ -70,4 +70,5 @@ A feature is done when its function is functional. It does not need to be the mo
 | F02 | Add color to segments                                        | Mankaran | February 7  | Febraury 7  | D      |
 | F03 | In mesh ADT, add a create vertex and a create segment method | Amaan    | February 14 | Febraury 16 | D      |
 | F04 | Remove duplicate vertices and segments                       | Mankaran | February 16 | Febraury 17 | D      |
-| F05 | Correcting color of segments                                 | Mujtaba  | February 17 | -           | P      |
+| F05 | Correcting color of segments                                 | Mujtaba  | February 17 | February 17 | D      |
+| F06 | Make each square a polygon                                   | Mankaran | February 17 |             | P      |
