@@ -64,9 +64,7 @@ public class Mesh {
     }
 
     public void createVertex(int x, int y) {
-        if (!vertices.contains(Vertex.newBuilder().setX((double) x).setY((double) y).build())) {
-            vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
-        }
+        vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
     }
 
     public void createSegment(int vertindex1, int vertindex2) {
@@ -99,6 +97,9 @@ public class Mesh {
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors) {
+        System.out.println("SIZE: " + vertices.size());
+        System.out.println("SIZE SEGMENTS: " + segments.size());
+
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments)
                 .addAllSegments(segmentsWithColors).build();
         return mesh;
