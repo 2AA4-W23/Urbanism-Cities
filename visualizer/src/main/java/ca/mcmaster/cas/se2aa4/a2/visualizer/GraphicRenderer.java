@@ -44,6 +44,7 @@ public class GraphicRenderer {
             canvas.draw(line);
             canvas.fill(line);
             canvas.setColor(old);
+
         }
 
     }

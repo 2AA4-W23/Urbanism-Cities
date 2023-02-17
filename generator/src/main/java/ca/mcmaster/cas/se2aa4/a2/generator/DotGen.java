@@ -21,80 +21,109 @@ public class DotGen {
     private final int square_size = 20;
 
     public Mesh generate() {
-        List<Vertex> vertices = new ArrayList<>();
-        List<Segment> segments = new ArrayList<>();
-        HashSet<Vertex> verticesDup = new HashSet<>();
         ca.mcmaster.cas.se2aa4.a2.generator.Mesh mesh = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
+
         int count = 0;
 
         // Create all the vertices
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
-//                Vertex v1 = mesh.createVertex(x,y);
-//                Vertex v2 = mesh.createVertex((x + square_size), y);
-//                Vertex v3 = mesh.createVertex(x, (y + square_size ));
-//                Vertex v4 = mesh.createVertex((x + square_size), (y + square_size ));
-//
-//                if (!vertices.contains(v1)) {
-//                    vertices.add(v1);
-//                    count++;
-//                }
-//                if (!vertices.contains(v2)) {
-//                    vertices.add(v2);
-//                    count++;
-//                }
-//                if (!vertices.contains(v3)) {
-//                    vertices.add(v3);
-//                    count++;
-//                }
-//                if (!vertices.contains(v4)) {
-//                    vertices.add(v4);
-//                    count++;
-//                }
-
-
-                vertices.add(mesh.createVertex(x,y));
-
-                count++;
-                vertices.add(mesh.createVertex((x + square_size), y));
-                segments.add(mesh.createSegment(count, count-1));
-                count++;
-                vertices.add(mesh.createVertex(x, (y + square_size )));
-                segments.add(mesh.createSegment(count, count-2));
-                count++;
-                vertices.add(mesh.createVertex((x + square_size), (y + square_size )));
-                count++;
+                mesh.createVertex(x, y);
+                mesh.createVertex((x + square_size), y);
+                mesh.createVertex(x, (y + square_size));
+                mesh.createVertex((x + square_size), (y + square_size));
             }
+
         }
 
+        mesh.createSegments();
+
+        System.out.println(mesh.vertices);
+
         // Distribute colors randomly. Vertices are immutable, need to enrich them
-        List<Vertex> verticesWithColors = new ArrayList<>();
+        // List<Vertex> verticesWithColors = new ArrayList<>();
         Random bag = new Random();
-        for (Vertex v : vertices) {
+        for (Vertex v : mesh.vertices) {
             int red = bag.nextInt(255);
             int green = bag.nextInt(255);
             int blue = bag.nextInt(255);
             String colorCode = red + "," + green + "," + blue;
-            Property color = mesh.createProperty(colorCode);
-            Vertex colored = mesh.createVertexColor(v,color);
-            verticesWithColors.add(colored);
+            // Property color = mesh.createProperty(colorCode);
+            // Vertex colored = mesh.createVertexColor(v, color);
+            mesh.createVertexColor(v, colorCode);
+            // verticesWithColors.add(colored);
         }
 
-        List<Segment> segmentsWithColors = new ArrayList<>();
-        for (Segment s : segments) {
+        // List<Segment> segmentsWithColors = new ArrayList<>();
+        for (Segment s : mesh.segments) {
+            try {
 
+                System.out.println(s);
+                System.out.println(mesh.verticesColored.size());
 
-            int red = (Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV1Idx(s)), 0)).split(",")[0]) + Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV2Idx(s)), 0)).split(",")[0]))/2;
-            int blue = (Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV1Idx(s)), 0)).split(",")[1]) + Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV2Idx(s)), 0)).split(",")[1]))/2;
-            int green = (Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV1Idx(s)), 0)).split(",")[2]) + Integer.valueOf(mesh.getValue(mesh.getProperty(verticesWithColors.get(mesh.getV2Idx(s)), 0)).split(",")[2]))/2;
+                int reds = ((Integer
+                        .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue()
+                                .split(",")[0]))
+                        + (Integer
+                                .valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue()
+                                        .split(",")[0])))
+                        / 2;
 
-            String colorCode = red + "," + green + "," + blue;
-            Property color = mesh.createProperty(colorCode);
-            Segment colored = mesh.createSegmentColor(s,color);
+                int blues = ((Integer
+                        .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue()
+                                .split(",")[1]))
+                        + (Integer
+                                .valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue()
+                                        .split(",")[1])))
+                        / 2;
 
-            segmentsWithColors.add(colored);
+                int greens = ((Integer
+                        .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue()
+                                .split(",")[2]))
+                        + (Integer
+                                .valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue()
+                                        .split(",")[2])))
+                        / 2;
+                String colorCode = reds + "," + greens + "," + blues;
+                // Property color = mesh.createProperty(colorCode);
+                // Segment colored = mesh.createSegmentColor(s, color);
+
+                mesh.createSegmentColor(s, colorCode);
+                // segmentsWithColors.add(colored);
+
+            } catch (Exception e) {
+                System.out.println("PROBLEM: " + e);
+            }
+
+            // int red = (Integer
+            // .valueOf(mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV1Idx(s)),
+            // 0))
+            // .split(",")[0])
+            // + Integer.valueOf(
+            // mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV2Idx(s)),
+            // 0))
+            // .split(",")[0]))
+            // / 2;
+            // int blue = (Integer
+            // .valueOf(mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV1Idx(s)),
+            // 0))
+            // .split(",")[1])
+            // + Integer.valueOf(
+            // mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV2Idx(s)),
+            // 0))
+            // .split(",")[1]))
+            // / 2;
+            // int green = (Integer
+            // .valueOf(mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV1Idx(s)),
+            // 0))
+            // .split(",")[2])
+            // + Integer.valueOf(
+            // mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV2Idx(s)),
+            // 0))
+            // .split(",")[2]))
+            // / 2;
         }
-        return mesh.generate(verticesWithColors, segmentsWithColors);
+        return mesh.generate(mesh.verticesColored, mesh.segmentsColored);
 
     }
 
