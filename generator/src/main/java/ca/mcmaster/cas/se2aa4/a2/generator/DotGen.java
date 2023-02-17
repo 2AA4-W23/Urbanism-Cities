@@ -31,12 +31,14 @@ public class DotGen {
 
                 }
 
-                for (int i = 0; i < mesh.vertices.size() - 25; i++) {
+                for (int i = 0; i < mesh.vertices.size(); i++) {
 
                         if (!((i + 1) % 25 == 0)) {
                                 mesh.createSegment(i, i + 1);
                         }
-                        mesh.createSegment(i, i + 25);
+                        if (i < 600) {
+                                mesh.createSegment(i, i + 25);
+                        }
                 }
 
                 System.out.println(mesh.vertices);
