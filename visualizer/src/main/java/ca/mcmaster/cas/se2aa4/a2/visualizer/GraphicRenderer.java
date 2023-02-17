@@ -33,7 +33,7 @@ public class GraphicRenderer {
             canvas.setColor(old);
         }
 
-        for (Structs.Segment s : aMesh.getSegmentsList()) {
+        for (Segment s : aMesh.getSegmentsList()) {
             double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
             double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
             double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
