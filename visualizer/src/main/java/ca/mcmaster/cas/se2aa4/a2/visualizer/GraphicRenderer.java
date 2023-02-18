@@ -47,13 +47,21 @@ public class GraphicRenderer {
             canvas.setColor(old);
         }
 
-        // for (Polygon p : aMesh.getPolygonsList()) {
-        // double centre_x = aMesh.getVerticesList().get(p);
-        // double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
-        // double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
-        // double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
+        // for (int i = 0; i < aMesh.getSegmentsCount(); i++) {
+        // double centre_x = aMesh.getVerticesList()
+        // .get(aMesh.getSegmentsList().get(aMesh.getPolygonsList().get(i).getSegmentIdxs(i)).getV1Idx())
+        // .getX();
+        // double centre_y = aMesh.getVerticesList()
+        // .get(aMesh.getSegmentsList().get(aMesh.getPolygonsList().get(i).getSegmentIdxs(i)).getV1Idx())
+        // .getY();
+        // double centre2_x = aMesh.getVerticesList()
+        // .get(aMesh.getSegmentsList().get(aMesh.getPolygonsList().get(i).getSegmentIdxs(i)).getV2Idx())
+        // .getX();
+        // double centre2_y = aMesh.getVerticesList()
+        // .get(aMesh.getSegmentsList().get(aMesh.getPolygonsList().get(i).getSegmentIdxs(i)).getV2Idx())
+        // .getY();
         // Color old = canvas.getColor();
-        // canvas.setColor(extractColor(s.getPropertiesList()));
+        // canvas.setColor(extractColor(aMesh.getPolygonsList().get(i).getPropertiesList()));
         // Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
         // canvas.draw(line);
         // canvas.fill(line);

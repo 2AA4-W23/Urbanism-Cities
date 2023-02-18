@@ -12,6 +12,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 //import ca.mcmaster.cas.se2aa4.a2.generator.Mesh;
 
 public class DotGen {
@@ -41,15 +42,14 @@ public class DotGen {
                         }
                 }
 
-                // mesh.createPolygon(0, 1);
-
-                for (int j = 0; j < mesh.segments.size(); j++) {
-                        mesh.createPolygon(j + 1, j + 1);
+                for (int k = 0; k < mesh.segments.size() - 50; k += 2) {
+                        // 0,1,2,50
+                        // 2,3,4,51
+                        mesh.createPolygon(k, k + 1, k + 2, k + 50);
                 }
 
-                System.out.println(mesh.polygons);
-
-                // System.out.println(mesh.polygons);
+                System.out.println("POLYGONS: " + mesh.polygonsColored);
+                System.out.println("NUM OF POLYGONS: " + mesh.polygonsColored.size());
 
                 // Distribute colors randomly. Vertices are immutable, need to enrich them
                 // List<Vertex> verticesWithColors = new ArrayList<>();
@@ -148,6 +148,7 @@ public class DotGen {
                         // .split(",")[2]))
                         // / 2;
                 }
+
                 return mesh.generate(mesh.verticesColored, mesh.segmentsColored);
 
         }
