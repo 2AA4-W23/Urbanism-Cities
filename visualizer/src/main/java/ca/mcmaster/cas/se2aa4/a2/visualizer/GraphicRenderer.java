@@ -27,7 +27,8 @@ public class GraphicRenderer {
 
     public void render(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.BLACK);
-        Stroke stroke = new BasicStroke(0.5f);
+        //Stroke stroke = new BasicStroke(0.5f);
+        Stroke stroke = new BasicStroke(1.0f);
         canvas.setStroke(stroke);
         for (Vertex v : aMesh.getVerticesList()) {
             double centre_x = v.getX() - (THICKNESS / 2.0d);

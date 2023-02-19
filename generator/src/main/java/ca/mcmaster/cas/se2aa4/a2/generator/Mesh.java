@@ -96,9 +96,10 @@ public class Mesh {
                         .build());
     }
 
-    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors) {
+    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors, List<Polygon> polygonsColored) {
         System.out.println("SIZE: " + vertices.size());
         System.out.println("SIZE SEGMENTS: " + segments.size());
+        System.out.println("SIZE POLYGONS: " + polygons.size());
 
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
                 .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).build();
