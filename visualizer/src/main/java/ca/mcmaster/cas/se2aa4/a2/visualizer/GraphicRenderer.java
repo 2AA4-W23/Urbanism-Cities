@@ -13,6 +13,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.util.Arrays;
 import java.util.List;
 
 public class GraphicRenderer {
@@ -39,23 +40,14 @@ public class GraphicRenderer {
             canvas.setColor(old);
         }
 
-        // for (Segment s : aMesh.getSegmentsList()) {
-        // double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
-        // double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
-        // double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
-        // double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
-        // Color old = canvas.getColor();
-        // canvas.setColor(extractColor(s.getPropertiesList()));
-        // Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
-        // canvas.draw(line);
-        // canvas.fill(line);
-        // canvas.setColor(old);
-        // }
-
         System.out.println("ZZZZZZZZZZZZZZZZZZZZZZ: " + aMesh.getPolygonsCount());
         System.out.println("hdkfjhsfhsif: " + aMesh.getPolygonsList());
+        System.out.println("ARGS: " + args[0].toString());
+        System.out.println("ARGS: " + args[1].toString());
+        System.out.println("ARGS SIZE: " + args.length);
+        System.out.println(Arrays.toString(args));
 
-        if (args[0].equals("-X") || args[1].equals("-X")) {
+        if (args.length == 3 && args[2].equals("-X")) {
             for (Polygon p : aMesh.getPolygonsList()) {
                 // if (p.getSegmentIdxsList().get(3) < 626) {
                 System.out.println("dfdfd: " + p.getSegmentIdxsList());
@@ -93,7 +85,7 @@ public class GraphicRenderer {
                         .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(3)).getV2Idx()).getY();
                 Color old = canvas.getColor();
                 canvas.setColor(extractColor(p.getPropertiesList()));
-                Line2D line = new Line2D.Double(centreV1_x, centreV1_y, centre3V1_x, centre3V1_y);
+                Line2D line = new Line2D.Double(centreV1_x, centreV1_y, centreV2_x, centreV2_y);
                 // Line2D line2 = new Line2D.Double(centre3_x, centre3_y, centre4_x, centre4_y);
                 // Line2D line3 = new Line2D.Double(centre3_x, centre3_y, centre4_x, centre4_y);
                 // Line2D line4 = new Line2D.Double(centre2_x, centre2_y, centre4_x, centre4_y);
@@ -107,6 +99,19 @@ public class GraphicRenderer {
                 // canvas.fill(line4);
                 canvas.setColor(old);
                 // }
+            }
+        } else {
+            for (Segment s : aMesh.getSegmentsList()) {
+                double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
+                double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
+                double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
+                double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
+                Color old = canvas.getColor();
+                canvas.setColor(extractColor(s.getPropertiesList()));
+                Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
+                canvas.draw(line);
+                canvas.fill(line);
+                canvas.setColor(old);
             }
         }
 
