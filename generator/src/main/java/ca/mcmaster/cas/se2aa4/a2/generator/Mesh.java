@@ -20,8 +20,6 @@ public class Mesh {
     List<Polygon> polygons = new ArrayList<>();
     List<Polygon> polygonsColored = new ArrayList<>();
 
-    int count = 0;
-
     public double getX(Vertex v) {
         double valuex = v.getX();
         return valuex;
@@ -70,6 +68,12 @@ public class Mesh {
         }
     }
 
+    public void createPolygon(int segment1, int segment2, int segment3, int segment4) {
+        polygons.add(Polygon.newBuilder().addSegmentIdxs(segment1).addSegmentIdxs(segment2).addSegmentIdxs(segment3)
+                .addSegmentIdxs(segment4)
+                .build());
+    }
+
     public Property createProperty(String colorCode) {
         Property p = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
         return p;
@@ -85,30 +89,11 @@ public class Mesh {
                 .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
     }
 
-    public void addPolygonSegments(int index) {
-        Polygon.newBuilder().addSegmentIdxs(index);
-        // if (index % 4 == 0) {
-        // polygons.add(Polygon.newBuilder().addSegmentIdxs(index).build());
-        // polygonsColored.add(Polygon.newBuilder(p)
-        // .addProperties(Property.newBuilder().setKey("rgb_color").setValue("50,100,150").build()).build());
-        // } else if (index % 3 == 0) {
-        // polygons.add(Polygon.newBuilder().addSegmentIdxs(index).build());
-        // polygonsColored.add(Polygon.newBuilder(p)
-        // .addProperties(Property.newBuilder().setKey("rgb_color").setValue("100,150,200").build()).build());
-        // } else if (index % 2 == 0) {
-        // polygons.add(Polygon.newBuilder().addSegmentIdxs(index).build());
-        // polygonsColored.add(Polygon.newBuilder(p)
-        // .addProperties(Property.newBuilder().setKey("rgb_color").setValue("150,200,250").build()).build());
-        // } else {
-        // polygons.add(p);
-        // polygonsColored.add(Polygon.newBuilder(p)
-        // .addProperties(Property.newBuilder().setKey("rgb_color").setValue("1,5,6").build()).build());
-        // }
-    }
-
-    public void createPolygon(int segment1, int segment2, int segment3, int segment4) {
-        polygons.add(Polygon.newBuilder().addSegmentIdxs(segment1).addSegmentIdxs(segment2).addSegmentIdxs(segment3)
-                .addSegmentIdxs(segment4).build());
+    public void createPolygonColor(Polygon p, String colorCode) {
+        polygonsColored
+                .add(Polygon.newBuilder(p)
+                        .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build())
+                        .build());
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors) {

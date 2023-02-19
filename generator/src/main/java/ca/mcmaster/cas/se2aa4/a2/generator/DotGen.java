@@ -32,6 +32,7 @@ public class DotGen {
 
                 }
 
+                // Create all segments
                 for (int i = 0; i < mesh.vertices.size(); i++) {
 
                         if (!((i + 1) % 25 == 0)) {
@@ -42,14 +43,15 @@ public class DotGen {
                         }
                 }
 
+                // Create all polygons
                 for (int k = 0; k < mesh.segments.size() - 50; k += 2) {
                         // 0,1,2,50
                         // 2,3,4,51
                         mesh.createPolygon(k, k + 1, k + 2, k + 50);
                 }
 
-                System.out.println("POLYGONS: " + mesh.polygonsColored);
-                System.out.println("NUM OF POLYGONS: " + mesh.polygonsColored.size());
+                System.out.println("POLYGONS: " + mesh.polygons);
+                System.out.println("NUM OF POLYGONS: " + mesh.polygons.size());
 
                 // Distribute colors randomly. Vertices are immutable, need to enrich them
                 // List<Vertex> verticesWithColors = new ArrayList<>();
@@ -119,34 +121,14 @@ public class DotGen {
                         } catch (Exception e) {
                                 System.out.println("PROBLEM: " + e);
                         }
+                }
 
-                        // int red = (Integer
-                        // .valueOf(mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV1Idx(s)),
-                        // 0))
-                        // .split(",")[0])
-                        // + Integer.valueOf(
-                        // mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV2Idx(s)),
-                        // 0))
-                        // .split(",")[0]))
-                        // / 2;
-                        // int blue = (Integer
-                        // .valueOf(mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV1Idx(s)),
-                        // 0))
-                        // .split(",")[1])
-                        // + Integer.valueOf(
-                        // mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV2Idx(s)),
-                        // 0))
-                        // .split(",")[1]))
-                        // / 2;
-                        // int green = (Integer
-                        // .valueOf(mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV1Idx(s)),
-                        // 0))
-                        // .split(",")[2])
-                        // + Integer.valueOf(
-                        // mesh.getValue(mesh.getProperty(mesh.verticesColored.get(mesh.getV2Idx(s)),
-                        // 0))
-                        // .split(",")[2]))
-                        // / 2;
+                for (Polygon p : mesh.polygons) {
+                        // int red = bag.nextInt(255);
+                        // int green = bag.nextInt(255);
+                        // int blue = bag.nextInt(255);
+                        String colorCode = 1 + "," + 1 + "," + 1;
+                        mesh.createPolygonColor(p, colorCode);
                 }
 
                 return mesh.generate(mesh.verticesColored, mesh.segmentsColored);
