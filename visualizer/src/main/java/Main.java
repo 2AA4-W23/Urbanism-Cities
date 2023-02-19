@@ -17,13 +17,13 @@ public class Main {
         Structs.Mesh aMesh = new MeshFactory().read(input);
         double max_x = Double.MIN_VALUE;
         double max_y = Double.MIN_VALUE;
-        for (Structs.Vertex v: aMesh.getVerticesList()) {
-            max_x = (Double.compare(max_x, v.getX()) < 0? v.getX(): max_x);
-            max_y = (Double.compare(max_y, v.getY()) < 0? v.getY(): max_y);
+        for (Structs.Vertex v : aMesh.getVerticesList()) {
+            max_x = (Double.compare(max_x, v.getX()) < 0 ? v.getX() : max_x);
+            max_y = (Double.compare(max_y, v.getY()) < 0 ? v.getY() : max_y);
         }
         // Creating the Canvas to draw the mesh
         Graphics2D canvas = SVGCanvas.build((int) Math.ceil(max_x), (int) Math.ceil(max_y));
-        GraphicRenderer renderer = new GraphicRenderer();
+        GraphicRenderer renderer = new GraphicRenderer(args);
         // Painting the mesh on the canvas
         renderer.render(aMesh, canvas);
         // Storing the result in an SVG file

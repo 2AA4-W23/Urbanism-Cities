@@ -18,6 +18,11 @@ import java.util.List;
 public class GraphicRenderer {
 
     private static final int THICKNESS = 3;
+    private String[] args;
+
+    public GraphicRenderer(String[] args) {
+        this.args = args;
+    }
 
     public void render(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.BLACK);
@@ -50,55 +55,59 @@ public class GraphicRenderer {
         System.out.println("ZZZZZZZZZZZZZZZZZZZZZZ: " + aMesh.getPolygonsCount());
         System.out.println("hdkfjhsfhsif: " + aMesh.getPolygonsList());
 
-        for (Polygon p : aMesh.getPolygonsList()) {
-            // if (p.getSegmentIdxsList().get(3) < 626) {
-            System.out.println("dfdfd: " + p.getSegmentIdxsList());
-            double centre_x = aMesh.getVerticesList()
-                    .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0)).getV1Idx()).getX();
-            double centre_y = aMesh.getVerticesList()
-                    .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
-            double centre2_x = aMesh.getVerticesList()
-                    .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0)).getV2Idx()).getX();
-            double centre2_y = aMesh.getVerticesList()
-                    .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
-            double centre3_x = aMesh.getVerticesList()
-                    .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
-            double centre3_y = aMesh.getVerticesList()
-                    .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(1)).getV1Idx()).getY();
-            double centre4_x = aMesh.getVerticesList()
-                    .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
-            double centre4_y = aMesh.getVerticesList()
-                    .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(1)).getV2Idx()).getY();
-            // double centre_y =
-            // aMesh.getVerticesList().get(p.getSegmentIdxsList().get(0)).getY();
-            // double centre2_x =
-            // aMesh.getVerticesList().get(p.getSegmentIdxsList().get(1)).getX();
-            // double centre2_y =
-            // aMesh.getVerticesList().get(p.getSegmentIdxsList().get(1)).getY();
-            // double centre3_x =
-            // aMesh.getVerticesList().get(p.getSegmentIdxsList().get(2)).getX();
-            // double centre3_y =
-            // aMesh.getVerticesList().get(p.getSegmentIdxsList().get(2)).getY();
-            // double centre4_x =
-            // aMesh.getVerticesList().get(p.getSegmentIdxsList().get(3)).getX();
-            // double centre4_y =
-            // aMesh.getVerticesList().get(p.getSegmentIdxsList().get(3)).getY();
-            Color old = canvas.getColor();
-            canvas.setColor(extractColor(p.getPropertiesList()));
-            Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
-            Line2D line2 = new Line2D.Double(centre3_x, centre3_y, centre4_x, centre4_y);
-            // Line2D line3 = new Line2D.Double(centre3_x, centre3_y, centre4_x, centre4_y);
-            // Line2D line4 = new Line2D.Double(centre2_x, centre2_y, centre4_x, centre4_y);
-            canvas.draw(line);
-            canvas.draw(line2);
-            // canvas.draw(line3);
-            // canvas.draw(line4);
-            canvas.fill(line);
-            canvas.fill(line2);
-            // canvas.fill(line3);
-            // canvas.fill(line4);
-            canvas.setColor(old);
-            // }
+        if (args[0].equals("-X") || args[1].equals("-X")) {
+            for (Polygon p : aMesh.getPolygonsList()) {
+                // if (p.getSegmentIdxsList().get(3) < 626) {
+                System.out.println("dfdfd: " + p.getSegmentIdxsList());
+                double centreV1_x = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0)).getV1Idx()).getX();
+                double centreV1_y = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
+                double centreV2_x = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0)).getV2Idx()).getX();
+                double centreV2_y = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
+                double centre2V1_x = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
+                double centre2V1_y = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(1)).getV1Idx()).getY();
+                double centre2V2_x = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
+                double centre2V2_y = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(1)).getV2Idx()).getY();
+                double centre3V1_x = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(2)).getV1Idx()).getX();
+                double centre3V1_y = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(2)).getV1Idx()).getY();
+                double centre3V2_x = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(2)).getV2Idx()).getX();
+                double centre3V2_y = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(2)).getV2Idx()).getY();
+                double centre4V1_x = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(3)).getV1Idx()).getX();
+                double centre4V1_y = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(3)).getV1Idx()).getY();
+                double centre4V2_x = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(3)).getV2Idx()).getX();
+                double centre4V2_y = aMesh.getVerticesList()
+                        .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(3)).getV2Idx()).getY();
+                Color old = canvas.getColor();
+                canvas.setColor(extractColor(p.getPropertiesList()));
+                Line2D line = new Line2D.Double(centreV1_x, centreV1_y, centre3V1_x, centre3V1_y);
+                // Line2D line2 = new Line2D.Double(centre3_x, centre3_y, centre4_x, centre4_y);
+                // Line2D line3 = new Line2D.Double(centre3_x, centre3_y, centre4_x, centre4_y);
+                // Line2D line4 = new Line2D.Double(centre2_x, centre2_y, centre4_x, centre4_y);
+                canvas.draw(line);
+                // canvas.draw(line2);
+                // canvas.draw(line3);
+                // canvas.draw(line4);
+                canvas.fill(line);
+                // canvas.fill(line2);
+                // canvas.fill(line3);
+                // canvas.fill(line4);
+                canvas.setColor(old);
+                // }
+            }
         }
 
     }
