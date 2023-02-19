@@ -34,18 +34,18 @@ public class GraphicRenderer {
             canvas.setColor(old);
         }
 
-        for (Segment s : aMesh.getSegmentsList()) {
-            double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
-            double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
-            double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
-            double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
-            Color old = canvas.getColor();
-            canvas.setColor(extractColor(s.getPropertiesList()));
-            Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
-            canvas.draw(line);
-            canvas.fill(line);
-            canvas.setColor(old);
-        }
+        // for (Segment s : aMesh.getSegmentsList()) {
+        // double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
+        // double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
+        // double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
+        // double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
+        // Color old = canvas.getColor();
+        // canvas.setColor(extractColor(s.getPropertiesList()));
+        // Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
+        // canvas.draw(line);
+        // canvas.fill(line);
+        // canvas.setColor(old);
+        // }
 
         System.out.println("ZZZZZZZZZZZZZZZZZZZZZZ: " + aMesh.getPolygonsCount());
         System.out.println("hdkfjhsfhsif: " + aMesh.getPolygonsList());
@@ -62,42 +62,21 @@ public class GraphicRenderer {
                 double centre4_y = aMesh.getVerticesList().get(p.getSegmentIdxsList().get(3)).getY();
                 Color old = canvas.getColor();
                 canvas.setColor(extractColor(p.getPropertiesList()));
-                Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
+                Line2D line = new Line2D.Double(centre_x, centre_y, centre4_x, centre4_y);
                 Line2D line2 = new Line2D.Double(centre_x, centre_y, centre3_x, centre3_y);
-                Line2D line3 = new Line2D.Double(centre3_x, centre3_y, centre4_x, centre4_y);
-                Line2D line4 = new Line2D.Double(centre2_x, centre2_y, centre4_x, centre4_y);
+                // Line2D line3 = new Line2D.Double(centre3_x, centre3_y, centre4_x, centre4_y);
+                // Line2D line4 = new Line2D.Double(centre2_x, centre2_y, centre4_x, centre4_y);
                 canvas.draw(line);
                 canvas.draw(line2);
-                canvas.draw(line3);
-                canvas.draw(line4);
+                // canvas.draw(line3);
+                // canvas.draw(line4);
                 canvas.fill(line);
                 canvas.fill(line2);
-                canvas.fill(line3);
-                canvas.fill(line4);
+                // canvas.fill(line3);
+                // canvas.fill(line4);
                 canvas.setColor(old);
             }
         }
-
-        // for (int i = 0; i < aMesh.getSegmentsCount(); i++) {
-        // double centre_x = aMesh.getVerticesList()
-        // .get(aMesh.getSegmentsList().get(aMesh.getPolygonsList().get(i).getSegmentIdxs(i)).getV1Idx())
-        // .getX();
-        // double centre_y = aMesh.getVerticesList()
-        // .get(aMesh.getSegmentsList().get(aMesh.getPolygonsList().get(i).getSegmentIdxs(i)).getV1Idx())
-        // .getY();
-        // double centre2_x = aMesh.getVerticesList()
-        // .get(aMesh.getSegmentsList().get(aMesh.getPolygonsList().get(i).getSegmentIdxs(i)).getV2Idx())
-        // .getX();
-        // double centre2_y = aMesh.getVerticesList()
-        // .get(aMesh.getSegmentsList().get(aMesh.getPolygonsList().get(i).getSegmentIdxs(i)).getV2Idx())
-        // .getY();
-        // Color old = canvas.getColor();
-        // canvas.setColor(extractColor(aMesh.getPolygonsList().get(i).getPropertiesList()));
-        // Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
-        // canvas.draw(line);
-        // canvas.fill(line);
-        // canvas.setColor(old);
-        // }
 
     }
 
