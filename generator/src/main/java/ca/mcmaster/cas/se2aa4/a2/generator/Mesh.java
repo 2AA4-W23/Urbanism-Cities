@@ -63,9 +63,7 @@ public class Mesh {
     }
 
     public void createSegment(int vertindex1, int vertindex2) {
-        if (!segments.contains(Segment.newBuilder().setV1Idx(vertindex1).setV2Idx(vertindex2).build())) {
-            segments.add(Segment.newBuilder().setV1Idx(vertindex1).setV2Idx(vertindex2).build());
-        }
+        segments.add(Segment.newBuilder().setV1Idx(vertindex1).setV2Idx(vertindex2).build());
     }
 
     public void createPolygon(int segment1, int segment2, int segment3, int segment4) {

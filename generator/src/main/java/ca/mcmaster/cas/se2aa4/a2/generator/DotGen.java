@@ -36,6 +36,7 @@ public class DotGen {
                 for (int i = 0; i < mesh.vertices.size(); i++) {
 
                         if (!((i + 1) % 25 == 0)) {
+                                // System.out.println("EHRKHEKRHE: " + i);
                                 mesh.createSegment(i, i + 1);
                         }
                         if (i < 600) {
@@ -44,14 +45,28 @@ public class DotGen {
                 }
 
                 // Create all polygons
-                for (int k = 0; k < mesh.segments.size() - 50; k += 2) {
+
+                for (int k = 0; k < mesh.segments.size() - 49; k += 2) {
                         // 0,1,2,50
-                        // 2,3,4,51
-                        mesh.createPolygon(k, k + 1, k + 2, k + 50);
+                        // 2,3,4,52
+                        // 4,5,6,54
+
+                        if (k > 0 && k % 49 == 46) {
+                                mesh.createPolygon(k, k + 1, k + 49, k + 2);
+                                k += 1;
+                        } else {
+                                mesh.createPolygon(k, k + 1, k + 49, k + 3);
+                        }
+
                 }
 
                 System.out.println("POLYGONS: " + mesh.polygons);
                 System.out.println("NUM OF POLYGONS: " + mesh.polygons.size());
+                System.out.println("SEGMENTS LIST: " + mesh.segments.get(48));
+                System.out.println("SEGMENTS LIST: " + mesh.segments.get(49));
+                System.out.println("SEGMENTS LIST: " + mesh.segments.get(50));
+                System.out.println("SEGMENTS LIST: " + mesh.segments.get(51));
+                System.out.println("SEGMENTS LIST: " + mesh.segments.get(52));
 
                 // Distribute colors randomly. Vertices are immutable, need to enrich them
                 // List<Vertex> verticesWithColors = new ArrayList<>();
@@ -124,10 +139,7 @@ public class DotGen {
                 }
 
                 for (Polygon p : mesh.polygons) {
-                        int red = bag.nextInt(255);
-                        int green = bag.nextInt(255);
-                        int blue = bag.nextInt(255);
-                        String colorCode = red + "," + green + "," + blue;
+                        String colorCode = 1 + "," + 1 + "," + 1;
                         mesh.createPolygonColor(p, colorCode);
                 }
 
