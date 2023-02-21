@@ -118,10 +118,16 @@ public class GraphicRenderer {
                                 canvas.setColor(extractColor(p.getPropertiesList()));
                                 Line2D line = new Line2D.Double(centreV1_x, centreV1_y, centreV2_x, centreV2_y);
                                 Line2D line2 = new Line2D.Double(centreV1_x, centreV1_y, centre2V2_x, centre2V2_y);
+                                Line2D line3 = new Line2D.Double(centreV2_x, centreV2_y, centre4V2_x, centre4V2_y);
+                                Line2D line4 = new Line2D.Double(centre2V2_x, centre2V2_y, centre4V2_x, centre4V2_y);
                                 canvas.draw(line);
                                 canvas.draw(line2);
+                                canvas.draw(line3);
+                                canvas.draw(line4);
                                 canvas.fill(line);
                                 canvas.fill(line2);
+                                canvas.fill(line3);
+                                canvas.fill(line4);
                                 canvas.setColor(old);
                         }
                 } else {

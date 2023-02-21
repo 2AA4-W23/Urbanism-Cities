@@ -46,27 +46,28 @@ public class DotGen {
 
                 // Create all polygons
 
-                for (int k = 0; k < mesh.segments.size() - 49; k += 2) {
-                        // 0,1,2,50
-                        // 2,3,4,52
-                        // 4,5,6,54
+                int rightSide = 49;
 
-                        if (k > 0 && k % 49 == 46) {
-                                mesh.createPolygon(k, k + 1, k + 49, k + 2);
-                                k += 1;
-                        } else {
-                                mesh.createPolygon(k, k + 1, k + 49, k + 3);
+                for (int k = 0; k < mesh.segments.size(); k += 2) {
+
+                        if (k < mesh.segments.size() - 73) {
+                                if (k > 0 && k % 49 == 46) {
+                                        mesh.createPolygon(k, k + 1, k + 49, k + 2);
+                                        k += 1;
+                                } else {
+                                        mesh.createPolygon(k, k + 1, k + 49, k + 3);
+                                }
+                        } else if (k < mesh.segments.size() - 25) {
+                                if (k % 49 == 46) {
+                                        mesh.createPolygon(k, k + 1, k + rightSide, k + 2);
+                                } else {
+                                        mesh.createPolygon(k, k + 1, k + rightSide, k + 3);
+                                        rightSide -= 1;
+                                }
+
                         }
 
                 }
-
-                System.out.println("POLYGONS: " + mesh.polygons);
-                System.out.println("NUM OF POLYGONS: " + mesh.polygons.size());
-                System.out.println("SEGMENTS LIST: " + mesh.segments.get(48));
-                System.out.println("SEGMENTS LIST: " + mesh.segments.get(49));
-                System.out.println("SEGMENTS LIST: " + mesh.segments.get(50));
-                System.out.println("SEGMENTS LIST: " + mesh.segments.get(51));
-                System.out.println("SEGMENTS LIST: " + mesh.segments.get(52));
 
                 // Distribute colors randomly. Vertices are immutable, need to enrich them
                 // List<Vertex> verticesWithColors = new ArrayList<>();
