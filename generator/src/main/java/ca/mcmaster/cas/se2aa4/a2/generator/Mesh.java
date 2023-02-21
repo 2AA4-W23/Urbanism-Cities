@@ -72,6 +72,12 @@ public class Mesh {
                 .build());
     }
 
+    public void createPolygon(int segment1, int segment2, int segment3, int segment4, List neighbours) {
+        polygons.add(Polygon.newBuilder().addSegmentIdxs(segment1).addSegmentIdxs(segment2).addSegmentIdxs(segment3)
+                .addSegmentIdxs(segment4).addAllNeighborIdxs(neighbours)
+                .build());
+    }
+
     public Property createProperty(String colorCode) {
         Property p = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
         return p;
