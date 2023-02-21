@@ -40,6 +40,13 @@ public class GraphicRenderer {
                         canvas.setColor(old);
                 }
 
+                System.out.println("ZZZZZZZZZZZZZZZZZZZZZZ: " + aMesh.getPolygonsCount());
+                System.out.println("hdkfjhsfhsif: " + aMesh.getPolygonsList());
+                System.out.println("ARGS: " + args[0].toString());
+                System.out.println("ARGS: " + args[1].toString());
+                System.out.println("ARGS SIZE: " + args.length);
+                System.out.println(Arrays.toString(args));
+
                 if (args.length == 3 && args[2].equals("-X")) {
                         for (Polygon p : aMesh.getPolygonsList()) {
                                 System.out.println("dfdfd: " + p.getSegmentIdxsList());

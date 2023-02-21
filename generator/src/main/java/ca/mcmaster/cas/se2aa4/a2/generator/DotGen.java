@@ -143,7 +143,7 @@ public class DotGen {
                         mesh.createPolygonColor(p, colorCode);
                 }
 
-                return mesh.generate(mesh.verticesColored, mesh.segmentsColored);
+                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored);
 
         }
 
