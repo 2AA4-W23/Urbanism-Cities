@@ -1,8 +1,8 @@
 # Assignment A2: Mesh Generator
 
-  - Author #1 [khakiana@mcmaster.ca]
-  - Author #2 [zaidis40@mcmaster.ca]
-  - Author #3 [roopraim@mcmaster.ca]
+- Author #1 [khakiana@mcmaster.ca]
+- Author #2 [zaidis40@mcmaster.ca]
+- Author #3 [roopraim@mcmaster.ca]
 
 ## How to run the product
 
@@ -18,18 +18,18 @@ To install the different tooling on your computer, simply run:
 mosser@azrael A2 % mvn install
 ```
 
-After installation, you'll find an application named `generator.jar` in the `generator` directory, and a file named `visualizer.jar` in the `visualizer` one. 
+After installation, you'll find an application named `generator.jar` in the `generator` directory, and a file named `visualizer.jar` in the `visualizer` one.
 
 ### Generator
 
 To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes one single argument (so far), the name of the file where the generated mesh will be stored as binary.
 
 ```
-mosser@azrael A2 % cd generator 
+mosser@azrael A2 % cd generator
 mosser@azrael generator % java -jar generator.jar sample.mesh
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
-mosser@azrael generator % 
+mosser@azrael generator %
 ```
 
 ### Visualizer
@@ -37,7 +37,7 @@ mosser@azrael generator %
 To visualize an existing mesh, go to the `visualizer` directory, and use `java -jar` to run the product. The product take two arguments (so far): the file containing the mesh, and the name of the file to store the visualization (as an SVG image).
 
 ```
-mosser@azrael A2 % cd visualizer 
+mosser@azrael A2 % cd visualizer
 mosser@azrael visualizer % java -jar visualizer.jar ../generator/sample.mesh sample.svg
 
 ... (lots of debug information printed to stdout) ...
@@ -46,10 +46,11 @@ mosser@azrael visualizer % ls -lh sample.svg
 -rw-r--r--  1 mosser  staff    56K 29 Jan 10:53 sample.svg
 mosser@azrael visualizer %
 ```
+
 To viualize the SVG file:
 
-  - Open it with a web browser
-  - Convert it into something else with tool slike `rsvg-convert`
+- Open it with a web browser
+- Convert it into something else with tool slike `rsvg-convert`
 
 ## How to contribute to the project
 
@@ -59,12 +60,17 @@ When you develop features and enrich the product, remember that you have first t
 
 ### Definition of Done
 
--- Insert here your definition of done for your features --
+A feature is done when its function is functional. It does not need to be the most beautiful or efficient code, but it needs to work according to its description.
 
 ### Product Backlog
 
-| Id | Feature title | Who? | Start | End | Status |
-|:--:|---------------|------|-------|-----|--------|
-|    |               |      |       |     |        |
-
-
+| Id  | Feature title                                                       | Who?     | Start       | End         | Status |
+| :-: | ------------------------------------------------------------------- | -------- | ----------- | ----------- | ------ |
+| F01 | Implement segments                                                  | Mujtaba  | February 2  | Febraury 7  | D      |
+| F02 | Add color to segments                                               | Mankaran | February 7  | Febraury 7  | D      |
+| F03 | In mesh ADT, add a create vertex and a create segment method        | Amaan    | February 14 | Febraury 16 | D      |
+| F04 | Remove duplicate vertices and segments                              | Mankaran | February 16 | Febraury 17 | D      |
+| F05 | Correcting color of segments                                        | Mujtaba  | February 17 | February 17 | D      |
+| F06 | Make each square a polygon                                          | Mankaran | February 17 | Febraury 18 | D      |
+| F07 | Switch to debug mode if flag "-X" is entered for visualizer command | Mankaran | February 18 | Febraury 18 | D      |
+| F08 | PLaying with Renderings                                             | Amaan    | February 19 | February 19 | P      |

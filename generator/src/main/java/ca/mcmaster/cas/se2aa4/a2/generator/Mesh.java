@@ -4,16 +4,12 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
-//import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
 
 public class Mesh {
-    private int width = 500;
-    private int height = 500;
-    private int square_size = 20;
 
     List<Vertex> vertices = new ArrayList<>();
     List<Vertex> verticesColored = new ArrayList<>();
@@ -21,9 +17,8 @@ public class Mesh {
     List<Segment> segments = new ArrayList<>();
     List<Segment> segmentsColored = new ArrayList<>();
 
-    HashMap<Vertex, Vertex> xy = new HashMap<>();
-
-    int count = 0;
+    List<Polygon> polygons = new ArrayList<>();
+    List<Polygon> polygonsColored = new ArrayList<>();
 
     public double getX(Vertex v) {
         double valuex = v.getX();
@@ -64,15 +59,17 @@ public class Mesh {
     }
 
     public void createVertex(int x, int y) {
-        if (!vertices.contains(Vertex.newBuilder().setX((double) x).setY((double) y).build())) {
-            vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
-        }
+        vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
     }
 
     public void createSegment(int vertindex1, int vertindex2) {
-        if (!segments.contains(Segment.newBuilder().setV1Idx(vertindex1).setV2Idx(vertindex2).build())) {
-            segments.add(Segment.newBuilder().setV1Idx(vertindex1).setV2Idx(vertindex2).build());
-        }
+        segments.add(Segment.newBuilder().setV1Idx(vertindex1).setV2Idx(vertindex2).build());
+    }
+
+    public void createPolygon(int segment1, int segment2, int segment3, int segment4) {
+        polygons.add(Polygon.newBuilder().addSegmentIdxs(segment1).addSegmentIdxs(segment2).addSegmentIdxs(segment3)
+                .addSegmentIdxs(segment4)
+                .build());
     }
 
     public Property createProperty(String colorCode) {
@@ -90,17 +87,20 @@ public class Mesh {
                 .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
     }
 
-    public void createSegments() {
-        for (int i = 0; i < verticesColored.size() - 2; i++) {
-            int temp = 0;
-            segments.add(Segment.newBuilder().setV1Idx(temp).setV2Idx(temp + i).build());
-            segments.add(Segment.newBuilder().setV1Idx(temp).setV2Idx(temp + i).build());
-        }
+    public void createPolygonColor(Polygon p, String colorCode) {
+        polygonsColored
+                .add(Polygon.newBuilder(p)
+                        .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build())
+                        .build());
     }
 
-    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors) {
-        Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments)
-                .addAllSegments(segmentsWithColors).build();
+    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors, List<Polygon> polygonsColored) {
+        System.out.println("SIZE: " + vertices.size());
+        System.out.println("SIZE SEGMENTS: " + segments.size());
+        System.out.println("SIZE POLYGONS: " + polygons.size());
+
+        Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
+                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).build();
         return mesh;
     }
 
