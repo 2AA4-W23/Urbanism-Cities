@@ -125,46 +125,46 @@ public class DotGen {
                                 // System.out.println(mesh.verticesColored.size());
 
                                 int reds = (int) Math.sqrt(((Integer
-                                                .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
-                                                                .getValue()
-                                                                .split(",")[0]))
-                                                ^ 2
-                                                                + (Integer
-                                                                                .valueOf(mesh.verticesColored
-                                                                                                .get(s.getV2Idx())
-                                                                                                .getProperties(0)
-                                                                                                .getValue()
-                                                                                                .split(",")[0]))
-                                                ^ 2)
-                                                * 100);
+                                        .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
+                                                .getValue()
+                                                .split(",")[0]))
+                                        ^ 2
+                                        + (Integer
+                                        .valueOf(mesh.verticesColored
+                                                .get(s.getV2Idx())
+                                                .getProperties(0)
+                                                .getValue()
+                                                .split(",")[0]))
+                                        ^ 2)
+                                        * 100);
 
                                 int blues = (int) Math.sqrt(((Integer
-                                                .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
-                                                                .getValue()
-                                                                .split(",")[1]))
-                                                ^ 2
-                                                                + (Integer
-                                                                                .valueOf(mesh.verticesColored
-                                                                                                .get(s.getV2Idx())
-                                                                                                .getProperties(0)
-                                                                                                .getValue()
-                                                                                                .split(",")[1]))
-                                                ^ 2)
-                                                * 100);
+                                        .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
+                                                .getValue()
+                                                .split(",")[1]))
+                                        ^ 2
+                                        + (Integer
+                                        .valueOf(mesh.verticesColored
+                                                .get(s.getV2Idx())
+                                                .getProperties(0)
+                                                .getValue()
+                                                .split(",")[1]))
+                                        ^ 2)
+                                        * 100);
 
                                 int greens = (int) Math.sqrt(((Integer
-                                                .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
-                                                                .getValue()
-                                                                .split(",")[2]))
-                                                ^ 2
-                                                                + (Integer
-                                                                                .valueOf(mesh.verticesColored
-                                                                                                .get(s.getV2Idx())
-                                                                                                .getProperties(0)
-                                                                                                .getValue()
-                                                                                                .split(",")[2]))
-                                                ^ 2)
-                                                * 100);
+                                        .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
+                                                .getValue()
+                                                .split(",")[2]))
+                                        ^ 2
+                                        + (Integer
+                                        .valueOf(mesh.verticesColored
+                                                .get(s.getV2Idx())
+                                                .getProperties(0)
+                                                .getValue()
+                                                .split(",")[2]))
+                                        ^ 2)
+                                        * 100);
                                 String colorCode = reds + "," + greens + "," + blues;
                                 // Property color = mesh.createProperty(colorCode);
                                 // Segment colored = mesh.createSegmentColor(s, color);
