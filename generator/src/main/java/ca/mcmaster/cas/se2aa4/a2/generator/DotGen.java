@@ -145,7 +145,11 @@ public class DotGen {
                 }
 
                 for (Polygon p : mesh.polygons) {
-                        String colorCode = 1 + "," + 1 + "," + 1;
+                        int red = bag.nextInt(255);
+                        int green = bag.nextInt(255);
+                        int blue = bag.nextInt(255);
+
+                        String colorCode = red + "," + green + "," + blue;
                         mesh.createPolygonColor(p, colorCode);
                 }
 
