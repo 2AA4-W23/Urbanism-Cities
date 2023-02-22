@@ -32,12 +32,17 @@ public class GraphicRenderer {
                 for (Vertex v : aMesh.getVerticesList()) {
                         double centre_x = v.getX() - (THICKNESS / 2.0d);
                         double centre_y = v.getY() - (THICKNESS / 2.0d);
-                        Color old = canvas.getColor();
-                        canvas.setColor(extractColor(v.getPropertiesList()));
+                        if (args.length == 3 && args[2].equals("-X") && aMesh.getVerticesList().indexOf(v) < 625) {
+                                canvas.setColor(Color.BLACK);
+                        } else {
+                                Color old = canvas.getColor();
+                                canvas.setColor(extractColor(v.getPropertiesList()));
+                                // canvas.setColor(old);
+                        }
                         Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS,
                                         THICKNESS);
                         canvas.fill(point);
-                        canvas.setColor(old);
+
                 }
 
                 System.out.println("ZZZZZZZZZZZZZZZZZZZZZZ: " + aMesh.getPolygonsCount());
@@ -114,8 +119,27 @@ public class GraphicRenderer {
                                                 .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(3))
                                                                 .getV2Idx())
                                                 .getY();
+
+                                double current_centroid_x = aMesh.getVerticesList().get(p.getCentroidIdx()).getX();
+                                double current_centroid_y = aMesh.getVerticesList().get(p.getCentroidIdx()).getY();
+
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
+
+                                for (int n : p.getNeighborIdxsList()) {
+                                        double neighbor_centroid_x = aMesh.getVerticesList()
+                                                        .get(aMesh.getPolygonsList().get(n).getCentroidIdx()).getX();
+                                        double neighbor_centroid_y = aMesh.getVerticesList()
+                                                        .get(aMesh.getPolygonsList().get(n).getCentroidIdx()).getY();
+                                        Line2D neighbor_line = new Line2D.Double(current_centroid_x, current_centroid_y,
+                                                        neighbor_centroid_x,
+                                                        neighbor_centroid_y);
+                                        canvas.setColor(Color.GRAY);
+                                        canvas.draw(neighbor_line);
+                                        canvas.fill(neighbor_line);
+                                }
+
+                                canvas.setColor(Color.BLACK);
                                 Line2D line = new Line2D.Double(centreV1_x, centreV1_y, centreV2_x, centreV2_y);
                                 Line2D line2 = new Line2D.Double(centreV1_x, centreV1_y, centre2V2_x, centre2V2_y);
                                 Line2D line3 = new Line2D.Double(centreV2_x, centreV2_y, centre4V2_x, centre4V2_y);
@@ -128,7 +152,7 @@ public class GraphicRenderer {
                                 canvas.fill(line2);
                                 canvas.fill(line3);
                                 canvas.fill(line4);
-                                canvas.setColor(old);
+                                canvas.setColor(Color.BLACK);
                         }
                 } else {
                         for (Segment s : aMesh.getSegmentsList()) {

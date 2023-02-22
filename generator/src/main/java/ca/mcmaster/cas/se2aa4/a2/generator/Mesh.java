@@ -112,13 +112,27 @@ public class Mesh {
                 .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
     }
 
-    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors, List<Polygon> polygonsColored, List<Vertex> centroidsColored) {
+    public void setCentroidIdx() {
+        int counter = 0;
+
+        for (Polygon p : polygonsColored) {
+            polygonsColored.set(counter, Polygon.newBuilder(p).setCentroidIdx(counter + 625).build());
+            ++counter;
+        }
+
+        System.out.println("UPDATED: " + polygonsColored);
+
+    }
+
+    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
+            List<Polygon> polygonsColored, List<Vertex> centroidsColored) {
         System.out.println("SIZE: " + vertices.size());
         System.out.println("SIZE SEGMENTS: " + segments.size());
         System.out.println("SIZE POLYGONS: " + polygons.size());
 
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
-                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored).build();
+                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored)
+                .build();
         return mesh;
     }
 
