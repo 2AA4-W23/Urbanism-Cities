@@ -7,6 +7,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Mesh {
@@ -72,10 +73,23 @@ public class Mesh {
                 .build());
     }
 
-    public void createPolygon(int segment1, int segment2, int segment3, int segment4, List neighbours) {
-        polygons.add(Polygon.newBuilder().addSegmentIdxs(segment1).addSegmentIdxs(segment2).addSegmentIdxs(segment3)
-                .addSegmentIdxs(segment4).addAllNeighborIdxs(neighbours)
-                .build());
+    public void createPolygonNeighbours(Polygon shape) {
+
+        int loopingpolyid = 0;
+        List<Integer> neighbours = new ArrayList<>();
+        int shapeID = polygons.indexOf(shape);
+
+        for (Polygon shape2 : polygons) {
+            if (!shape2.equals(shape)) { // if the two polygons are not the same
+                if (!Collections.disjoint(shape2.getSegmentIdxsList(), shape.getSegmentIdxsList())) { // if they have at least one matching segment index
+                    neighbours.add(loopingpolyid); // Then shape2 is shape's neighbour
+                }
+            }
+            loopingpolyid++;
+        }
+
+        polygons.set(shapeID, Polygon.newBuilder(shape).addAllNeighborIdxs(neighbours).build());
+        neighbours.clear();
     }
 
     public Property createProperty(String colorCode) {

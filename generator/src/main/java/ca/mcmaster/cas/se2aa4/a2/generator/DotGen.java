@@ -43,31 +43,12 @@ public class DotGen {
                 // Create all polygons
 
                 int rightSide = 49;
-                int polygonid = 0;
-                int loopingpolyid = 0;
-                List<Integer> neighbours = new ArrayList<>();
 
                 for (int k = 0; k < mesh.segments.size(); k += 2) {
 
                         if (k < mesh.segments.size() - 73) {
                                 if (k > 0 && k % 49 == 46) {
-//                                        //according to previous code, a polygon is set to be made with 4 segment id's derived from k.
-//
-//                                        //For every polygon that already exists
-//                                        for (Polygon shape : mesh.polygons) {
-//                                                // if the polygon has a segment id that matches a segment id that will create the new polygon, then it is a neighbour of that new polygon
-//                                                if (shape.getSegmentIdxsList().contains(k) || shape.getSegmentIdxsList().contains(k+1) || shape.getSegmentIdxsList().contains(k+49) || shape.getSegmentIdxsList().contains(k+2)) {
-//                                                        mesh.polygons.get(polygonid).;
-//                                                        // adding the neignouring polyogn's id into the list of neighoburing ids
-//                                                        neighbours.add(loopingpolyid);
-//                                                }
-//                                                loopingpolyid++;
-//                                        }
-//                                        loopingpolyid = 0; //reset looping count
-
                                         mesh.createPolygon(k, k + 1, k + 49, k + 2); // uses method to create polygon with neighbours
-//                                        neighbours.clear(); //reset neighbours
-
                                         k += 1;
                                 } else {
                                         mesh.createPolygon(k, k + 1, k + 49, k + 3);
@@ -84,27 +65,14 @@ public class DotGen {
 
                 }
 
-                int outerloop = 0;
-                neighbours.clear();
+
+                //Setting polygon neighbours
 
                 for (Polygon shape : mesh.polygons) {
-                        loopingpolyid = 0;
-                        for (Polygon shape2 : mesh.polygons) {
-                                if (!shape2.equals(shape)) { // if the two polygons are not the same
-                                        if (!Collections.disjoint(shape2.getSegmentIdxsList(), shape.getSegmentIdxsList())) { // if they have at least one matching segment index
-                                                neighbours.add(loopingpolyid); // Then shape2 is shape's neighbour
-                                        }
-                                }
-                                loopingpolyid++;
-                        }
-
-                        List<Integer> oldsegments = shape.getSegmentIdxsList(); //get current shape's segments
-                        mesh.polygons.set(outerloop, Polygon.newBuilder().addAllSegmentIdxs(oldsegments).addAllNeighborIdxs(neighbours).build()); //re-add the shape but with neighbours
-
-                        oldsegments.clear();
-                        neighbours.clear();
-                        outerloop++;
+                        mesh.createPolygonNeighbours(shape);
                 }
+
+                System.out.println(mesh.polygons);
 
                 // Distribute colors randomly. Vertices are immutable, need to enrich them
                 // List<Vertex> verticesWithColors = new ArrayList<>();

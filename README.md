@@ -73,4 +73,5 @@ A feature is done when its function is functional. It does not need to be the mo
 | F05 | Correcting color of segments                                        | Mujtaba  | February 17 | February 17 | D      |
 | F06 | Make each square a polygon                                          | Mankaran | February 17 | Febraury 18 | D      |
 | F07 | Switch to debug mode if flag "-X" is entered for visualizer command | Mankaran | February 18 | Febraury 18 | D      |
-| F08 | PLaying with Renderings                                             | Amaan    | February 19 | February 19 | P      |
+| F08 | Setting polygon colours                                             | Amaan    | February 19 |      -      | P      |
+| F09 | Set polygon neighbours                                              | Mujtaba  | February 21 | February 22 | D      |
