@@ -189,6 +189,7 @@ public class DotGen {
                 }
 
                 for (Polygon p : mesh.polygons) {
+
                         double centreV1_y = mesh.vertices
                                         .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
                         double centreV2_y = mesh.vertices
@@ -197,7 +198,13 @@ public class DotGen {
                                         .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
                         double centre2V2_x = mesh.vertices
                                         .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
-                        String colorCode = 1 + "," + 1 + "," + 1;
+
+                        int red = bag.nextInt(255);
+                        int green = bag.nextInt(255);
+                        int blue = bag.nextInt(255);
+
+                        String colorCode = red + "," + green + "," + blue;
+
                         mesh.createPolygonColor(p, colorCode);
 
                         double centroid_x = (centre2V1_x + centre2V2_x) / 2;

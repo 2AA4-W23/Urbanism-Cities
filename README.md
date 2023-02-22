@@ -73,6 +73,7 @@ A feature is done when its function is functional. It does not need to be the mo
 | F05 | Correcting color of segments                                        | Mujtaba  | February 17 | February 17 | D      |
 | F06 | Make each square a polygon                                          | Mankaran | February 17 | Febraury 18 | D      |
 | F07 | Switch to debug mode if flag "-X" is entered for visualizer command | Mankaran | February 18 | Febraury 18 | D      |
-| F08 | Setting polygon colours                                             | Amaan    | February 19 | -           | P      |
+| F08 | Setting polygon colours                                             | Mujtaba  | February 19 | February 22 | D      |
 | F09 | Set polygon neighbours                                              | Mujtaba  | February 21 | February 22 | D      |
-| F10 | Set neighborhood relationships in light gray                        | Mankaran | February 22 | February 22 | D      |
+| F10 | Create centroids for each polygon                                   | Amaan    | February 22 | February 22 | D      |
+| F11 | Set neighborhood relationships in light gray                        | Mankaran | February 22 | February 22 | D      |
