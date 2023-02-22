@@ -20,6 +20,9 @@ public class Mesh {
     List<Polygon> polygons = new ArrayList<>();
     List<Polygon> polygonsColored = new ArrayList<>();
 
+    List<Vertex> centroids = new ArrayList<>();
+    List<Vertex> centroidsColored = new ArrayList<>();
+
     public double getX(Vertex v) {
         double valuex = v.getX();
         return valuex;
@@ -72,6 +75,10 @@ public class Mesh {
                 .build());
     }
 
+    public void createCentroid(int centroid_x, int centroid_y) {
+        centroids.add(Vertex.newBuilder().setX((double) centroid_x).setY((double) centroid_y).build());
+    }
+
     public void createPolygon(int segment1, int segment2, int segment3, int segment4, List neighbours) {
         polygons.add(Polygon.newBuilder().addSegmentIdxs(segment1).addSegmentIdxs(segment2).addSegmentIdxs(segment3)
                 .addSegmentIdxs(segment4).addAllNeighborIdxs(neighbours)
@@ -100,13 +107,18 @@ public class Mesh {
                         .build());
     }
 
-    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors, List<Polygon> polygonsColored) {
+    public void createCentroidColor(Vertex c, String colorCode) {
+        centroidsColored.add(Vertex.newBuilder(c)
+                .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
+    }
+
+    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors, List<Polygon> polygonsColored, List<Vertex> centroidsColored) {
         System.out.println("SIZE: " + vertices.size());
         System.out.println("SIZE SEGMENTS: " + segments.size());
         System.out.println("SIZE POLYGONS: " + polygons.size());
 
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
-                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).build();
+                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored).build();
         return mesh;
     }
 

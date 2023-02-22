@@ -86,6 +86,7 @@ public class DotGen {
 
                 int outerloop = 0;
                 neighbours.clear();
+                List<Integer> oldsegments = new ArrayList<Integer>();
 
                 for (Polygon shape : mesh.polygons) {
                         loopingpolyid = 0;
@@ -98,7 +99,7 @@ public class DotGen {
                                 loopingpolyid++;
                         }
 
-                        List<Integer> oldsegments = shape.getSegmentIdxsList(); //get current shape's segments
+                        oldsegments = new ArrayList<Integer>(shape.getSegmentIdxsList()); //get current shape's segments
                         mesh.polygons.set(outerloop, Polygon.newBuilder().addAllSegmentIdxs(oldsegments).addAllNeighborIdxs(neighbours).build()); //re-add the shape but with neighbours
 
                         oldsegments.clear();
@@ -177,11 +178,25 @@ public class DotGen {
                 }
 
                 for (Polygon p : mesh.polygons) {
+                        double centreV1_y = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
+                        double centreV2_y = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
+                        double centre2V1_x = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
+                        double centre2V2_x = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
                         String colorCode = 1 + "," + 1 + "," + 1;
                         mesh.createPolygonColor(p, colorCode);
+
+                        double centroid_x = (centre2V1_x +centre2V2_x)/2;
+                        double centroid_y = (centreV1_y +centreV2_y)/2;
+
+                        mesh.createCentroid((int) centroid_x, (int) centroid_y);
                 }
 
-                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored);
+                for (Vertex c : mesh.centroids) {
+                        String colorCode = 255 + "," + 0 + "," + 0;
+                        mesh.createCentroidColor(c, colorCode);
+                }
+
+                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored, mesh.centroidsColored);
 
         }
 
