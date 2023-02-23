@@ -129,6 +129,8 @@ public class DotGen {
                         double centroid_y = (centreV1_y + centreV2_y) / 2;
 
                         mesh.createCentroid((int) centroid_x, (int) centroid_y);
+                        mesh.generateRandomPoints(480, 480);
+                        //diagram.setSites();
                 }
 
                 for (Vertex c : mesh.centroids) {
@@ -138,7 +140,7 @@ public class DotGen {
 
                 mesh.setCentroidIdx();
 
-                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored, mesh.centroidsColored);
+                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored, mesh.centroidsColored, mesh.randomPoints);
 
         }
 

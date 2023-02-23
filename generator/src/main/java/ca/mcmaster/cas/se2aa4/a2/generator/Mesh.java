@@ -9,6 +9,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Mesh {
 
@@ -23,6 +24,8 @@ public class Mesh {
 
     List<Vertex> centroids = new ArrayList<>();
     List<Vertex> centroidsColored = new ArrayList<>();
+
+    List<Vertex> randomPoints = new ArrayList<>();
 
     public double getX(Vertex v) {
         double valuex = v.getX();
@@ -137,14 +140,21 @@ public class Mesh {
 
     }
 
+    public void generateRandomPoints(int width, int height) {
+            Random rand = new Random();
+            double x = rand.nextDouble() * width;
+            double y = rand.nextDouble() * height;
+            randomPoints.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
+    }
+
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
-            List<Polygon> polygonsColored, List<Vertex> centroidsColored) {
+            List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints) {
         System.out.println("SIZE: " + vertices.size());
         System.out.println("SIZE SEGMENTS: " + segments.size());
         System.out.println("SIZE POLYGONS: " + polygons.size());
 
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
-                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored)
+                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored).addAllVertices(randomPoints)
                 .build();
         return mesh;
     }
