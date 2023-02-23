@@ -10,6 +10,8 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 //import ca.mcmaster.cas.se2aa4.a2.generator.Mesh;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.triangulate.*;
 
 public class DotGen {
 
@@ -19,6 +21,8 @@ public class DotGen {
 
         public Mesh generate() {
                 ca.mcmaster.cas.se2aa4.a2.generator.Mesh mesh = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
+
+                VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
 
                 // Create all the vertices
                 for (int x = 0; x < width; x += square_size) {

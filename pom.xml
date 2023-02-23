@@ -18,19 +18,46 @@
         <module>visualizer</module>
     </modules>
 
+
     <properties>
+		<jts.version>1.16.1</jts.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
+		<dependency>
+			<groupId>org.locationtech.jts</groupId>
+			<artifactId>jts-core</artifactId>
+			<version>${jts.version}</version>
+		</dependency>
         <dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>            
 		</dependency>
     </dependencies>
+
+	<repositories>
+		<repository>
+			<id>locationtech-releases</id>
+			<url>https://repo.eclipse.org/content/groups/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>jts-snapshots</id>
+			<url>https://repo.eclipse.org/content/repositories/jts-snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 
     <dependencyManagement>
