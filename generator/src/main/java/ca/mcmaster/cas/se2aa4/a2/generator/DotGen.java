@@ -43,37 +43,12 @@ public class DotGen {
                 // Create all polygons
 
                 int rightSide = 49;
-                int polygonid = 0;
-                int loopingpolyid = 0;
-                List<Integer> neighbours = new ArrayList<>();
 
                 for (int k = 0; k < mesh.segments.size(); k += 2) {
 
                         if (k < mesh.segments.size() - 73) {
                                 if (k > 0 && k % 49 == 46) {
-                                        // //according to previous code, a polygon is set to be made with 4 segment id's
-                                        // derived from k.
-                                        //
-                                        // //For every polygon that already exists
-                                        // for (Polygon shape : mesh.polygons) {
-                                        // // if the polygon has a segment id that matches a segment id that will create
-                                        // the new polygon, then it is a neighbour of that new polygon
-                                        // if (shape.getSegmentIdxsList().contains(k) ||
-                                        // shape.getSegmentIdxsList().contains(k+1) ||
-                                        // shape.getSegmentIdxsList().contains(k+49) ||
-                                        // shape.getSegmentIdxsList().contains(k+2)) {
-                                        // mesh.polygons.get(polygonid).;
-                                        // // adding the neignouring polyogn's id into the list of neighoburing ids
-                                        // neighbours.add(loopingpolyid);
-                                        // }
-                                        // loopingpolyid++;
-                                        // }
-                                        // loopingpolyid = 0; //reset looping count
-
-                                        mesh.createPolygon(k, k + 1, k + 49, k + 2); // uses method to create polygon
-                                                                                     // with neighbours
-                                        // neighbours.clear(); //reset neighbours
-
+                                        mesh.createPolygon(k, k + 1, k + 49, k + 2);
                                         k += 1;
                                 } else {
                                         mesh.createPolygon(k, k + 1, k + 49, k + 3);
@@ -90,31 +65,10 @@ public class DotGen {
 
                 }
 
+                // Creating polygon neighbours
                 int outerloop = 0;
-                neighbours.clear();
-                List<Integer> oldsegments = new ArrayList<Integer>();
-
                 for (Polygon shape : mesh.polygons) {
-                        loopingpolyid = 0;
-                        for (Polygon shape2 : mesh.polygons) {
-                                if (!shape2.equals(shape)) { // if the two polygons are not the same
-                                        if (!Collections.disjoint(shape2.getSegmentIdxsList(),
-                                                        shape.getSegmentIdxsList())) { // if they have at least one
-                                                                                       // matching segment index
-                                                neighbours.add(loopingpolyid); // Then shape2 is shape's neighbour
-                                        }
-                                }
-                                loopingpolyid++;
-                        }
-
-                        oldsegments = new ArrayList<Integer>(shape.getSegmentIdxsList()); // get current shape's
-                                                                                          // segments
-                        mesh.polygons.set(outerloop, Polygon.newBuilder().addAllSegmentIdxs(oldsegments)
-                                        .addAllNeighborIdxs(neighbours).build()); // re-add the shape but with
-                                                                                  // neighbours
-
-                        oldsegments.clear();
-                        neighbours.clear();
+                        mesh.createNeighbour(shape, outerloop);
                         outerloop++;
                 }
 
@@ -135,47 +89,11 @@ public class DotGen {
                                 // System.out.println(s);
                                 // System.out.println(mesh.verticesColored.size());
 
-                                int reds = (int) Math.sqrt(((Integer
-                                                .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
-                                                                .getValue()
-                                                                .split(",")[0]))
-                                                ^ 2
-                                                                + (Integer
-                                                                                .valueOf(mesh.verticesColored
-                                                                                                .get(s.getV2Idx())
-                                                                                                .getProperties(0)
-                                                                                                .getValue()
-                                                                                                .split(",")[0]))
-                                                ^ 2)
-                                                * 100);
+                                int reds = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue().split(",")[0])) ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue().split(",")[0])) ^ 2) * 100);
 
-                                int blues = (int) Math.sqrt(((Integer
-                                                .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
-                                                                .getValue()
-                                                                .split(",")[1]))
-                                                ^ 2
-                                                                + (Integer
-                                                                                .valueOf(mesh.verticesColored
-                                                                                                .get(s.getV2Idx())
-                                                                                                .getProperties(0)
-                                                                                                .getValue()
-                                                                                                .split(",")[1]))
-                                                ^ 2)
-                                                * 100);
+                                int blues = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue().split(",")[1])) ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue().split(",")[1])) ^ 2) * 100);
 
-                                int greens = (int) Math.sqrt(((Integer
-                                                .valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0)
-                                                                .getValue()
-                                                                .split(",")[2]))
-                                                ^ 2
-                                                                + (Integer
-                                                                                .valueOf(mesh.verticesColored
-                                                                                                .get(s.getV2Idx())
-                                                                                                .getProperties(0)
-                                                                                                .getValue()
-                                                                                                .split(",")[2]))
-                                                ^ 2)
-                                                * 100);
+                                int greens = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue().split(",")[2])) ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue().split(",")[2])) ^ 2) * 100);
                                 String colorCode = reds + "," + greens + "," + blues;
                                 // Property color = mesh.createProperty(colorCode);
                                 // Segment colored = mesh.createSegmentColor(s, color);
@@ -190,14 +108,10 @@ public class DotGen {
 
                 for (Polygon p : mesh.polygons) {
 
-                        double centreV1_y = mesh.vertices
-                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
-                        double centreV2_y = mesh.vertices
-                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
-                        double centre2V1_x = mesh.vertices
-                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
-                        double centre2V2_x = mesh.vertices
-                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
+                        double centreV1_y = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
+                        double centreV2_y = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
+                        double centre2V1_x = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
+                        double centre2V2_x = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
 
                         int red = bag.nextInt(255);
                         int green = bag.nextInt(255);
@@ -220,8 +134,7 @@ public class DotGen {
 
                 mesh.setCentroidIdx();
 
-                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored,
-                                mesh.centroidsColored);
+                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored, mesh.centroidsColored);
 
         }
 
