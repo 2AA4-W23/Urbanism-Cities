@@ -26,6 +26,7 @@ public class GraphicRenderer {
 
         private static final int THICKNESS = 3;
         private String[] args;
+        List<Vertex> centroidsVornoid = new ArrayList<>();
 
         public GraphicRenderer(String[] args) {
                 this.args = args;
@@ -34,7 +35,7 @@ public class GraphicRenderer {
         public void render(Mesh aMesh, Graphics2D canvas) {
                 ca.mcmaster.cas.se2aa4.a2.generator.Mesh m = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
                 for (Polygon pol : aMesh.getPolygonsList()) {
-                        m.generateRandomPoints(480,480);
+                        m.generateRandomPoints(480, 480);
                 }
                 m.generateVoronoid();
                 canvas.setColor(Color.BLACK);
@@ -155,25 +156,26 @@ public class GraphicRenderer {
                         }
                 } else {
 
-//                        List<Integer> vertices = new ArrayList();
+                        // List<Integer> vertices = new ArrayList();
                         int polycounter = 0;
                         for (Polygon p : aMesh.getPolygonsList()) {
-//                                for (int segID : p.getSegmentIdxsList()) {//for every segment, get the vertex IDs.
-//                                        int vID = aMesh.getSegmentsList().get(segID).getV1Idx();
-//                                        vertices.add(vID);
-//                                        vID = aMesh.getSegmentsList().get(segID).getV2Idx();
-//                                        vertices.add(vID);
-//
-//                                }
-//                                int firstV = vertices.get(0);
-//                                int finalV = vertices.get(0);
-//                                for (int vertID : vertices) {
-//                                        firstV = Math.min(firstV, vertID); //Find first vertexID
-//                                }
-//
-//                                for (int vertID : vertices) {
-//                                        finalV = Math.max(finalV, vertID); //Find last vertexID
-//                                }
+                                // for (int segID : p.getSegmentIdxsList()) {//for every segment, get the vertex
+                                // IDs.
+                                // int vID = aMesh.getSegmentsList().get(segID).getV1Idx();
+                                // vertices.add(vID);
+                                // vID = aMesh.getSegmentsList().get(segID).getV2Idx();
+                                // vertices.add(vID);
+                                //
+                                // }
+                                // int firstV = vertices.get(0);
+                                // int finalV = vertices.get(0);
+                                // for (int vertID : vertices) {
+                                // firstV = Math.min(firstV, vertID); //Find first vertexID
+                                // }
+                                //
+                                // for (int vertID : vertices) {
+                                // finalV = Math.max(finalV, vertID); //Find last vertexID
+                                // }
 
                                 float[] xpositions = new float[100];
                                 float[] ypositions = new float[100];
@@ -184,36 +186,54 @@ public class GraphicRenderer {
                                         positioncounter++;
                                 }
 
-//                                double ULVertex_y = aMesh.getVerticesList().get(firstV).getY();
-//                                double ULVertex_x = aMesh.getVerticesList().get(firstV).getX();
-//                                double LRVertex_y = aMesh.getVerticesList().get(finalV).getY();
-//                                double LRVertex_x = aMesh.getVerticesList().get(finalV).getX();
+                                // double ULVertex_y = aMesh.getVerticesList().get(firstV).getY();
+                                // double ULVertex_x = aMesh.getVerticesList().get(firstV).getX();
+                                // double LRVertex_y = aMesh.getVerticesList().get(finalV).getY();
+                                // double LRVertex_x = aMesh.getVerticesList().get(finalV).getX();
 
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
+
                                 Polygon2D po = new Polygon2D(xpositions, ypositions, positioncounter);
-//                                java.awt.geom.Rectangle2D polygon = new Rectangle2D.Double(ULVertex_x, ULVertex_y, LRVertex_x - ULVertex_x, LRVertex_y - ULVertex_y);
-//                                canvas.draw(polygon);
-//                                canvas.fill(polygon);
+
+                                float centroid_x = 0;
+                                float centroid_y = 0;
+
+                                for (int i = 0; i < positioncounter; i++) {
+                                        centroid_x += xpositions[i];
+                                        centroid_y += ypositions[i];
+                                }
+
+                                centroid_x = centroid_x / positioncounter;
+                                centroid_y = centroid_y / positioncounter;
+
+                                System.out.println("CENTRoIDS: " + centroidsVornoid);
+
+                                centroidsVornoid.add(Vertex.newBuilder().setX(centroid_x).setY(centroid_y).build());
+
+                                // java.awt.geom.Rectangle2D polygon = new Rectangle2D.Double(ULVertex_x,
+                                // ULVertex_y, LRVertex_x - ULVertex_x, LRVertex_y - ULVertex_y);
+                                // canvas.draw(polygon);
+                                // canvas.fill(polygon);
                                 canvas.draw(po);
                                 canvas.fill(po);
                                 canvas.setColor(old);
-//                                vertices.clear();
+                                // vertices.clear();
                                 polycounter++;
                         }
 
-//                        for (Segment s : aMesh.getSegmentsList()) {
-//                                double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
-//                                double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
-//                                double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
-//                                double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
-//                                Color old = canvas.getColor();
-//                                canvas.setColor(extractColor(s.getPropertiesList()));
-//                                Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
-//                                canvas.draw(line);
-//                                canvas.fill(line);
-//                                canvas.setColor(old);
-//                        }
+                        // for (Segment s : aMesh.getSegmentsList()) {
+                        // double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
+                        // double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
+                        // double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
+                        // double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
+                        // Color old = canvas.getColor();
+                        // canvas.setColor(extractColor(s.getPropertiesList()));
+                        // Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
+                        // canvas.draw(line);
+                        // canvas.fill(line);
+                        // canvas.setColor(old);
+                        // }
 
                         generateRandom(aMesh, canvas, m);
 
@@ -233,14 +253,14 @@ public class GraphicRenderer {
                                 // canvas.setColor(old);
                         }
                         Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS,
-                                THICKNESS);
+                                        THICKNESS);
                         canvas.fill(point);
 
                 }
         }
 
         private void generateRandom(Mesh aMesh, Graphics2D canvas, ca.mcmaster.cas.se2aa4.a2.generator.Mesh m) {
-                for (Vertex v : m.randomPoints) {
+                for (Vertex v : centroidsVornoid) {
                         double centre_x = v.getX() - (THICKNESS / 2.0d);
                         double centre_y = v.getY() - (THICKNESS / 2.0d);
                         if (args.length == 3 && args[2].equals("-X") && aMesh.getVerticesList().indexOf(v) < 625) {
@@ -251,7 +271,7 @@ public class GraphicRenderer {
                                 // canvas.setColor(old);
                         }
                         Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS,
-                                THICKNESS);
+                                        THICKNESS);
                         canvas.fill(point);
 
                 }
