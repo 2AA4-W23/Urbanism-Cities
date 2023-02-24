@@ -80,3 +80,4 @@ A feature is done when its function is functional. It does not need to be the mo
 | F12 | Generate Random Points                                              | Amaan    | February 23 | February 24 | D      |
 | F13 | Generate voronoi diagrams                                           | Amaan    | February 24 | February 24 | D      |
 | F14 | Visualize irregular polygons                                        | Mujtaba  | February 24 | February 24 | D      |
+| F15 | Create centroids                                                    | Mankaran | February 24 | February 24 | D      |
