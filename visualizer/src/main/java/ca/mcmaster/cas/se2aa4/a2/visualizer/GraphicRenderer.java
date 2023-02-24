@@ -191,7 +191,7 @@ public class GraphicRenderer {
 
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
-                                Polygon2D po = new Polygon2D(xpositions, ypositions, positioncounter+1);
+                                Polygon2D po = new Polygon2D(xpositions, ypositions, positioncounter);
 //                                java.awt.geom.Rectangle2D polygon = new Rectangle2D.Double(ULVertex_x, ULVertex_y, LRVertex_x - ULVertex_x, LRVertex_y - ULVertex_y);
 //                                canvas.draw(polygon);
 //                                canvas.fill(polygon);
@@ -202,18 +202,18 @@ public class GraphicRenderer {
                                 polycounter++;
                         }
 
-                        for (Segment s : aMesh.getSegmentsList()) {
-                                double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
-                                double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
-                                double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
-                                double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
-                                Color old = canvas.getColor();
-                                canvas.setColor(extractColor(s.getPropertiesList()));
-                                Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
-                                canvas.draw(line);
-                                canvas.fill(line);
-                                canvas.setColor(old);
-                        }
+//                        for (Segment s : aMesh.getSegmentsList()) {
+//                                double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
+//                                double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
+//                                double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
+//                                double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
+//                                Color old = canvas.getColor();
+//                                canvas.setColor(extractColor(s.getPropertiesList()));
+//                                Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
+//                                canvas.draw(line);
+//                                canvas.fill(line);
+//                                canvas.setColor(old);
+//                        }
 
                         generateRandom(aMesh, canvas, m);
 

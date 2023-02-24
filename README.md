@@ -77,4 +77,6 @@ A feature is done when its function is functional. It does not need to be the mo
 | F09 | Set polygon neighbours                                              | Mujtaba  | February 21 | February 22 | D      |
 | F10 | Create centroids for each polygon                                   | Amaan    | February 22 | February 22 | D      |
 | F11 | Set neighborhood relationships in light gray                        | Mankaran | February 22 | February 22 | D      |
-| F12 | Generate Random Points                                              | Amaan    | February 23 | - | P      |
+| F12 | Generate Random Points                                              | Amaan    | February 23 | February 24 | D      |
+| F13 | Generate voronoi diagrams                                           | Amaan    | February 24 | February 24 | D      |
+| F14 | Visualize irregular polygons                                        | Mujtaba  | February 24 | February 24 | D      |
