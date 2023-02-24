@@ -26,11 +26,13 @@ public class Mesh {
     List<Vertex> centroids = new ArrayList<>();
     List<Vertex> centroidsColored = new ArrayList<>();
 
-    List<Vertex> randomPoints = new ArrayList<>();
+    public List<Vertex> randomPoints = new ArrayList<>();
     Collection<Coordinate> sites = new ArrayList<>();
 
     GeometryFactory geometryFactory = new GeometryFactory();
-    VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
+    public VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
+
+    public Geometry voronoiDiagram;
 
     public double getX(Vertex v) {
         double valuex = v.getX();
@@ -157,9 +159,10 @@ public class Mesh {
             sites.add(new Coordinate(rand.getX(), rand.getY()));
         }
         diagram.setSites(sites);
-        Geometry voronoiDiagram = diagram.getDiagram(new GeometryFactory());
+        voronoiDiagram = diagram.getDiagram(new GeometryFactory());
         System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
     }
+
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
             List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints) {
