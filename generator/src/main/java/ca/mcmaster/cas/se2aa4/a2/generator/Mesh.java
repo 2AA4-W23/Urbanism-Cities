@@ -162,20 +162,21 @@ public class Mesh {
         randomPoints.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
     }
 
-    public void generateVoronoid() {
-        for (Vertex rand : randomPoints) {
+    public void generateVoronoid(List<Vertex> points) {
+        sites.clear();
+        for (Vertex rand : points) {
             sites.add(new Coordinate(rand.getX(), rand.getY()));
         }
         diagram.setSites(sites);
         voronoiDiagram = diagram.getDiagram(new GeometryFactory());
-        System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
+        // System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
             List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints) {
-        System.out.println("SIZE: " + vertices.size());
-        System.out.println("SIZE SEGMENTS: " + segments.size());
-        System.out.println("SIZE POLYGONS: " + polygons.size());
+        // System.out.println("SIZE: " + vertices.size());
+        // System.out.println("SIZE SEGMENTS: " + segments.size());
+        // System.out.println("SIZE POLYGONS: " + polygons.size());
 
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
                 .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored)

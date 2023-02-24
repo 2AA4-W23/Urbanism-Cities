@@ -19,21 +19,17 @@ public class DotGen {
         private final int height = 500;
         private final int square_size = 20;
 
-
-
         public Mesh generate() {
                 ca.mcmaster.cas.se2aa4.a2.generator.Mesh mesh = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
 
-
-
-//                sites.add(new Coordinate(70, 70));
-//                sites.add(new Coordinate(50, 150));
-//                sites.add(new Coordinate(150, 50));
-//                sites.add(new Coordinate(150, 150));
-//                sites.add(new Coordinate(250, 50));
-//                sites.add(new Coordinate(250, 150));
-//                sites.add(new Coordinate(350, 50));
-//                sites.add(new Coordinate(370, 170));
+                // sites.add(new Coordinate(70, 70));
+                // sites.add(new Coordinate(50, 150));
+                // sites.add(new Coordinate(150, 50));
+                // sites.add(new Coordinate(150, 150));
+                // sites.add(new Coordinate(250, 50));
+                // sites.add(new Coordinate(250, 150));
+                // sites.add(new Coordinate(350, 50));
+                // sites.add(new Coordinate(370, 170));
 
                 // Create all the vertices
                 for (int x = 0; x < width; x += square_size) {
@@ -104,11 +100,23 @@ public class DotGen {
                                 // System.out.println(s);
                                 // System.out.println(mesh.verticesColored.size());
 
-                                int reds = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue().split(",")[0])) ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue().split(",")[0])) ^ 2) * 100);
+                                int reds = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx())
+                                                .getProperties(0).getValue().split(",")[0]))
+                                                ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx())
+                                                                .getProperties(0).getValue().split(",")[0]))
+                                                ^ 2) * 100);
 
-                                int blues = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue().split(",")[1])) ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue().split(",")[1])) ^ 2) * 100);
+                                int blues = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx())
+                                                .getProperties(0).getValue().split(",")[1]))
+                                                ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx())
+                                                                .getProperties(0).getValue().split(",")[1]))
+                                                ^ 2) * 100);
 
-                                int greens = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx()).getProperties(0).getValue().split(",")[2])) ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx()).getProperties(0).getValue().split(",")[2])) ^ 2) * 100);
+                                int greens = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx())
+                                                .getProperties(0).getValue().split(",")[2]))
+                                                ^ 2 + (Integer.valueOf(mesh.verticesColored.get(s.getV2Idx())
+                                                                .getProperties(0).getValue().split(",")[2]))
+                                                ^ 2) * 100);
                                 String colorCode = reds + "," + greens + "," + blues;
                                 // Property color = mesh.createProperty(colorCode);
                                 // Segment colored = mesh.createSegmentColor(s, color);
@@ -123,10 +131,14 @@ public class DotGen {
                 int counter = 0;
                 for (Polygon p : mesh.polygons) {
 
-                        double centreV1_y = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
-                        double centreV2_y = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
-                        double centre2V1_x = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
-                        double centre2V2_x = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
+                        double centreV1_y = mesh.vertices
+                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
+                        double centreV2_y = mesh.vertices
+                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
+                        double centre2V1_x = mesh.vertices
+                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
+                        double centre2V2_x = mesh.vertices
+                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
 
                         int red = bag.nextInt(255);
                         int green = bag.nextInt(255);
@@ -140,17 +152,16 @@ public class DotGen {
                         double centroid_y = (centreV1_y + centreV2_y) / 2;
 
                         mesh.createCentroid((int) centroid_x, (int) centroid_y);
-                        mesh.generateRandomPoints(480, 480);
+                        // mesh.generateRandomPoints(480, 480);
 
-                        //List<Polygon> polygonsv = diagram.getSubdivision().getVoronoiCellPolygons(geometryFactory);
-//                        for (Coordinate vertex : voronoiDiagram.getCoordinates()) {
-//                                System.out.println(vertex);
-//                        }
+                        // List<Polygon> polygonsv =
+                        // diagram.getSubdivision().getVoronoiCellPolygons(geometryFactory);
+                        // for (Coordinate vertex : voronoiDiagram.getCoordinates()) {
+                        // System.out.println(vertex);
+                        // }
                 }
 
-                mesh.generateVoronoid();
-
-
+                // mesh.generateVoronoid();
 
                 for (Vertex c : mesh.centroids) {
                         String colorCode = 255 + "," + 0 + "," + 0;
@@ -159,7 +170,8 @@ public class DotGen {
 
                 mesh.setCentroidIdx();
 
-                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored, mesh.centroidsColored, mesh.randomPoints);
+                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored,
+                                mesh.centroidsColored, mesh.randomPoints);
 
         }
 

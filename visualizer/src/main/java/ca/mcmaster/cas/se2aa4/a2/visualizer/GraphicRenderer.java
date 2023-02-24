@@ -37,24 +37,24 @@ public class GraphicRenderer {
                 for (Polygon pol : aMesh.getPolygonsList()) {
                         m.generateRandomPoints(480, 480);
                 }
-                m.generateVoronoid();
+                m.generateVoronoid(m.randomPoints);
                 canvas.setColor(Color.BLACK);
                 Stroke stroke = new BasicStroke(0.5f);
                 canvas.setStroke(stroke);
 
-                System.out.println("ZZZZZZZZZZZZZZZZZZZZZZ: " + aMesh.getPolygonsCount());
-                System.out.println("hdkfjhsfhsif: " + aMesh.getPolygonsList());
-                System.out.println("ARGS: " + args[0].toString());
-                System.out.println("ARGS: " + args[1].toString());
-                System.out.println("ARGS SIZE: " + args.length);
-                System.out.println(Arrays.toString(args));
+                // System.out.println("ZZZZZZZZZZZZZZZZZZZZZZ: " + aMesh.getPolygonsCount());
+                // System.out.println("hdkfjhsfhsif: " + aMesh.getPolygonsList());
+                // System.out.println("ARGS: " + args[0].toString());
+                // System.out.println("ARGS: " + args[1].toString());
+                // System.out.println("ARGS SIZE: " + args.length);
+                // System.out.println(Arrays.toString(args));
 
                 if (args.length == 3 && args[2].equals("-X")) {
 
                         generateVertices(aMesh, canvas);
 
                         for (Polygon p : aMesh.getPolygonsList()) {
-                                System.out.println("dfdfd: " + p.getSegmentIdxsList());
+                                // System.out.println("dfdfd: " + p.getSegmentIdxsList());
                                 double centreV1_x = aMesh.getVerticesList()
                                                 .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0))
                                                                 .getV1Idx())
@@ -158,70 +158,97 @@ public class GraphicRenderer {
 
                         // List<Integer> vertices = new ArrayList();
                         int polycounter = 0;
-                        for (Polygon p : aMesh.getPolygonsList()) {
-                                // for (int segID : p.getSegmentIdxsList()) {//for every segment, get the vertex
-                                // IDs.
-                                // int vID = aMesh.getSegmentsList().get(segID).getV1Idx();
-                                // vertices.add(vID);
-                                // vID = aMesh.getSegmentsList().get(segID).getV2Idx();
-                                // vertices.add(vID);
-                                //
-                                // }
-                                // int firstV = vertices.get(0);
-                                // int finalV = vertices.get(0);
-                                // for (int vertID : vertices) {
-                                // firstV = Math.min(firstV, vertID); //Find first vertexID
-                                // }
-                                //
-                                // for (int vertID : vertices) {
-                                // finalV = Math.max(finalV, vertID); //Find last vertexID
-                                // }
 
-                                float[] xpositions = new float[100];
-                                float[] ypositions = new float[100];
-                                int positioncounter = 0;
-                                for (Coordinate pID : m.voronoiDiagram.getGeometryN(polycounter).getCoordinates()) {
-                                        xpositions[positioncounter] = (float) pID.getX();
-                                        ypositions[positioncounter] = (float) pID.getY();
-                                        positioncounter++;
+                        float[][] arr1 = new float[600][100];
+                        float[][] arr2 = new float[600][100];
+                        float[] arr3 = new float[600];
+
+                        for (int k = 0; k < 100; k++) {
+                                m.generateVoronoid(centroidsVornoid);
+                                for (Polygon p : aMesh.getPolygonsList()) {
+                                        // for (int segID : p.getSegmentIdxsList()) {//for every segment, get the vertex
+                                        // IDs.
+                                        // int vID = aMesh.getSegmentsList().get(segID).getV1Idx();
+                                        // vertices.add(vID);
+                                        // vID = aMesh.getSegmentsList().get(segID).getV2Idx();
+                                        // vertices.add(vID);
+                                        //
+                                        // }
+                                        // int firstV = vertices.get(0);
+                                        // int finalV = vertices.get(0);
+                                        // for (int vertID : vertices) {
+                                        // firstV = Math.min(firstV, vertID); //Find first vertexID
+                                        // }
+                                        //
+                                        // for (int vertID : vertices) {
+                                        // finalV = Math.max(finalV, vertID); //Find last vertexID
+                                        // }
+
+                                        float[] xpositions = new float[100];
+                                        float[] ypositions = new float[100];
+                                        int positioncounter = 0;
+                                        for (Coordinate pID : m.voronoiDiagram.getGeometryN(polycounter)
+                                                        .getCoordinates()) {
+                                                xpositions[positioncounter] = (float) pID.getX();
+                                                ypositions[positioncounter] = (float) pID.getY();
+                                                positioncounter++;
+                                        }
+
+                                        if (k == 4) {
+                                                arr1[polycounter] = xpositions;
+                                                arr2[polycounter] = ypositions;
+                                                arr3[polycounter] = positioncounter;
+                                        }
+
+                                        // double ULVertex_y = aMesh.getVerticesList().get(firstV).getY();
+                                        // double ULVertex_x = aMesh.getVerticesList().get(firstV).getX();
+                                        // double LRVertex_y = aMesh.getVerticesList().get(finalV).getY();
+                                        // double LRVertex_x = aMesh.getVerticesList().get(finalV).getX();
+
+                                        float centroid_x = 0;
+                                        float centroid_y = 0;
+
+                                        for (int j = 0; j < positioncounter; j++) {
+                                                centroid_x += xpositions[j];
+                                                centroid_y += ypositions[j];
+                                        }
+
+                                        centroid_x = centroid_x / positioncounter;
+                                        centroid_y = centroid_y / positioncounter;
+
+                                        // System.out.println("CENTRoIDS: " + centroidsVornoid);
+
+                                        centroidsVornoid.add(
+                                                        Vertex.newBuilder().setX(centroid_x).setY(centroid_y).build());
+
+                                        // java.awt.geom.Rectangle2D polygon = new Rectangle2D.Double(ULVertex_x,
+                                        // ULVertex_y, LRVertex_x - ULVertex_x, LRVertex_y - ULVertex_y);
+                                        // canvas.draw(polygon);
+                                        // canvas.fill(polygon);
+
+                                        // vertices.clear();
+                                        polycounter++;
                                 }
+                                polycounter = 0;
+                        }
 
-                                // double ULVertex_y = aMesh.getVerticesList().get(firstV).getY();
-                                // double ULVertex_x = aMesh.getVerticesList().get(firstV).getX();
-                                // double LRVertex_y = aMesh.getVerticesList().get(finalV).getY();
-                                // double LRVertex_x = aMesh.getVerticesList().get(finalV).getX();
+                        int counter = 0;
 
+                        for (Polygon p : aMesh.getPolygonsList()) {
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
 
-                                Polygon2D po = new Polygon2D(xpositions, ypositions, positioncounter);
+                                Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
 
-                                float centroid_x = 0;
-                                float centroid_y = 0;
-
-                                for (int i = 0; i < positioncounter; i++) {
-                                        centroid_x += xpositions[i];
-                                        centroid_y += ypositions[i];
-                                }
-
-                                centroid_x = centroid_x / positioncounter;
-                                centroid_y = centroid_y / positioncounter;
-
-                                System.out.println("CENTRoIDS: " + centroidsVornoid);
-
-                                centroidsVornoid.add(Vertex.newBuilder().setX(centroid_x).setY(centroid_y).build());
-
-                                // java.awt.geom.Rectangle2D polygon = new Rectangle2D.Double(ULVertex_x,
-                                // ULVertex_y, LRVertex_x - ULVertex_x, LRVertex_y - ULVertex_y);
-                                // canvas.draw(polygon);
-                                // canvas.fill(polygon);
                                 canvas.draw(po);
                                 canvas.fill(po);
                                 canvas.setColor(old);
-                                // vertices.clear();
-                                polycounter++;
+                                counter++;
                         }
 
+                        // for (int i = 0; i < 10; i++) {
+
+                        // }
                         // for (Segment s : aMesh.getSegmentsList()) {
                         // double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
                         // double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
@@ -281,7 +308,7 @@ public class GraphicRenderer {
                 String val = null;
                 for (Property p : properties) {
                         if (p.getKey().equals("rgb_color")) {
-                                System.out.println(p.getValue());
+                                // System.out.println(p.getValue());
                                 val = p.getValue();
                         }
                 }
