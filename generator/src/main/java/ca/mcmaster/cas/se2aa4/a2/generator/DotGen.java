@@ -24,9 +24,8 @@ public class DotGen {
         public Mesh generate() {
                 ca.mcmaster.cas.se2aa4.a2.generator.Mesh mesh = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
 
-                GeometryFactory geometryFactory = new GeometryFactory();
-                VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
-                Collection<Coordinate> sites = new ArrayList<>();
+
+
 //                sites.add(new Coordinate(70, 70));
 //                sites.add(new Coordinate(50, 150));
 //                sites.add(new Coordinate(150, 50));
@@ -149,12 +148,9 @@ public class DotGen {
 //                        }
                 }
 
-                for (Vertex rand : mesh.randomPoints) {
-                        sites.add(new Coordinate(rand.getX(), rand.getY()));
-                }
-                diagram.setSites(sites);
-                Geometry voronoiDiagram = diagram.getDiagram(new GeometryFactory());
-                System.out.println("Iteration " + counter++ + " " + voronoiDiagram);
+                mesh.generateVoronoid();
+
+
 
                 for (Vertex c : mesh.centroids) {
                         String colorCode = 255 + "," + 0 + "," + 0;

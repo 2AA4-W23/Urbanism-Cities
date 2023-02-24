@@ -5,11 +5,12 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Mesh {
 
@@ -26,6 +27,10 @@ public class Mesh {
     List<Vertex> centroidsColored = new ArrayList<>();
 
     List<Vertex> randomPoints = new ArrayList<>();
+    Collection<Coordinate> sites = new ArrayList<>();
+
+    GeometryFactory geometryFactory = new GeometryFactory();
+    VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
 
     public double getX(Vertex v) {
         double valuex = v.getX();
@@ -145,6 +150,15 @@ public class Mesh {
             double x = rand.nextDouble() * width;
             double y = rand.nextDouble() * height;
             randomPoints.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
+    }
+
+    public void generateVoronoid() {
+        for (Vertex rand : randomPoints) {
+            sites.add(new Coordinate(rand.getX(), rand.getY()));
+        }
+        diagram.setSites(sites);
+        Geometry voronoiDiagram = diagram.getDiagram(new GeometryFactory());
+        System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
