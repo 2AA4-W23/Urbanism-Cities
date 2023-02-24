@@ -97,7 +97,10 @@ public class Mesh {
 
         for (Polygon shape2 : polygons) {
             if (!shape2.equals(shape)) { // if the two polygons are not the same
-                if (!Collections.disjoint(shape2.getSegmentIdxsList(), shape.getSegmentIdxsList())) { // if they have at least one matching segment index
+                if (!Collections.disjoint(shape2.getSegmentIdxsList(), shape.getSegmentIdxsList())) { // if they have at
+                                                                                                      // least one
+                                                                                                      // matching
+                                                                                                      // segment index
                     neighbours.add(loopingpolyid); // Then shape2 is shape's neighbour
                 }
             }
@@ -105,7 +108,12 @@ public class Mesh {
         }
 
         oldsegments = new ArrayList<Integer>(shape.getSegmentIdxsList()); // get current shape's segments
-        polygons.set(outerloop, Polygon.newBuilder().addAllSegmentIdxs(oldsegments).addAllNeighborIdxs(neighbours).build()); // re-add the shape but with neighbours
+        polygons.set(outerloop,
+                Polygon.newBuilder().addAllSegmentIdxs(oldsegments).addAllNeighborIdxs(neighbours).build()); // re-add
+                                                                                                             // the
+                                                                                                             // shape
+                                                                                                             // but with
+                                                                                                             // neighbours
     }
 
     public Property createProperty(String colorCode) {
@@ -143,15 +151,15 @@ public class Mesh {
             ++counter;
         }
 
-        //System.out.println("UPDATED: " + polygonsColored);
+        // System.out.println("UPDATED: " + polygonsColored);
 
     }
 
     public void generateRandomPoints(int width, int height) {
-            Random rand = new Random();
-            double x = rand.nextDouble() * width;
-            double y = rand.nextDouble() * height;
-            randomPoints.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
+        Random rand = new Random();
+        double x = rand.nextDouble() * width;
+        double y = rand.nextDouble() * height;
+        randomPoints.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
     }
 
     public void generateVoronoid() {
@@ -163,7 +171,6 @@ public class Mesh {
         System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
     }
 
-
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
             List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints) {
         System.out.println("SIZE: " + vertices.size());
@@ -171,7 +178,7 @@ public class Mesh {
         System.out.println("SIZE POLYGONS: " + polygons.size());
 
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
-                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored).addAllVertices(randomPoints)
+                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored)
                 .build();
         return mesh;
     }
