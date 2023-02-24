@@ -136,7 +136,7 @@ public class Mesh {
             ++counter;
         }
 
-        System.out.println("UPDATED: " + polygonsColored);
+        //System.out.println("UPDATED: " + polygonsColored);
 
     }
 

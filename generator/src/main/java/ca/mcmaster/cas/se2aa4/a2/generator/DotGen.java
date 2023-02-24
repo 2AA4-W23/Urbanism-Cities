@@ -19,10 +19,22 @@ public class DotGen {
         private final int height = 500;
         private final int square_size = 20;
 
+
+
         public Mesh generate() {
                 ca.mcmaster.cas.se2aa4.a2.generator.Mesh mesh = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
 
+                GeometryFactory geometryFactory = new GeometryFactory();
                 VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
+                Collection<Coordinate> sites = new ArrayList<>();
+//                sites.add(new Coordinate(70, 70));
+//                sites.add(new Coordinate(50, 150));
+//                sites.add(new Coordinate(150, 50));
+//                sites.add(new Coordinate(150, 150));
+//                sites.add(new Coordinate(250, 50));
+//                sites.add(new Coordinate(250, 150));
+//                sites.add(new Coordinate(350, 50));
+//                sites.add(new Coordinate(370, 170));
 
                 // Create all the vertices
                 for (int x = 0; x < width; x += square_size) {
@@ -109,7 +121,7 @@ public class DotGen {
                                 System.out.println("PROBLEM: " + e);
                         }
                 }
-
+                int counter = 0;
                 for (Polygon p : mesh.polygons) {
 
                         double centreV1_y = mesh.vertices.get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
@@ -130,8 +142,19 @@ public class DotGen {
 
                         mesh.createCentroid((int) centroid_x, (int) centroid_y);
                         mesh.generateRandomPoints(480, 480);
-                        //diagram.setSites();
+
+                        //List<Polygon> polygonsv = diagram.getSubdivision().getVoronoiCellPolygons(geometryFactory);
+//                        for (Coordinate vertex : voronoiDiagram.getCoordinates()) {
+//                                System.out.println(vertex);
+//                        }
                 }
+
+                for (Vertex rand : mesh.randomPoints) {
+                        sites.add(new Coordinate(rand.getX(), rand.getY()));
+                }
+                diagram.setSites(sites);
+                Geometry voronoiDiagram = diagram.getDiagram(new GeometryFactory());
+                System.out.println("Iteration " + counter++ + " " + voronoiDiagram);
 
                 for (Vertex c : mesh.centroids) {
                         String colorCode = 255 + "," + 0 + "," + 0;
