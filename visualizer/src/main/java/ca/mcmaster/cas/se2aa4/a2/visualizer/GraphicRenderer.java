@@ -38,6 +38,7 @@ public class GraphicRenderer {
                         m.generateRandomPoints(480, 480);
                 }
                 m.generateVoronoid(m.randomPoints);
+
                 canvas.setColor(Color.BLACK);
                 Stroke stroke = new BasicStroke(0.5f);
                 canvas.setStroke(stroke);
@@ -194,10 +195,15 @@ public class GraphicRenderer {
                                                 positioncounter++;
                                         }
 
-                                        if (k == 99) {
+
+                                        if (k == 98) {
+
                                                 arr1[polycounter] = xpositions;
+                                                System.out.println("ARRAY 1: " + Arrays.toString(arr1));
                                                 arr2[polycounter] = ypositions;
+                                                System.out.println("ARRAY 2: " + Arrays.toString(arr2));
                                                 arr3[polycounter] = positioncounter;
+                                                System.out.println("ARRAY 3: " + Arrays.toString(arr3));
                                         }
 
                                         // double ULVertex_y = aMesh.getVerticesList().get(firstV).getY();
