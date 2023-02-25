@@ -149,22 +149,37 @@ public class GraphicRenderer {
                         for (Polygon p : aMesh.getPolygonsList()) {
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
+                                float[] arr1 = new float[100];
+                                float[] arr2 = new float[100];
 
-                                Polygon2D po = new Polygon2D(.arr1[counter], m.arr2[counter], (int) m.arr3[counter]);
+                                int positionscounter = 0;
+                                int outsideS = 0;
+                                for (int s : p.getSegmentIdxsList()) { //for every segment of a polygon
+                                        arr1[positionscounter] = (float) aMesh.getVertices(aMesh.getSegments(s).getV1Idx()).getX();
+                                        arr2[positionscounter] = (float) aMesh.getVertices(aMesh.getSegments(s).getV1Idx()).getY();
+                                        outsideS = s;
+                                        positionscounter++;
+                                }
+
+                                arr1[positionscounter] = (float) aMesh.getVertices(aMesh.getSegments(outsideS).getV2Idx()).getX();
+                                arr2[positionscounter] = (float) aMesh.getVertices(aMesh.getSegments(outsideS).getV2Idx()).getY();
+                                positionscounter++;
+
+                                Polygon2D po = new Polygon2D(arr1, arr2, positionscounter);
 
                                 canvas.draw(po);
                                 canvas.fill(po);
                                 canvas.setColor(old);
-                                for (int i = 0; i < m.arr3[counter] - 1; i++) {
-                                        Line2D line = new Line2D.Double(m.arr1[counter][i], m.arr2[counter][i],
-                                                        m.arr1[counter][i + 1], m.arr2[counter][i + 1]);
+                                for (int i = 0; i < positionscounter - 1; i++) {
+                                        Line2D line = new Line2D.Double(arr1[i], arr2[i],
+                                                arr1[i + 1], arr2[i + 1]);
                                         canvas.draw(line);
                                         canvas.fill(line);
                                 }
                                 counter++;
                         }
 
-                        generateRandom(aMesh, canvas, m);
+                        generateRandom(aMesh, canvas);
 
                 }
 
@@ -188,17 +203,18 @@ public class GraphicRenderer {
                 }
         }
 
-        private void generateRandom(Mesh aMesh, Graphics2D canvas, ca.mcmaster.cas.se2aa4.a2.generator.Mesh m) {
-                for (Vertex v : m.centroidsVornoid) {
+        private void generateRandom(Mesh aMesh, Graphics2D canvas) {
+                for (Vertex v : aMesh.getVerticesList()) {
                         double centre_x = v.getX() - (THICKNESS / 2.0d);
                         double centre_y = v.getY() - (THICKNESS / 2.0d);
-                        if (args.length == 3 && args[2].equals("-X") && aMesh.getVerticesList().indexOf(v) < 625) {
+                        if (aMesh.getVerticesList().indexOf(v) > 575) {
                                 canvas.setColor(Color.BLACK);
-                        } else {
-                                Color old = canvas.getColor();
-                                canvas.setColor(extractColor(v.getPropertiesList()));
-                                // canvas.setColor(old);
                         }
+//                        } else {
+//                                Color old = canvas.getColor();
+//                                canvas.setColor(extractColor(v.getPropertiesList()));
+//                                // canvas.setColor(old);
+//                        }
                         Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS,
                                         THICKNESS);
                         canvas.fill(point);

@@ -41,6 +41,8 @@ public class Mesh {
 
     List<org.locationtech.jts.geom.Polygon> vornoidPolygons = new ArrayList<>();
 
+    int segmentcounter = 0;
+
     int polycounter = 0;
 
     public float[][] arr1 = new float[600][100];
@@ -182,6 +184,37 @@ public class Mesh {
         }
         diagram.setSites(sites);
         voronoiDiagram = diagram.getDiagram(new GeometryFactory());
+
+        for (int vd = 0; vd < voronoiDiagram.getNumGeometries(); vd++) {
+            ArrayList<Integer> vertexIDs = new ArrayList<>(); //List of all vertex IDs that make up a shape
+            for (Coordinate vOID: voronoiDiagram.getGeometryN(vd).getCoordinates()) { //for all points that make up a shape
+                int randlooper = 0;
+                for (Vertex rand : randomPoints) { //finds vertexID for that point of the shape
+                    if (rand.getX() == vOID.getX() && rand.getY() == vOID.getY()) {
+                        vertexIDs.add(randlooper);
+                    }
+                    randlooper++;
+                }
+
+            }
+            //vertexIDs now contains the IDs of each vertex that makes up the shape
+
+            List<Integer> segIDs = new ArrayList<>();
+            for (int i = 0; i < vertexIDs.size() - 1 ; i++) { //for every vertexID of the shape
+                segments.add(Segment.newBuilder().setV1Idx(vertexIDs.get(i)).setV2Idx(vertexIDs.get(i+1)).build()); //making segments of the shape
+                segIDs.add(segmentcounter); //keeping track of the IDs of the segment just created
+                segmentcounter++;
+            }
+            // all segments for the shape are now built, and their IDs are stored in segIDs
+
+            polygons.add(Polygon.newBuilder().addAllSegmentIdxs(segIDs).build());
+
+        }
+
+        for (int poly = 0; poly < polygons.size(); poly++) {
+            createNeighbour(polygons.get(poly), poly);
+        }
+
         // System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
     }
 
@@ -252,13 +285,25 @@ public class Mesh {
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
-            List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints) {
+            List<Polygon> polygonsColored, List<Vertex> centroidsColored) {
         // System.out.println("SIZE: " + vertices.size());
         // System.out.println("SIZE SEGMENTS: " + segments.size());
         // System.out.println("SIZE POLYGONS: " + polygons.size());
 
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
                 .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored)
+                .build();
+        return mesh;
+    }
+
+    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
+                                 List<Polygon> polygonsColored) {
+        // System.out.println("SIZE: " + vertices.size());
+        // System.out.println("SIZE SEGMENTS: " + segments.size());
+        // System.out.println("SIZE POLYGONS: " + polygons.size());
+
+        Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
+                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored)
                 .build();
         return mesh;
     }

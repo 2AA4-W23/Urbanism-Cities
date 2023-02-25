@@ -128,8 +128,17 @@ public class DotGen {
                                 System.out.println("PROBLEM: " + e);
                         }
                 }
+/////////////////////////////////////////////
+                mesh.polygons.clear();
+                for (int i = 0; i < 576; i++) {
+                        mesh.generateRandomPoints(480,480);
+                }
+
+                mesh.generateVoronoid(mesh.randomPoints);
 
                 int counter = 0;
+
+                System.out.println("This is polygons size: " + mesh.polygons.size());
                 for (Polygon p : mesh.polygons) {
 
                         double centreV1_y = mesh.vertices
@@ -164,15 +173,16 @@ public class DotGen {
                 mesh.setCentroidIdx();
 
                 // generate random points for voronoid diagram for each polygon
-                mesh.randomBasedVoronoi();
+                //mesh.randomBasedVoronoi();
 
                 // lloyd relaxation
-                mesh.lloydRelax();
+                //mesh.lloydRelax();
 
-                mesh.createVornoidPolygons();
+                //mesh.createVornoidPolygons();
 
-                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored,
-                                mesh.centroidsColored, mesh.randomPoints);
+//                return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored,
+//                                mesh.centroidsColored, mesh.randomPoints);
+                return mesh.generate(mesh.randomPoints, mesh.segments, mesh.polygonsColored, mesh.centroidsColored);
 
         }
 
