@@ -9,6 +9,8 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.algorithm.Centroid;
 
 import java.util.*;
 
@@ -33,7 +35,6 @@ public class Mesh {
     public VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
 
     public Geometry voronoiDiagram;
-
 
     public double getX(Vertex v) {
         double valuex = v.getX();
@@ -171,6 +172,10 @@ public class Mesh {
         diagram.setSites(sites);
         voronoiDiagram = diagram.getDiagram(new GeometryFactory());
         // System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
+    }
+
+    public void getCentroidCoordinates(Polygon p) {
+
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,

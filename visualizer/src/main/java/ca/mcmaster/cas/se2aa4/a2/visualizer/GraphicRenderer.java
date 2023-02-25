@@ -21,6 +21,8 @@ import java.util.List;
 import ca.mcmaster.cas.se2aa4.a2.generator.Mesh.*;
 import org.apache.batik.ext.awt.geom.Polygon2D;
 import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.algorithm.Centroid;
+import org.locationtech.jts.geom.MultiPoint;
 
 public class GraphicRenderer {
 
@@ -164,7 +166,7 @@ public class GraphicRenderer {
                         float[][] arr2 = new float[600][100];
                         float[] arr3 = new float[600];
 
-                        for (int k = 0; k < 100; k++) {
+                        for (int k = 0; k < 10; k++) {
                                 m.generateVoronoid(centroidsVornoid);
                                 for (Polygon p : aMesh.getPolygonsList()) {
                                         // for (int segID : p.getSegmentIdxsList()) {//for every segment, get the vertex
@@ -185,8 +187,12 @@ public class GraphicRenderer {
                                         // finalV = Math.max(finalV, vertID); //Find last vertexID
                                         // }
 
+                                        // store x and y coordinates of current polygon
                                         float[] xpositions = new float[100];
                                         float[] ypositions = new float[100];
+
+                                        // iterate through the voronoi diagram polygons and add the x and y coordinates
+                                        // to the arrays
                                         int positioncounter = 0;
                                         for (Coordinate pID : m.voronoiDiagram.getGeometryN(polycounter)
                                                         .getCoordinates()) {
@@ -195,37 +201,51 @@ public class GraphicRenderer {
                                                 positioncounter++;
                                         }
 
+                                        // iterate through the x and y coordinate arrays and calculate their centroids
+                                        // and make each point the centroid
+                                        for (int i = 0; i < positioncounter; i++) {
+                                                float centroid_x = 0;
+                                                float centroid_y = 0;
 
-                                        if (k == 98) {
+                                                for (int j = 0; j < positioncounter; j++) {
+                                                        centroid_x += xpositions[j];
+                                                        centroid_y += ypositions[j];
+                                                }
 
-                                                arr1[polycounter] = xpositions;
-                                                System.out.println("ARRAY 1: " + Arrays.toString(arr1));
-                                                arr2[polycounter] = ypositions;
-                                                System.out.println("ARRAY 2: " + Arrays.toString(arr2));
-                                                arr3[polycounter] = positioncounter;
-                                                System.out.println("ARRAY 3: " + Arrays.toString(arr3));
+                                                centroid_x = centroid_x / positioncounter;
+                                                centroid_y = centroid_y / positioncounter;
+
+                                                centroidsVornoid.add(
+                                                                Vertex.newBuilder().setX(centroid_x).setY(centroid_y)
+                                                                                .build());
+                                                xpositions[i] = (float) centroid_x;
+                                                ypositions[i] = (float) centroid_y;
                                         }
+
+                                        polycounter++;
+
+                                        // Coordinate centroid = Centroid
+                                        // .getCentroid(m.voronoiDiagram.getGeometryN(polycounter));
+
+                                        // xpositions[0] = (float) centroid.getX();
+                                        // ypositions[0] = (float) centroid.getY();
+
+                                        // if (k == 98) {
+
+                                        // arr1[polycounter] = xpositions;
+                                        // System.out.println("ARRAY 1: " + Arrays.toString(arr1));
+                                        // arr2[polycounter] = ypositions;
+                                        // System.out.println("ARRAY 2: " + Arrays.toString(arr2));
+                                        // arr3[polycounter] = positioncounter;
+                                        // System.out.println("ARRAY 3: " + Arrays.toString(arr3));
+                                        // }
 
                                         // double ULVertex_y = aMesh.getVerticesList().get(firstV).getY();
                                         // double ULVertex_x = aMesh.getVerticesList().get(firstV).getX();
                                         // double LRVertex_y = aMesh.getVerticesList().get(finalV).getY();
                                         // double LRVertex_x = aMesh.getVerticesList().get(finalV).getX();
 
-                                        float centroid_x = 0;
-                                        float centroid_y = 0;
-
-                                        for (int j = 0; j < positioncounter; j++) {
-                                                centroid_x += xpositions[j];
-                                                centroid_y += ypositions[j];
-                                        }
-
-                                        centroid_x = centroid_x / positioncounter;
-                                        centroid_y = centroid_y / positioncounter;
-
                                         // System.out.println("CENTRoIDS: " + centroidsVornoid);
-
-                                        centroidsVornoid.add(
-                                                        Vertex.newBuilder().setX(centroid_x).setY(centroid_y).build());
 
                                         // java.awt.geom.Rectangle2D polygon = new Rectangle2D.Double(ULVertex_x,
                                         // ULVertex_y, LRVertex_x - ULVertex_x, LRVertex_y - ULVertex_y);
@@ -233,7 +253,6 @@ public class GraphicRenderer {
                                         // canvas.fill(polygon);
 
                                         // vertices.clear();
-                                        polycounter++;
                                 }
                                 polycounter = 0;
                         }
@@ -250,7 +269,8 @@ public class GraphicRenderer {
                                 canvas.fill(po);
                                 canvas.setColor(old);
                                 for (int i = 0; i < arr3[counter] - 1; i++) {
-                                        Line2D line = new Line2D.Double(arr1[counter][i], arr2[counter][i], arr1[counter][i+1], arr2[counter][i+1]);
+                                        Line2D line = new Line2D.Double(arr1[counter][i], arr2[counter][i],
+                                                        arr1[counter][i + 1], arr2[counter][i + 1]);
                                         canvas.draw(line);
                                         canvas.fill(line);
                                 }
