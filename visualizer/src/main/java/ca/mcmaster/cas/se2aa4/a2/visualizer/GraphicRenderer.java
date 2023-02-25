@@ -37,6 +37,40 @@ public class GraphicRenderer {
                 for (Polygon pol : aMesh.getPolygonsList()) {
                         m.generateRandomPoints(480, 480);
                 }
+
+                int innerrandom = 0;
+                for (Vertex rand : m.randomPoints) {
+                        Coordinate r = new Coordinate(rand.getX(), rand.getY());
+                        for (Vertex rand1 : m.randomPoints) {
+                                Coordinate r1 = new Coordinate(rand1.getX(), rand1.getY());
+                                if (!rand.equals(rand1) && r.distance(r1) < 17) {
+                                        double ypos;
+                                        double xpos;
+                                        if (r.getX() >= r1.getX()) { //if r is to the right of r1 (r.x-r1.x is positive)
+                                                if (r.getY() >= r1.getY()) { //r is below r1 (r.y-r1.y is positive)
+                                                        xpos = r.getX() - 12.02;
+                                                        ypos = r.getY() - 12.02;
+                                                } else { //r is above r1 (r.y-r1.y is negative)
+                                                        xpos = r.getX() - 12.02;
+                                                        ypos = r.getY() + 12.02;
+                                                }
+                                        } else { // r is to the left of r1 (r.x-r1.x is negative)
+                                                if (r.getY() >= r1.getY()) { //r is below r1 (r.y-r1.y is positive)
+                                                        xpos = r.getX() + 12.02;
+                                                        ypos = r.getY() - 12.02;
+                                                } else { //r is above r1 (r.y-r1.y is negative)
+                                                        xpos = r.getX() + 12.02;
+                                                        ypos = r.getY() + 12.02;
+                                                }
+                                        }
+                                        Vertex newrand1 = Vertex.newBuilder().setX(xpos).setY(ypos).build();
+                                        m.randomPoints.set(innerrandom, newrand1);
+                                }
+                                innerrandom++;
+                        }
+                        innerrandom = 0;
+                }
+
                 m.generateVoronoid(m.randomPoints);
 
                 canvas.setColor(Color.BLACK);
@@ -195,6 +229,16 @@ public class GraphicRenderer {
                                                 positioncounter++;
                                         }
 
+//                                        for (Coordinate pID1 : m.voronoiDiagram.getGeometryN(polycounter).getCoordinates()) {
+//                                                for (Coordinate pID2 : m.voronoiDiagram.getGeometryN(polycounter).getCoordinates()) {
+//                                                        if (!pID2.equals(pID1)) {
+//                                                                if (pID1.distance(pID2) < 15) {
+//
+//                                                                }
+//                                                        }
+//                                                }
+//                                        }
+
 
                                         if (k == 98) {
 
@@ -234,6 +278,9 @@ public class GraphicRenderer {
 
                                         // vertices.clear();
                                         polycounter++;
+                                        if (polycounter == m.voronoiDiagram.getNumGeometries()) {
+                                                break;
+                                        }
                                 }
                                 polycounter = 0;
                         }
@@ -244,11 +291,19 @@ public class GraphicRenderer {
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
 
-                                Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
+                                try {
+                                        Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
 
-                                canvas.draw(po);
-                                canvas.fill(po);
-                                canvas.setColor(old);
+                                        canvas.draw(po);
+                                        canvas.fill(po);
+                                        canvas.setColor(old);
+                                } catch (Exception e) {}
+
+//                                Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
+//
+//                                canvas.draw(po);
+//                                canvas.fill(po);
+//                                canvas.setColor(old);
                                 for (int i = 0; i < arr3[counter] - 1; i++) {
                                         Line2D line = new Line2D.Double(arr1[counter][i], arr2[counter][i], arr1[counter][i+1], arr2[counter][i+1]);
                                         canvas.draw(line);
