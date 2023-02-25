@@ -194,7 +194,7 @@ public class GraphicRenderer {
                                                 positioncounter++;
                                         }
 
-                                        if (k == 4) {
+                                        if (k == 99) {
                                                 arr1[polycounter] = xpositions;
                                                 arr2[polycounter] = ypositions;
                                                 arr3[polycounter] = positioncounter;
@@ -243,6 +243,11 @@ public class GraphicRenderer {
                                 canvas.draw(po);
                                 canvas.fill(po);
                                 canvas.setColor(old);
+                                for (int i = 0; i < arr3[counter] - 1; i++) {
+                                        Line2D line = new Line2D.Double(arr1[counter][i], arr2[counter][i], arr1[counter][i+1], arr2[counter][i+1]);
+                                        canvas.draw(line);
+                                        canvas.fill(line);
+                                }
                                 counter++;
                         }
 

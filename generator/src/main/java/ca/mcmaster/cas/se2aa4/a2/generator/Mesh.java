@@ -34,6 +34,7 @@ public class Mesh {
 
     public Geometry voronoiDiagram;
 
+
     public double getX(Vertex v) {
         double valuex = v.getX();
         return valuex;
