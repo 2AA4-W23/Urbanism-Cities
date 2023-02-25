@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import ca.mcmaster.cas.se2aa4.a2.generator.Mesh.*;
 import org.apache.batik.ext.awt.geom.Polygon2D;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.algorithm.Centroid;
@@ -28,29 +27,16 @@ public class GraphicRenderer {
 
         private static final int THICKNESS = 3;
         private String[] args;
-        List<Vertex> centroidsVornoid = new ArrayList<>();
 
         public GraphicRenderer(String[] args) {
                 this.args = args;
         }
 
         public void render(Mesh aMesh, Graphics2D canvas) {
-                ca.mcmaster.cas.se2aa4.a2.generator.Mesh m = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
-                for (Polygon pol : aMesh.getPolygonsList()) {
-                        m.generateRandomPoints(480, 480);
-                }
-                m.generateVoronoid(m.randomPoints);
 
                 canvas.setColor(Color.BLACK);
                 Stroke stroke = new BasicStroke(0.5f);
                 canvas.setStroke(stroke);
-
-                // System.out.println("ZZZZZZZZZZZZZZZZZZZZZZ: " + aMesh.getPolygonsCount());
-                // System.out.println("hdkfjhsfhsif: " + aMesh.getPolygonsList());
-                // System.out.println("ARGS: " + args[0].toString());
-                // System.out.println("ARGS: " + args[1].toString());
-                // System.out.println("ARGS SIZE: " + args.length);
-                // System.out.println(Arrays.toString(args));
 
                 if (args.length == 3 && args[2].equals("-X")) {
 
@@ -159,82 +145,11 @@ public class GraphicRenderer {
                         }
                 } else {
 
-                        // List<Integer> vertices = new ArrayList();
-                        int polycounter = 0;
-
-                        // float[][] arr1 = new float[600][100];
-                        // float[][] arr2 = new float[600][100];
-                        // float[] arr3 = new float[600];
-
-                        for (int k = 0; k < 3; k++) {
-                                // m.generateVoronoid(centroidsVornoid);
-                                for (Polygon p : aMesh.getPolygonsList()) {
-
-                                        centroidsVornoid.add(Vertex.newBuilder()
-                                                        .setX(m.voronoiDiagram.getGeometryN(polycounter).getCentroid()
-                                                                        .getX())
-                                                        .setY(m.voronoiDiagram.getGeometryN(polycounter).getCentroid()
-                                                                        .getY())
-                                                        .build());
-                                        m.generateVoronoid(centroidsVornoid);
-
-                                        System.out.println(centroidsVornoid);
-
-                                        polycounter++;
-
-                                        // store x and y coordinates of current polygon
-                                        float[] xpositions = new float[100];
-                                        float[] ypositions = new float[100];
-
-                                        // iterate through the voronoi diagram polygons and add the x and y coordinates
-                                        // to the arrays
-                                        int positioncounter = 0;
-                                        for (Coordinate pID : m.voronoiDiagram.getGeometryN(polycounter)
-                                                        .getCoordinates()) {
-                                                xpositions[positioncounter] = (float) pID.getX();
-                                                ypositions[positioncounter] = (float) pID.getY();
-                                                positioncounter++;
-                                        }
-
-                                        // iterate through the x and y coordinate arrays and calculate their centroids
-                                        // and make each point the centroid
-                                        // for (int i = 0; i < positioncounter; i++) {
-                                        // float centroid_x = 0;
-                                        // float centroid_y = 0;
-
-                                        // for (int j = 0; j < positioncounter; j++) {
-                                        // centroid_x += xpositions[j];
-                                        // centroid_y += ypositions[j];
-                                        // }
-
-                                        // centroid_x = centroid_x / positioncounter;
-                                        // centroid_y = centroid_y / positioncounter;
-
-                                        // centroidsVornoid.add(
-                                        // Vertex.newBuilder().setX(centroid_x).setY(centroid_y)
-                                        // .build());
-                                        // xpositions[0] = (float) centroid_x;
-                                        // ypositions[0] = (float) centroid_y;
-                                        // }
-
-                                        // if (k == 2) {
-                                        // arr1[polycounter] = xpositions;
-                                        // arr2[polycounter] = ypositions;
-                                        // arr3[polycounter] = positioncounter;
-                                        // }
-
-                                        // polycounter++;
-                                }
-                                // polycounter = 0;
-                        }
-
                         int counter = 0;
 
                         for (Polygon p : aMesh.getPolygonsList()) {
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
-
-                                Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
 
                                 Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
 

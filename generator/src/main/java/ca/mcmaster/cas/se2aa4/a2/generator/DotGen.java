@@ -15,8 +15,8 @@ import org.locationtech.jts.triangulate.*;
 
 public class DotGen {
 
-        private final int width = 500;
-        private final int height = 500;
+        private final int width = 480;
+        private final int height = 480;
         private final int square_size = 20;
 
         public Mesh generate() {
@@ -128,6 +128,7 @@ public class DotGen {
                                 System.out.println("PROBLEM: " + e);
                         }
                 }
+
                 int counter = 0;
                 for (Polygon p : mesh.polygons) {
 
@@ -152,23 +153,64 @@ public class DotGen {
                         double centroid_y = (centreV1_y + centreV2_y) / 2;
 
                         mesh.createCentroid((int) centroid_x, (int) centroid_y);
-                        // mesh.generateRandomPoints(480, 480);
-
-                        // List<Polygon> polygonsv =
-                        // diagram.getSubdivision().getVoronoiCellPolygons(geometryFactory);
-                        // for (Coordinate vertex : voronoiDiagram.getCoordinates()) {
-                        // System.out.println(vertex);
-                        // }
                 }
 
-                // mesh.generateVoronoid();
-
+                // generate centroid colors
                 for (Vertex c : mesh.centroids) {
                         String colorCode = 255 + "," + 0 + "," + 0;
                         mesh.createCentroidColor(c, colorCode);
                 }
 
                 mesh.setCentroidIdx();
+
+                // generate random points for voronoid diagram for each polygon
+                for (Polygon pol : mesh.polygonsColored) {
+                        mesh.generateRandomPoints(width, height);
+                }
+                // generate voronoid based on the random points
+                mesh.generateVoronoid(mesh.randomPoints);
+
+                // lloyd relaxation
+
+                int polycounter = 0;
+
+                float[][] arr1 = new float[600][100];
+                float[][] arr2 = new float[600][100];
+                float[] arr3 = new float[600];
+
+                for (int k = 0; k < 5; k++) {
+                        for (Polygon p : mesh.polygons) {
+
+                                mesh.centroidsVornoid.add(Vertex.newBuilder()
+                                                .setX(mesh.voronoiDiagram.getGeometryN(polycounter).getCentroid()
+                                                                .getX())
+                                                .setY(mesh.voronoiDiagram.getGeometryN(polycounter).getCentroid()
+                                                                .getY())
+                                                .build());
+
+                                // store x and y coordinates of current polygon
+                                float[] xpositions = new float[100];
+                                float[] ypositions = new float[100];
+
+                                // iterate through the voronoi diagram polygons and add the x and y coordinates
+                                // to the arrays
+                                int positioncounter = 0;
+                                for (Coordinate pID : mesh.voronoiDiagram.getGeometryN(polycounter)
+                                                .getCoordinates()) {
+                                        xpositions[positioncounter] = (float) pID.getX();
+                                        ypositions[positioncounter] = (float) pID.getY();
+                                        positioncounter++;
+                                }
+
+                                if (k == 19) {
+                                        arr1[polycounter] = xpositions;
+                                        arr2[polycounter] = ypositions;
+                                        arr3[polycounter] = positioncounter;
+                                }
+
+                                polycounter++;
+                        }
+                }
 
                 return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored,
                                 mesh.centroidsColored, mesh.randomPoints);

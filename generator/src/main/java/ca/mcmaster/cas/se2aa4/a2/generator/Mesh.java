@@ -34,6 +34,8 @@ public class Mesh {
     GeometryFactory geometryFactory = new GeometryFactory();
     public VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
 
+    List<Vertex> centroidsVornoid = new ArrayList<>();
+
     public Geometry voronoiDiagram;
 
     public double getX(Vertex v) {
