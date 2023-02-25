@@ -8,8 +8,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.operation.overlay.PolygonBuilder;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
-import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.*;
 import org.locationtech.jts.algorithm.Centroid;
 
 import java.util.*;
@@ -37,6 +38,8 @@ public class Mesh {
     public List<Vertex> centroidsVornoid = new ArrayList<>();
 
     public Geometry voronoiDiagram;
+
+    List<org.locationtech.jts.geom.Polygon> vornoidPolygons = new ArrayList<>();
 
     int polycounter = 0;
 
@@ -216,6 +219,16 @@ public class Mesh {
                         .getCoordinates()) {
                     xpositions[positioncounter] = (float) pID.getX();
                     ypositions[positioncounter] = (float) pID.getY();
+
+                    Coordinate[] coords = new Coordinate[] {
+                            new Coordinate(pID.getX(), pID.getY())
+                    };
+                    GeometryFactory factory = new GeometryFactory();
+                    LinearRing linearRing = new GeometryFactory().createLinearRing(coords);
+                    org.locationtech.jts.geom.Polygon polygon = factory.createPolygon(linearRing, null);
+
+                    vornoidPolygons.add(polygon);
+
                     positioncounter++;
                 }
 
@@ -228,6 +241,13 @@ public class Mesh {
                 polycounter++;
             }
             polycounter = 0;
+        }
+    }
+
+    public void createVornoidPolygons() {
+        for (float[] i : arr1) {
+            for (float c : i) {
+            }
         }
     }
 

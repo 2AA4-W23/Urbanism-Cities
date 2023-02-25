@@ -28,13 +28,11 @@ public class GraphicRenderer {
         private static final int THICKNESS = 3;
         private String[] args;
 
-
         public GraphicRenderer(String[] args) {
                 this.args = args;
         }
 
         public void render(Mesh aMesh, Graphics2D canvas) {
-                ca.mcmaster.cas.se2aa4.a2.generator.Mesh m = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
                 canvas.setColor(Color.BLACK);
                 Stroke stroke = new BasicStroke(0.5f);
                 canvas.setStroke(stroke);
@@ -152,7 +150,7 @@ public class GraphicRenderer {
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
 
-                                Polygon2D po = new Polygon2D(m.arr1[counter], m.arr2[counter], (int) m.arr3[counter]);
+                                Polygon2D po = new Polygon2D(.arr1[counter], m.arr2[counter], (int) m.arr3[counter]);
 
                                 canvas.draw(po);
                                 canvas.fill(po);

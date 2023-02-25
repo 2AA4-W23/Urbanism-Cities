@@ -169,9 +169,7 @@ public class DotGen {
                 // lloyd relaxation
                 mesh.lloydRelax();
 
-
-
-
+                mesh.createVornoidPolygons();
 
                 return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored,
                                 mesh.centroidsColored, mesh.randomPoints);
