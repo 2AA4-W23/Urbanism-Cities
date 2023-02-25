@@ -197,6 +197,7 @@ public class Mesh {
                 }
 
             }
+            centroids.add(Vertex.newBuilder().setX(Centroid.getCentroid(voronoiDiagram.getGeometryN(vd)).getX()).setY(Centroid.getCentroid(voronoiDiagram.getGeometryN(vd)).getY()).build());
             //vertexIDs now contains the IDs of each vertex that makes up the shape
 
             List<Integer> segIDs = new ArrayList<>();

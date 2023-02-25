@@ -141,14 +141,14 @@ public class DotGen {
                 System.out.println("This is polygons size: " + mesh.polygons.size());
                 for (Polygon p : mesh.polygons) {
 
-                        double centreV1_y = mesh.vertices
-                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
-                        double centreV2_y = mesh.vertices
-                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
-                        double centre2V1_x = mesh.vertices
-                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
-                        double centre2V2_x = mesh.vertices
-                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
+//                        double centreV1_y = mesh.vertices
+//                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV1Idx()).getY();
+//                        double centreV2_y = mesh.vertices
+//                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(0)).getV2Idx()).getY();
+//                        double centre2V1_x = mesh.vertices
+//                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV1Idx()).getX();
+//                        double centre2V2_x = mesh.vertices
+//                                        .get(mesh.segments.get(p.getSegmentIdxsList().get(1)).getV2Idx()).getX();
 
                         int red = bag.nextInt(255);
                         int green = bag.nextInt(255);
@@ -157,11 +157,11 @@ public class DotGen {
                         String colorCode = red + "," + green + "," + blue;
 
                         mesh.createPolygonColor(p, colorCode);
-
-                        double centroid_x = (centre2V1_x + centre2V2_x) / 2;
-                        double centroid_y = (centreV1_y + centreV2_y) / 2;
-
-                        mesh.createCentroid((int) centroid_x, (int) centroid_y);
+//
+//                        double centroid_x = (centre2V1_x + centre2V2_x) / 2;
+//                        double centroid_y = (centreV1_y + centreV2_y) / 2;
+//
+//                        mesh.createCentroid((int) centroid_x, (int) centroid_y);
                 }
 
                 // generate centroid colors
@@ -170,7 +170,7 @@ public class DotGen {
                         mesh.createCentroidColor(c, colorCode);
                 }
 
-                mesh.setCentroidIdx();
+                // mesh.setCentroidIdx();
 
                 // generate random points for voronoid diagram for each polygon
                 //mesh.randomBasedVoronoi();

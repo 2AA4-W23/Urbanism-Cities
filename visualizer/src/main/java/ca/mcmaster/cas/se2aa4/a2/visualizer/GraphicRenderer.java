@@ -147,7 +147,7 @@ public class GraphicRenderer {
                         int counter = 0;
 
                         for (Polygon p : aMesh.getPolygonsList()) {
-                                Color old = canvas.getColor();
+                                //Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
                                 float[] arr1 = new float[100];
                                 float[] arr2 = new float[100];
@@ -169,7 +169,7 @@ public class GraphicRenderer {
 
                                 canvas.draw(po);
                                 canvas.fill(po);
-                                canvas.setColor(old);
+                                canvas.setColor(canvas.getColor());
                                 for (int i = 0; i < positionscounter - 1; i++) {
                                         Line2D line = new Line2D.Double(arr1[i], arr2[i],
                                                 arr1[i + 1], arr2[i + 1]);
