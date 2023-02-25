@@ -162,30 +162,25 @@ public class GraphicRenderer {
                         // List<Integer> vertices = new ArrayList();
                         int polycounter = 0;
 
-                        float[][] arr1 = new float[600][100];
-                        float[][] arr2 = new float[600][100];
-                        float[] arr3 = new float[600];
+                        // float[][] arr1 = new float[600][100];
+                        // float[][] arr2 = new float[600][100];
+                        // float[] arr3 = new float[600];
 
-                        for (int k = 0; k < 10; k++) {
-                                m.generateVoronoid(centroidsVornoid);
+                        for (int k = 0; k < 3; k++) {
+                                // m.generateVoronoid(centroidsVornoid);
                                 for (Polygon p : aMesh.getPolygonsList()) {
-                                        // for (int segID : p.getSegmentIdxsList()) {//for every segment, get the vertex
-                                        // IDs.
-                                        // int vID = aMesh.getSegmentsList().get(segID).getV1Idx();
-                                        // vertices.add(vID);
-                                        // vID = aMesh.getSegmentsList().get(segID).getV2Idx();
-                                        // vertices.add(vID);
-                                        //
-                                        // }
-                                        // int firstV = vertices.get(0);
-                                        // int finalV = vertices.get(0);
-                                        // for (int vertID : vertices) {
-                                        // firstV = Math.min(firstV, vertID); //Find first vertexID
-                                        // }
-                                        //
-                                        // for (int vertID : vertices) {
-                                        // finalV = Math.max(finalV, vertID); //Find last vertexID
-                                        // }
+
+                                        centroidsVornoid.add(Vertex.newBuilder()
+                                                        .setX(m.voronoiDiagram.getGeometryN(polycounter).getCentroid()
+                                                                        .getX())
+                                                        .setY(m.voronoiDiagram.getGeometryN(polycounter).getCentroid()
+                                                                        .getY())
+                                                        .build());
+                                        m.generateVoronoid(centroidsVornoid);
+
+                                        System.out.println(centroidsVornoid);
+
+                                        polycounter++;
 
                                         // store x and y coordinates of current polygon
                                         float[] xpositions = new float[100];
@@ -203,58 +198,34 @@ public class GraphicRenderer {
 
                                         // iterate through the x and y coordinate arrays and calculate their centroids
                                         // and make each point the centroid
-                                        for (int i = 0; i < positioncounter; i++) {
-                                                float centroid_x = 0;
-                                                float centroid_y = 0;
+                                        // for (int i = 0; i < positioncounter; i++) {
+                                        // float centroid_x = 0;
+                                        // float centroid_y = 0;
 
-                                                for (int j = 0; j < positioncounter; j++) {
-                                                        centroid_x += xpositions[j];
-                                                        centroid_y += ypositions[j];
-                                                }
-
-                                                centroid_x = centroid_x / positioncounter;
-                                                centroid_y = centroid_y / positioncounter;
-
-                                                centroidsVornoid.add(
-                                                                Vertex.newBuilder().setX(centroid_x).setY(centroid_y)
-                                                                                .build());
-                                                xpositions[i] = (float) centroid_x;
-                                                ypositions[i] = (float) centroid_y;
-                                        }
-
-                                        polycounter++;
-
-                                        // Coordinate centroid = Centroid
-                                        // .getCentroid(m.voronoiDiagram.getGeometryN(polycounter));
-
-                                        // xpositions[0] = (float) centroid.getX();
-                                        // ypositions[0] = (float) centroid.getY();
-
-                                        // if (k == 98) {
-
-                                        // arr1[polycounter] = xpositions;
-                                        // System.out.println("ARRAY 1: " + Arrays.toString(arr1));
-                                        // arr2[polycounter] = ypositions;
-                                        // System.out.println("ARRAY 2: " + Arrays.toString(arr2));
-                                        // arr3[polycounter] = positioncounter;
-                                        // System.out.println("ARRAY 3: " + Arrays.toString(arr3));
+                                        // for (int j = 0; j < positioncounter; j++) {
+                                        // centroid_x += xpositions[j];
+                                        // centroid_y += ypositions[j];
                                         // }
 
-                                        // double ULVertex_y = aMesh.getVerticesList().get(firstV).getY();
-                                        // double ULVertex_x = aMesh.getVerticesList().get(firstV).getX();
-                                        // double LRVertex_y = aMesh.getVerticesList().get(finalV).getY();
-                                        // double LRVertex_x = aMesh.getVerticesList().get(finalV).getX();
+                                        // centroid_x = centroid_x / positioncounter;
+                                        // centroid_y = centroid_y / positioncounter;
 
-                                        // System.out.println("CENTRoIDS: " + centroidsVornoid);
+                                        // centroidsVornoid.add(
+                                        // Vertex.newBuilder().setX(centroid_x).setY(centroid_y)
+                                        // .build());
+                                        // xpositions[0] = (float) centroid_x;
+                                        // ypositions[0] = (float) centroid_y;
+                                        // }
 
-                                        // java.awt.geom.Rectangle2D polygon = new Rectangle2D.Double(ULVertex_x,
-                                        // ULVertex_y, LRVertex_x - ULVertex_x, LRVertex_y - ULVertex_y);
-                                        // canvas.draw(polygon);
-                                        // canvas.fill(polygon);
+                                        // if (k == 2) {
+                                        // arr1[polycounter] = xpositions;
+                                        // arr2[polycounter] = ypositions;
+                                        // arr3[polycounter] = positioncounter;
+                                        // }
 
-                                        // vertices.clear();
+                                        // polycounter++;
                                 }
-                                polycounter = 0;
+                                // polycounter = 0;
                         }
 
                         int counter = 0;
@@ -262,6 +233,8 @@ public class GraphicRenderer {
                         for (Polygon p : aMesh.getPolygonsList()) {
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
+
+                                Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
 
                                 Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
 
@@ -276,22 +249,6 @@ public class GraphicRenderer {
                                 }
                                 counter++;
                         }
-
-                        // for (int i = 0; i < 10; i++) {
-
-                        // }
-                        // for (Segment s : aMesh.getSegmentsList()) {
-                        // double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
-                        // double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
-                        // double centre2_x = aMesh.getVerticesList().get(s.getV2Idx()).getX();
-                        // double centre2_y = aMesh.getVerticesList().get(s.getV2Idx()).getY();
-                        // Color old = canvas.getColor();
-                        // canvas.setColor(extractColor(s.getPropertiesList()));
-                        // Line2D line = new Line2D.Double(centre_x, centre_y, centre2_x, centre2_y);
-                        // canvas.draw(line);
-                        // canvas.fill(line);
-                        // canvas.setColor(old);
-                        // }
 
                         generateRandom(aMesh, canvas, m);
 
