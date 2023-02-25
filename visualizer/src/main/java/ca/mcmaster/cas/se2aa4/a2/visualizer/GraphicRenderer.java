@@ -28,12 +28,13 @@ public class GraphicRenderer {
         private static final int THICKNESS = 3;
         private String[] args;
 
+
         public GraphicRenderer(String[] args) {
                 this.args = args;
         }
 
         public void render(Mesh aMesh, Graphics2D canvas) {
-
+                ca.mcmaster.cas.se2aa4.a2.generator.Mesh m = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
                 canvas.setColor(Color.BLACK);
                 Stroke stroke = new BasicStroke(0.5f);
                 canvas.setStroke(stroke);
@@ -151,14 +152,14 @@ public class GraphicRenderer {
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
 
-                                Polygon2D po = new Polygon2D(arr1[counter], arr2[counter], (int) arr3[counter]);
+                                Polygon2D po = new Polygon2D(m.arr1[counter], m.arr2[counter], (int) m.arr3[counter]);
 
                                 canvas.draw(po);
                                 canvas.fill(po);
                                 canvas.setColor(old);
-                                for (int i = 0; i < arr3[counter] - 1; i++) {
-                                        Line2D line = new Line2D.Double(arr1[counter][i], arr2[counter][i],
-                                                        arr1[counter][i + 1], arr2[counter][i + 1]);
+                                for (int i = 0; i < m.arr3[counter] - 1; i++) {
+                                        Line2D line = new Line2D.Double(m.arr1[counter][i], m.arr2[counter][i],
+                                                        m.arr1[counter][i + 1], m.arr2[counter][i + 1]);
                                         canvas.draw(line);
                                         canvas.fill(line);
                                 }
@@ -190,7 +191,7 @@ public class GraphicRenderer {
         }
 
         private void generateRandom(Mesh aMesh, Graphics2D canvas, ca.mcmaster.cas.se2aa4.a2.generator.Mesh m) {
-                for (Vertex v : centroidsVornoid) {
+                for (Vertex v : m.centroidsVornoid) {
                         double centre_x = v.getX() - (THICKNESS / 2.0d);
                         double centre_y = v.getY() - (THICKNESS / 2.0d);
                         if (args.length == 3 && args[2].equals("-X") && aMesh.getVerticesList().indexOf(v) < 625) {

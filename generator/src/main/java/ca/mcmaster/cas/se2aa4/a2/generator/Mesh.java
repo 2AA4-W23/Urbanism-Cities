@@ -34,9 +34,15 @@ public class Mesh {
     GeometryFactory geometryFactory = new GeometryFactory();
     public VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
 
-    List<Vertex> centroidsVornoid = new ArrayList<>();
+    public List<Vertex> centroidsVornoid = new ArrayList<>();
 
     public Geometry voronoiDiagram;
+
+    int polycounter = 0;
+
+    public float[][] arr1 = new float[600][100];
+    public float[][] arr2 = new float[600][100];
+    public float[] arr3 = new float[600];
 
     public double getX(Vertex v) {
         double valuex = v.getX();
@@ -176,8 +182,53 @@ public class Mesh {
         // System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
     }
 
+    public void randomBasedVoronoi() {
+        for (Polygon pol : polygonsColored) {
+            generateRandomPoints(480, 480);
+        }
+        // generate voronoid based on the random points
+        generateVoronoid(randomPoints);
+    }
+
     public void getCentroidCoordinates(Polygon p) {
 
+    }
+
+    public void lloydRelax() {
+        for (int k = 0; k < 20; k++) {
+            for (Polygon p : polygons) {
+
+                centroidsVornoid.add(Vertex.newBuilder()
+                        .setX(voronoiDiagram.getGeometryN(polycounter).getCentroid()
+                                .getX())
+                        .setY(voronoiDiagram.getGeometryN(polycounter).getCentroid()
+                                .getY())
+                        .build());
+
+                // store x and y coordinates of current polygon
+                float[] xpositions = new float[100];
+                float[] ypositions = new float[100];
+
+                // iterate through the voronoi diagram polygons and add the x and y coordinates
+                // to the arrays
+                int positioncounter = 0;
+                for (Coordinate pID : voronoiDiagram.getGeometryN(polycounter)
+                        .getCoordinates()) {
+                    xpositions[positioncounter] = (float) pID.getX();
+                    ypositions[positioncounter] = (float) pID.getY();
+                    positioncounter++;
+                }
+
+                if (k == 19) {
+                    arr1[polycounter] = xpositions;
+                    arr2[polycounter] = ypositions;
+                    arr3[polycounter] = positioncounter;
+                }
+
+                polycounter++;
+            }
+            polycounter = 0;
+        }
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
