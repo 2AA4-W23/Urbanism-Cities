@@ -29,7 +29,6 @@ public class Mesh {
     public List<Vertex> randomPoints = new ArrayList<>();
     Collection<Coordinate> sites = new ArrayList<>();
 
-    GeometryFactory geometryFactory = new GeometryFactory();
     public VoronoiDiagramBuilder diagram = new VoronoiDiagramBuilder();
 
     public Geometry voronoiDiagram;
@@ -83,9 +82,7 @@ public class Mesh {
     }
 
     public void createPolygon(int segment1, int segment2, int segment3, int segment4) {
-        polygons.add(Polygon.newBuilder().addSegmentIdxs(segment1).addSegmentIdxs(segment2).addSegmentIdxs(segment3)
-                .addSegmentIdxs(segment4)
-                .build());
+        polygons.add(Polygon.newBuilder().addSegmentIdxs(segment1).addSegmentIdxs(segment2).addSegmentIdxs(segment3).addSegmentIdxs(segment4).build());
     }
 
     public void createCentroid(int centroid_x, int centroid_y) {
@@ -99,10 +96,7 @@ public class Mesh {
 
         for (Polygon shape2 : polygons) {
             if (!shape2.equals(shape)) { // if the two polygons are not the same
-                if (!Collections.disjoint(shape2.getSegmentIdxsList(), shape.getSegmentIdxsList())) { // if they have at
-                                                                                                      // least one
-                                                                                                      // matching
-                                                                                                      // segment index
+                if (!Collections.disjoint(shape2.getSegmentIdxsList(), shape.getSegmentIdxsList())) { // if they have at least one matching segment index
                     neighbours.add(loopingpolyid); // Then shape2 is shape's neighbour
                 }
             }
@@ -110,12 +104,7 @@ public class Mesh {
         }
 
         oldsegments = new ArrayList<Integer>(shape.getSegmentIdxsList()); // get current shape's segments
-        polygons.set(outerloop,
-                Polygon.newBuilder().addAllSegmentIdxs(oldsegments).addAllNeighborIdxs(neighbours).build()); // re-add
-                                                                                                             // the
-                                                                                                             // shape
-                                                                                                             // but with
-                                                                                                             // neighbours
+        polygons.set(outerloop, Polygon.newBuilder().addAllSegmentIdxs(oldsegments).addAllNeighborIdxs(neighbours).build()); // re-add the shape but with neighbours
     }
 
     public Property createProperty(String colorCode) {
@@ -124,25 +113,19 @@ public class Mesh {
     }
 
     public void createVertexColor(Vertex v, String colorCode) {
-        verticesColored.add(Vertex.newBuilder(v)
-                .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
+        verticesColored.add(Vertex.newBuilder(v).addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
     }
 
     public void createSegmentColor(Segment s, String colorCode) {
-        segmentsColored.add(Segment.newBuilder(s)
-                .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
+        segmentsColored.add(Segment.newBuilder(s).addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
     }
 
     public void createPolygonColor(Polygon p, String colorCode) {
-        polygonsColored
-                .add(Polygon.newBuilder(p)
-                        .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build())
-                        .build());
+        polygonsColored.add(Polygon.newBuilder(p).addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
     }
 
     public void createCentroidColor(Vertex c, String colorCode) {
-        centroidsColored.add(Vertex.newBuilder(c)
-                .addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
+        centroidsColored.add(Vertex.newBuilder(c).addProperties(Property.newBuilder().setKey("rgb_color").setValue(colorCode).build()).build());
     }
 
     public void setCentroidIdx() {
@@ -171,16 +154,9 @@ public class Mesh {
         voronoiDiagram = diagram.getDiagram(new GeometryFactory());
     }
 
-    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
-            List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints,
-            List<Vertex> grid) {
+    public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors, List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints, List<Vertex> grid) {
 
-        System.out.println("MESH GRID: " + grid);
-
-        Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
-                .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored)
-                .addAllVertices(grid)
-                .build();
+        Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored).addAllVertices(grid).build();
         return mesh;
     }
 

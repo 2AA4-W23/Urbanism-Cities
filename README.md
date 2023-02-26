@@ -20,7 +20,7 @@ java -jar visualizer.jar ../generator/sample.mesh sample.svg
 
 to generate the visualizer.
 
-The above steps need to be completed until a sample.svg file is produced. These steps likely need to be called several times. This problem has been persistent since the first time working on this project and it has not subsided.
+The above steps need to be completed until a non-blank sample.svg file is produced. These steps likely need to be called several times. This problem has been persistent since the first time we cloned the repository and it has not subsided.
 
 You can call the options listed below to generate an irregular mesh, a square grid, or to show a help menu. If no option is listed, the project will build a default irregular mesh.
 
