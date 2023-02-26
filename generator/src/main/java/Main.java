@@ -14,11 +14,14 @@ import java.io.PrintWriter;
 
 public class Main {
 
+    // Determines square grid or irregular mesh
     private static boolean grid = false;
 
+    // Options for user
     private static final Option ARG_GRID = new Option("g", "grid", false, "Produce a square grid");
     private static final Option ARG_IRREGULAR = new Option("i", "irregular", false, "Produce an irregular mesh");
 
+    // Help menu
     private static void printHelp(Options options) {
         HelpFormatter formatter = new HelpFormatter();
         PrintWriter pw = new PrintWriter(System.out);

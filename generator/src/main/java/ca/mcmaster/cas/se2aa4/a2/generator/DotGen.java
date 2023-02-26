@@ -96,6 +96,7 @@ public class DotGen {
                         mesh.createVertexColor(v, colorCode);
                 }
 
+                // Create colored segments
                 for (Segment s : mesh.segments) {
                         try {
 
@@ -117,18 +118,15 @@ public class DotGen {
                                                                 .getProperties(0).getValue().split(",")[2]))
                                                 ^ 2) * 100);
                                 String colorCode = reds + "," + greens + "," + blues;
-                                // Property color = mesh.createProperty(colorCode);
-                                // Segment colored = mesh.createSegmentColor(s, color);
 
                                 mesh.createSegmentColor(s, colorCode);
-                                // segmentsWithColors.add(colored);
 
                         } catch (Exception e) {
                                 System.out.println("PROBLEM: " + e);
                         }
                 }
 
-                int counter = 0;
+                // Create colored polygons
                 for (Polygon p : mesh.polygons) {
 
                         double centreV1_y = mesh.vertices
@@ -154,13 +152,14 @@ public class DotGen {
                         mesh.createCentroid((int) centroid_x, (int) centroid_y);
                 }
 
+                // Create colored centroids
                 for (Vertex c : mesh.centroids) {
                         String colorCode = 255 + "," + 0 + "," + 0;
                         mesh.createCentroidColor(c, colorCode);
                 }
-
                 mesh.setCentroidIdx();
 
+                // vertex to represent drawing a square grid or irregular mesh
                 List<Vertex> meshGrid = new ArrayList<>();
 
                 if (grid) {

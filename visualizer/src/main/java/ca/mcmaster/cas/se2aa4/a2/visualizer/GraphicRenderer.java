@@ -34,10 +34,12 @@ public class GraphicRenderer {
         }
 
         public void render(Mesh aMesh, Graphics2D canvas) {
+
                 ca.mcmaster.cas.se2aa4.a2.generator.Mesh m = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
 
                 System.out.println("NUM VERTICES: " + aMesh.getVerticesCount());
 
+                // Determine square grid or irregular mesh
                 if (aMesh.getVerticesCount() == 1202 && aMesh.getVerticesList().get(1201).getX() == 1000.0) {
                         grid = true;
                 }
@@ -48,10 +50,12 @@ public class GraphicRenderer {
                 Stroke stroke = new BasicStroke(0.5f);
                 canvas.setStroke(stroke);
 
+                // generate random points for voronoid diagram
                 for (Polygon pol : aMesh.getPolygonsList()) {
                         m.generateRandomPoints(480, 480);
                 }
 
+                // lloyd relaxation algorithm
                 int innerrandom = 0;
                 for (Vertex rand : m.randomPoints) {
                         Coordinate r = new Coordinate(rand.getX(), rand.getY());
@@ -87,13 +91,17 @@ public class GraphicRenderer {
                         }
                         innerrandom = 0;
                 }
+
+                // Generate voronoid argument
                 m.generateVoronoid(m.randomPoints);
 
-                if (grid) {
+                if (grid) { // square grid
+
+                        // debug mode for square grid
                         if (args.length == 3 && args[2].equals("-X")) {
 
+                                // iterate through polygons
                                 for (Polygon p : aMesh.getPolygonsList()) {
-                                        // System.out.println("dfdfd: " + p.getSegmentIdxsList());
                                         double centreV1_x = aMesh.getVerticesList()
                                                         .get(aMesh.getSegmentsList().get(p.getSegmentIdxsList().get(0))
                                                                         .getV1Idx())
@@ -167,6 +175,7 @@ public class GraphicRenderer {
                                         Color old = canvas.getColor();
                                         canvas.setColor(extractColor(p.getPropertiesList()));
 
+                                        // draw neigbors
                                         for (int n : p.getNeighborIdxsList()) {
                                                 double neighbor_centroid_x = aMesh.getVerticesList()
                                                                 .get(aMesh.getPolygonsList().get(n).getCentroidIdx())
@@ -183,6 +192,7 @@ public class GraphicRenderer {
                                                 canvas.fill(neighbor_line);
                                         }
 
+                                        // draw segments
                                         canvas.setColor(Color.BLACK);
                                         Line2D line = new Line2D.Double(centreV1_x, centreV1_y, centreV2_x, centreV2_y);
                                         Line2D line2 = new Line2D.Double(centreV1_x, centreV1_y, centre2V2_x,
@@ -202,10 +212,12 @@ public class GraphicRenderer {
                                         canvas.setColor(Color.BLACK);
                                 }
 
+                                // draw and generate vertices
                                 generateVertices(aMesh, canvas);
 
-                        } else {
+                        } else { // not debug mode
 
+                                // iterate through polygons
                                 List<Integer> vertices = new ArrayList();
                                 for (Polygon p : aMesh.getPolygonsList()) {
                                         for (int segID : p.getSegmentIdxsList()) {// for every segment, get the vertex
@@ -226,11 +238,13 @@ public class GraphicRenderer {
                                                 finalV = Math.max(finalV, vertID); // Find last vertexID
                                         }
 
+                                        // get upper left and lower right vertices
                                         double ULVertex_y = aMesh.getVerticesList().get(firstV).getY();
                                         double ULVertex_x = aMesh.getVerticesList().get(firstV).getX();
                                         double LRVertex_y = aMesh.getVerticesList().get(finalV).getY();
                                         double LRVertex_x = aMesh.getVerticesList().get(finalV).getX();
 
+                                        // draw squares
                                         Color old = canvas.getColor();
                                         canvas.setColor(extractColor(p.getPropertiesList()));
                                         java.awt.geom.Rectangle2D polygon = new Rectangle2D.Double(ULVertex_x,
@@ -241,6 +255,7 @@ public class GraphicRenderer {
                                         vertices.clear();
                                 }
 
+                                // get and draw segments
                                 for (Segment s : aMesh.getSegmentsList()) {
                                         double centre_x = aMesh.getVerticesList().get(s.getV1Idx()).getX();
                                         double centre_y = aMesh.getVerticesList().get(s.getV1Idx()).getY();
@@ -254,22 +269,27 @@ public class GraphicRenderer {
                                         canvas.setColor(old);
                                 }
 
+                                // draw and generate vertices
                                 generateVertices(aMesh, canvas);
 
                         }
-                } else {
+                } else { // irregular mesh
                         int polycounter = 0;
 
                         float[][] arr1 = new float[600][100];
                         float[][] arr2 = new float[600][100];
                         float[] arr3 = new float[600];
 
+                        // lloyd relaxation
                         for (int k = 0; k < 100; k++) {
+
+                                // generate vornoid based on new centroids
                                 m.generateVoronoid(centroidsVornoid);
                                 for (Polygon p : aMesh.getPolygonsList()) {
                                         float[] xpositions = new float[100];
                                         float[] ypositions = new float[100];
                                         int positioncounter = 0;
+                                        // get each polygons's coordinates
                                         for (Coordinate pID : m.voronoiDiagram.getGeometryN(polycounter)
                                                         .getCoordinates()) {
                                                 xpositions[positioncounter] = (float) pID.getX();
@@ -290,6 +310,7 @@ public class GraphicRenderer {
                                         float centroid_x = 0;
                                         float centroid_y = 0;
 
+                                        // calculate centroids
                                         for (int j = 0; j < positioncounter; j++) {
                                                 centroid_x += xpositions[j];
                                                 centroid_y += ypositions[j];
@@ -311,6 +332,7 @@ public class GraphicRenderer {
 
                         int counter = 0;
 
+                        // draw and fill in polygons based on their coordinates gathered above
                         for (Polygon p : aMesh.getPolygonsList()) {
                                 Color old = canvas.getColor();
                                 canvas.setColor(extractColor(p.getPropertiesList()));
@@ -337,6 +359,7 @@ public class GraphicRenderer {
                 }
         }
 
+        // generates vertices and draws them
         private void generateVertices(Mesh aMesh, Graphics2D canvas) {
                 for (Vertex v : aMesh.getVerticesList()) {
                         if (v.getX() == 1000.0) {
@@ -358,6 +381,7 @@ public class GraphicRenderer {
                 }
         }
 
+        // generates centroids and draws them
         private void generateRandom(Mesh aMesh, Graphics2D canvas, ca.mcmaster.cas.se2aa4.a2.generator.Mesh m) {
                 for (Vertex v : centroidsVornoid) {
                         if (v.getX() == 1000.0) {
