@@ -34,6 +34,7 @@ public class Mesh {
 
     public Geometry voronoiDiagram;
 
+    public boolean grid;
 
     public double getX(Vertex v) {
         double valuex = v.getX();
@@ -45,13 +46,13 @@ public class Mesh {
         return valuey;
     }
 
-    // public int getV1Idx(Segment s) {
-    // return s.getV1Idx();
-    // }
+    public int getV1Idx(Segment s) {
+        return s.getV1Idx();
+    }
 
-    // public int getV2Idx(Segment s) {
-    // return s.getV2Idx();
-    // }
+    public int getV2Idx(Segment s) {
+        return s.getV2Idx();
+    }
 
     public void setX(Vertex v, double x) {
         v.newBuilderForType().setY(x);
@@ -152,8 +153,6 @@ public class Mesh {
             ++counter;
         }
 
-        // System.out.println("UPDATED: " + polygonsColored);
-
     }
 
     public void generateRandomPoints(int width, int height) {
@@ -170,17 +169,17 @@ public class Mesh {
         }
         diagram.setSites(sites);
         voronoiDiagram = diagram.getDiagram(new GeometryFactory());
-        // System.out.println("Printing Voronoi Polygons " + voronoiDiagram);
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
-            List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints) {
-        // System.out.println("SIZE: " + vertices.size());
-        // System.out.println("SIZE SEGMENTS: " + segments.size());
-        // System.out.println("SIZE POLYGONS: " + polygons.size());
+            List<Polygon> polygonsColored, List<Vertex> centroidsColored, List<Vertex> randomPoints,
+            List<Vertex> grid) {
+
+        System.out.println("MESH GRID: " + grid);
 
         Structs.Mesh mesh = Structs.Mesh.newBuilder().addAllVertices(verticesWithColors)
                 .addAllSegments(segmentsWithColors).addAllPolygons(polygonsColored).addAllVertices(centroidsColored)
+                .addAllVertices(grid)
                 .build();
         return mesh;
     }

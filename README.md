@@ -6,7 +6,35 @@
 
 ## How to run the product
 
-_This section needs to be edited to reflect how the user can interact with thefeature released in your project_
+To run the product, mvn clean --> mvn install --> mvn package must be called, and then change directory to directory 'generator' and call:
+
+```
+java -jar generator.jar sample.mesh
+```
+
+to generate the generator. Then back out one directory, and move into the 'visualizer' directory and call:
+
+```
+java -jar visualizer.jar ../generator/sample.mesh sample.svg
+```
+
+to generate the visualizer.
+
+The above steps need to be completed until a sample.svg file is produced. These steps likely need to be called several times. This problem has been persistent since the first time working on this project and it has not subsided.
+
+You can call the options listed below to generate an irregular mesh, a square grid, or to show a help menu. If no option is listed, the project will build a default irregular mesh.
+
+```
+java -jar generator.jar sample.mesh -i
+java -jar generator.jar sample.mesh -g
+java -jar generator.jar sample.mesh -h
+```
+
+To activate debug mode in the visualizer for the square grid mesh, call the command below:
+
+```
+java -jar visualizer.jar ../generator/sample.mesh sample.svg -X
+```
 
 ### Installation instructions
 
@@ -81,3 +109,4 @@ A feature is done when its function is functional. It does not need to be the mo
 | F13 | Generate voronoi diagrams                                           | Amaan    | February 24 | February 24 | D      |
 | F14 | Visualize irregular polygons                                        | Mujtaba  | February 24 | February 24 | D      |
 | F15 | Create centroids                                                    | Mankaran | February 24 | February 24 | D      |
+| F16 | Implemented command line arguments                                  | Mankaran | February 26 | February 26 | D      |

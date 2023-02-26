@@ -18,18 +18,21 @@ public class DotGen {
         private final int width = 500;
         private final int height = 500;
         private final int square_size = 20;
+        private static boolean grid = false;
+
+        public DotGen(boolean grid) {
+                this.grid = grid;
+        }
+
+        public DotGen() {
+        }
 
         public Mesh generate() {
                 ca.mcmaster.cas.se2aa4.a2.generator.Mesh mesh = new ca.mcmaster.cas.se2aa4.a2.generator.Mesh();
 
-                // sites.add(new Coordinate(70, 70));
-                // sites.add(new Coordinate(50, 150));
-                // sites.add(new Coordinate(150, 50));
-                // sites.add(new Coordinate(150, 150));
-                // sites.add(new Coordinate(250, 50));
-                // sites.add(new Coordinate(250, 150));
-                // sites.add(new Coordinate(350, 50));
-                // sites.add(new Coordinate(370, 170));
+                mesh.grid = grid;
+
+                System.out.println("GRID DOT GEN: " + mesh.grid);
 
                 // Create all the vertices
                 for (int x = 0; x < width; x += square_size) {
@@ -84,7 +87,6 @@ public class DotGen {
                 }
 
                 // Distribute colors randomly. Vertices are immutable, need to enrich them
-                // List<Vertex> verticesWithColors = new ArrayList<>();
                 Random bag = new Random();
                 for (Vertex v : mesh.vertices) {
                         int red = bag.nextInt(255);
@@ -94,11 +96,8 @@ public class DotGen {
                         mesh.createVertexColor(v, colorCode);
                 }
 
-                // List<Segment> segmentsWithColors = new ArrayList<>();
                 for (Segment s : mesh.segments) {
                         try {
-                                // System.out.println(s);
-                                // System.out.println(mesh.verticesColored.size());
 
                                 int reds = (int) Math.sqrt(((Integer.valueOf(mesh.verticesColored.get(s.getV1Idx())
                                                 .getProperties(0).getValue().split(",")[0]))
@@ -128,6 +127,7 @@ public class DotGen {
                                 System.out.println("PROBLEM: " + e);
                         }
                 }
+
                 int counter = 0;
                 for (Polygon p : mesh.polygons) {
 
@@ -152,16 +152,7 @@ public class DotGen {
                         double centroid_y = (centreV1_y + centreV2_y) / 2;
 
                         mesh.createCentroid((int) centroid_x, (int) centroid_y);
-                        // mesh.generateRandomPoints(480, 480);
-
-                        // List<Polygon> polygonsv =
-                        // diagram.getSubdivision().getVoronoiCellPolygons(geometryFactory);
-                        // for (Coordinate vertex : voronoiDiagram.getCoordinates()) {
-                        // System.out.println(vertex);
-                        // }
                 }
-
-                // mesh.generateVoronoid();
 
                 for (Vertex c : mesh.centroids) {
                         String colorCode = 255 + "," + 0 + "," + 0;
@@ -170,8 +161,14 @@ public class DotGen {
 
                 mesh.setCentroidIdx();
 
+                List<Vertex> meshGrid = new ArrayList<>();
+
+                if (grid) {
+                        meshGrid.add(Vertex.newBuilder().setX(1000).setY(1000).build());
+                }
+
                 return mesh.generate(mesh.verticesColored, mesh.segmentsColored, mesh.polygonsColored,
-                                mesh.centroidsColored, mesh.randomPoints);
+                                mesh.centroidsColored, mesh.randomPoints, meshGrid);
 
         }
 
