@@ -37,6 +37,14 @@ public class Mesh {
 
     public List<Vertex> centroidsVornoid = new ArrayList<>();
 
+    ArrayList<Vertex> vertexVornoid = new ArrayList<>();
+    ArrayList<ArrayList<Vertex>> allVertexVornoid = new ArrayList<ArrayList<Vertex>>();
+
+    ArrayList<Segment> segmentVornoidIndex = new ArrayList<>();
+    ArrayList<ArrayList<Segment>> allsegmentVornoidIndex = new ArrayList<ArrayList<Segment>>();
+
+    ArrayList<Polygon> polygon = new ArrayList<>();
+
     public Geometry voronoiDiagram;
 
     List<org.locationtech.jts.geom.Polygon> vornoidPolygons = new ArrayList<>();
@@ -178,39 +186,116 @@ public class Mesh {
     }
 
     public void generateVoronoid(List<Vertex> points) {
+
+        int counter = 0;
+
+        // reset sites each call
         sites.clear();
+
+        // add a coordinate from the points list to the sites collection each time
         for (Vertex rand : points) {
             sites.add(new Coordinate(rand.getX(), rand.getY()));
         }
+
+        // set the diagram sites and get the diagram
         diagram.setSites(sites);
         voronoiDiagram = diagram.getDiagram(new GeometryFactory());
 
-        for (int vd = 0; vd < voronoiDiagram.getNumGeometries(); vd++) {
-            ArrayList<Integer> vertexIDs = new ArrayList<>(); //List of all vertex IDs that make up a shape
-            for (Coordinate vOID: voronoiDiagram.getGeometryN(vd).getCoordinates()) { //for all points that make up a shape
-                int randlooper = 0;
-                for (Vertex rand : randomPoints) { //finds vertexID for that point of the shape
-                    if (rand.getX() == vOID.getX() && rand.getY() == vOID.getY()) {
-                        vertexIDs.add(randlooper);
-                    }
-                    randlooper++;
-                }
+        // System.out.println(voronoiDiagram);
 
+        // iterate through each voronoi polygon and get coordinates for each polygon
+        for (int numPolygon = 0; numPolygon < voronoiDiagram.getNumGeometries(); numPolygon++) {
+
+            // add the current polygon's first segment
+            // ArrayList<Polygon> tempPolygon = new ArrayList<>();
+            Polygon tempPolygon = Polygon.newBuilder().addSegmentIdxs(counter).build();
+
+            // get each polygon's coordinates
+            Coordinate[] coord = voronoiDiagram.getGeometryN(numPolygon).getCoordinates();
+
+            // iterate through the polygon's coordinates and create vertex's from them
+            for (Coordinate c : coord) {
+                vertexVornoid.add(Vertex.newBuilder().setX(c.getX()).setY(c.getY()).build());
             }
-            centroids.add(Vertex.newBuilder().setX(Centroid.getCentroid(voronoiDiagram.getGeometryN(vd)).getX()).setY(Centroid.getCentroid(voronoiDiagram.getGeometryN(vd)).getY()).build());
-            //vertexIDs now contains the IDs of each vertex that makes up the shape
 
-            List<Integer> segIDs = new ArrayList<>();
-            for (int i = 0; i < vertexIDs.size() - 1 ; i++) { //for every vertexID of the shape
-                segments.add(Segment.newBuilder().setV1Idx(vertexIDs.get(i)).setV2Idx(vertexIDs.get(i+1)).build()); //making segments of the shape
-                segIDs.add(segmentcounter); //keeping track of the IDs of the segment just created
-                segmentcounter++;
+            // iterate through the number of coordinates in the current polygon and create
+            // segments from them
+            for (int i = 0; i < coord.length - 1; i++) {
+                segmentVornoidIndex.add(Segment.newBuilder().setV1Idx(counter).setV2Idx(counter + 1).build());
+                counter++;
             }
-            // all segments for the shape are now built, and their IDs are stored in segIDs
 
-            polygons.add(Polygon.newBuilder().addAllSegmentIdxs(segIDs).build());
+            // add segment indexes to the polygon based on how many segments it has
+            for (int i = counter - coord.length + 1; i < counter - 1; i++) {
+                // add a segment to the temp polygon each time
+                tempPolygon = Polygon.newBuilder(tempPolygon).addSegmentIdxs(i + 1).build();
+            }
+
+            // add the polygon to a polygons list
+            polygon.add(tempPolygon);
 
         }
+
+        // System.out.println("Vertices: " + vertexVornoid);
+        // System.out.println("POLYGONS: " + polygon);
+
+        // System.out.println(allVertexVornoid.get(0));
+
+        // System.out.println("RANDOM POINTS: " + points.get(0));
+        // System.out.println(voronoiDiagram);
+
+        // for (int vd = 0; vd < voronoiDiagram.getNumGeometries(); vd++) {
+        // ArrayList<Integer> vertexIDs = new ArrayList<>(); // List of all vertex IDs
+        // that make up a shape
+        // for (Coordinate vOID : voronoiDiagram.getGeometryN(vd).getCoordinates()) { //
+        // for all points that make up a
+        // // shape
+        // int randlooper = 0;
+        // for (Vertex rand : randomPoints) { // finds vertexID for that point of the
+        // shape
+        // // System.out.println("RAND.GETX(): " + rand.getX() + " --> " + (int)
+        // // rand.getX());
+        // // // System.out.println("RAND.GETX(): " + rand.getX() + " --> " + (int)
+        // // // rand.getX());
+        // // System.out.println("void.GETX(): " + (int) vOID.getX());
+        // // System.out.println("RAND.GETY(): " + (int) rand.getY());
+        // // System.out.println("void.GETY(): " + (int) vOID.getY());
+
+        // if ((int) rand.getX() == (int) vOID.getX() && (int) rand.getY() == (int)
+        // vOID.getY()) {
+        // // System.out.println("RANDINHERE: " + randlooper);
+        // vertexIDs.add(randlooper);
+        // }
+        // randlooper++;
+        // }
+
+        // }
+
+        // System.out.println("VERTICES: " + vertexIDs);
+
+        // centroids.add(Vertex.newBuilder().setX(Centroid.getCentroid(voronoiDiagram.getGeometryN(vd)).getX())
+        // .setY(Centroid.getCentroid(voronoiDiagram.getGeometryN(vd)).getY()).build());
+        // // vertexIDs now contains the IDs of each vertex that makes up the shape
+
+        // List<Integer> segIDs = new ArrayList<>();
+        // for (int i = 0; i < vertexIDs.size() - 1; i++) { // for every vertexID of the
+        // shape
+        // segments.add(Segment.newBuilder().setV1Idx(vertexIDs.get(i)).setV2Idx(vertexIDs.get(i
+        // + 1)).build()); // making
+        // // segments
+        // // of
+        // // the
+        // // shape
+        // segIDs.add(segmentcounter); // keeping track of the IDs of the segment just
+        // created
+        // segmentcounter++;
+        // }
+        // // all segments for the shape are now built, and their IDs are stored in
+        // segIDs
+
+        // polygons.add(Polygon.newBuilder().addAllSegmentIdxs(segIDs).build());
+
+        // }
 
         for (int poly = 0; poly < polygons.size(); poly++) {
             createNeighbour(polygons.get(poly), poly);
@@ -220,7 +305,7 @@ public class Mesh {
     }
 
     public void randomBasedVoronoi() {
-        for (Polygon pol : polygonsColored) {
+        for (int i = 0; i < 576; i++) {
             generateRandomPoints(480, 480);
         }
         // generate voronoid based on the random points
@@ -298,7 +383,7 @@ public class Mesh {
     }
 
     public Structs.Mesh generate(List<Vertex> verticesWithColors, List<Segment> segmentsWithColors,
-                                 List<Polygon> polygonsColored) {
+            List<Polygon> polygonsColored) {
         // System.out.println("SIZE: " + vertices.size());
         // System.out.println("SIZE SEGMENTS: " + segments.size());
         // System.out.println("SIZE POLYGONS: " + polygons.size());

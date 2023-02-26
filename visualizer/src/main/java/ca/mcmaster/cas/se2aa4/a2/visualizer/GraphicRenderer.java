@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
 import org.apache.batik.ext.awt.geom.Polygon2D;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.algorithm.Centroid;
@@ -143,43 +145,58 @@ public class GraphicRenderer {
                                 canvas.setColor(Color.BLACK);
                         }
                 } else {
-
-                        int counter = 0;
+                        int countSegments = 0;
 
                         for (Polygon p : aMesh.getPolygonsList()) {
-                                //Color old = canvas.getColor();
-                                canvas.setColor(extractColor(p.getPropertiesList()));
+
+                                // keep track of array values
+                                int arrayCounter = 0;
+
+                                // arrays for x and y coordinates
                                 float[] arr1 = new float[100];
                                 float[] arr2 = new float[100];
 
-                                int positionscounter = 0;
-                                int outsideS = 0;
-                                for (int s : p.getSegmentIdxsList()) { //for every segment of a polygon
-                                        arr1[positionscounter] = (float) aMesh.getVertices(aMesh.getSegments(s).getV1Idx()).getX();
-                                        arr2[positionscounter] = (float) aMesh.getVertices(aMesh.getSegments(s).getV1Idx()).getY();
-                                        outsideS = s;
-                                        positionscounter++;
+                                // match each polygon's segment index with its associated segment
+                                while (arrayCounter < p.getSegmentIdxsList().size()) {
+                                        // store X coordinate
+                                        arr1[arrayCounter] = (float) aMesh.getVerticesList()
+                                                        .get((aMesh.getSegmentsList().get(countSegments)
+                                                                        .getV1Idx()))
+                                                        .getX();
+                                        // store Y coordinate
+                                        arr2[arrayCounter] = (float) aMesh.getVerticesList()
+                                                        .get((aMesh.getSegmentsList().get(countSegments)
+                                                                        .getV2Idx()))
+                                                        .getY();
+                                        countSegments++;
+                                        arrayCounter++;
                                 }
 
-                                arr1[positionscounter] = (float) aMesh.getVertices(aMesh.getSegments(outsideS).getV2Idx()).getX();
-                                arr2[positionscounter] = (float) aMesh.getVertices(aMesh.getSegments(outsideS).getV2Idx()).getY();
-                                positionscounter++;
+                                // create the polygon using the x, y coordinates and the number of points per
+                                // polygon
+                                Polygon2D po = new Polygon2D(arr1, arr2, arrayCounter);
 
-                                Polygon2D po = new Polygon2D(arr1, arr2, positionscounter);
+                                Random bag = new Random();
 
+                                int red = bag.nextInt(255);
+                                int green = bag.nextInt(255);
+                                int blue = bag.nextInt(255);
+
+                                // draw and fill the polygon
+                                canvas.setColor(new Color(red, green, blue));
                                 canvas.draw(po);
                                 canvas.fill(po);
-                                canvas.setColor(canvas.getColor());
-                                for (int i = 0; i < positionscounter - 1; i++) {
+
+                                // draw the polygon segments
+                                for (int i = 0; i < arrayCounter - 1; i++) {
                                         Line2D line = new Line2D.Double(arr1[i], arr2[i],
-                                                arr1[i + 1], arr2[i + 1]);
+                                                        arr1[i + 1], arr2[i + 1]);
                                         canvas.draw(line);
                                         canvas.fill(line);
                                 }
-                                counter++;
                         }
 
-                        generateRandom(aMesh, canvas);
+                        // generateRandom(aMesh, canvas);
 
                 }
 
@@ -207,18 +224,10 @@ public class GraphicRenderer {
                 for (Vertex v : aMesh.getVerticesList()) {
                         double centre_x = v.getX() - (THICKNESS / 2.0d);
                         double centre_y = v.getY() - (THICKNESS / 2.0d);
-                        if (aMesh.getVerticesList().indexOf(v) > 575) {
-                                canvas.setColor(Color.BLACK);
-                        }
-//                        } else {
-//                                Color old = canvas.getColor();
-//                                canvas.setColor(extractColor(v.getPropertiesList()));
-//                                // canvas.setColor(old);
-//                        }
+                        canvas.setColor(Color.BLACK);
                         Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS,
                                         THICKNESS);
                         canvas.fill(point);
-
                 }
         }
 
