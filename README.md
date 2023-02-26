@@ -110,3 +110,4 @@ A feature is done when its function is functional. It does not need to be the mo
 | F14 | Visualize irregular polygons                                        | Mujtaba  | February 24 | February 24 | D      |
 | F15 | Create centroids                                                    | Mankaran | February 24 | February 24 | D      |
 | F16 | Implemented command line arguments                                  | Mankaran | February 26 | February 26 | D      |
+| F17 | Removed redunancies and sped up code                                | Mujtaba  | February 26 | February 26 | D      |
