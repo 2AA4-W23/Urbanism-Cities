@@ -63,6 +63,10 @@ public class VornoidGen extends ca.mcmaster.cas.se2aa4.a2.generator.Mesh {
             }
 
         }
+        System.out.println();
+        System.out.println("Voronoi Vertices: " + vornoidVertices);
+        System.out.println("SIZE: " + vornoidVertices.size());
+        System.out.println();
 
         return vornoidVertices;
 
@@ -91,7 +95,7 @@ public class VornoidGen extends ca.mcmaster.cas.se2aa4.a2.generator.Mesh {
 
         }
 
-        System.out.println("SEGMENTS: " + vornoidSegments);
+        // System.out.println("SEGMENTS: " + vornoidSegments);
 
         return vornoidSegments;
 

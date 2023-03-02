@@ -23,7 +23,7 @@ public class DotGen {
                 VornoidGen vornoid = new VornoidGen();
                 List<Vertex> randomPoints = new ArrayList<>();
 
-                for (int i = 0; i < 576; i++) {
+                for (int i = 0; i < 10; i++) {
                         randomPoints = vornoid.generateRandomPoints(width, height);
                 }
                 vornoid.generateVoronoidSites(randomPoints);

@@ -81,8 +81,8 @@ public class GraphicRenderer {
                         // create the polygon using the x, y coordinates and the number of points per
                         // polygon
 
-                        System.out.println("ARRAY 1: " + Arrays.toString(arr1));
-                        System.out.println("ARRAY 2: " + Arrays.toString(arr2));
+                        // System.out.println("ARRAY 1: " + Arrays.toString(arr1));
+                        // System.out.println("ARRAY 2: " + Arrays.toString(arr2));
 
                         Polygon2D po = new Polygon2D(arr1, arr2, arrayCounter);
 
@@ -106,9 +106,11 @@ public class GraphicRenderer {
                         // }
                 }
 
+                generateVertices(aMesh, canvas);
+
         }
 
-        private void generateRandom(Mesh aMesh, Graphics2D canvas) {
+        private void generateVertices(Mesh aMesh, Graphics2D canvas) {
                 for (Vertex v : aMesh.getVerticesList()) {
                         double centre_x = v.getX() - (THICKNESS / 2.0d);
                         double centre_y = v.getY() - (THICKNESS / 2.0d);
