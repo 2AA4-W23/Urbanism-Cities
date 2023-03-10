@@ -1,6 +1,6 @@
 # Mesh Generator (Assignment #2 Walkthrough)
 
-  - Author: Sébastien Mosser
+- Author: Sébastien Mosser
 
 ## How to install?
 
@@ -10,8 +10,8 @@ mosser@azrael A2 % mvn install
 
 It creates two jars:
 
-  1. `generator/generator.jar` to generate meshes
-  2. `visualizer/visualizer.jar` to visualize such meshes as SVG files
+1. `generator/generator.jar` to generate meshes
+2. `visualizer/visualizer.jar` to visualize such meshes as SVG files
 
 ## Examples of execution
 
@@ -27,9 +27,9 @@ One can run the generator with `-help` as option to see the different command li
 ### Visualizing a mesh, (regular or debug mode)
 
 ```
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/grid.mesh -o img/grid.svg          
+mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/grid.mesh -o img/grid.svg
 mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/grid.mesh -o img/grid_debug.svg -x
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/irregular.mesh -o img/irregular.svg   
+mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/irregular.mesh -o img/irregular.svg
 mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/irregular.mesh -o img/irregular_debug.svg -x
 ```
 
