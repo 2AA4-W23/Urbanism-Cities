@@ -16,7 +16,7 @@ public class Main {
         Buildable specification = SpecificationFactory.create(config);
         Mesh theMesh = specification.build();
         Structs.Mesh exported = new Exporter().run(theMesh);
-        if (config.export().containsKey(Configuration.DEMO)) {
+        if(config.export().containsKey(Configuration.DEMO)) {
             exported = new RandomEnricher(0.2f).process(exported);
         }
         new MeshFactory().write(exported, config.export(Configuration.FILENAME));
