@@ -7,6 +7,7 @@ import ca.mcmaster.cas.se2aa4.a2.generator.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.DelaunayNeighbourhood;
 import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.GridNeighborhood;
 
+import java.awt.geom.Ellipse2D;
 import java.util.Map;
 
 public class GridSpecification implements Buildable {
@@ -38,6 +39,7 @@ public class GridSpecification implements Buildable {
     @Override
     public Mesh build() {
         Mesh result = new Mesh(this.width, this.height);
+        HeightWidth hw = new HeightWidth(this.height, this.width);
         int nbSquareWidth = this.width / this.squareSize;
         int nbSquareHeight = this.height / this.squareSize;
         for(int i = 0; i < nbSquareWidth; i++){
@@ -57,6 +59,7 @@ public class GridSpecification implements Buildable {
         aSquare.add(new Vertex(xOrigin+squareSize, yOrigin));
         aSquare.add(new Vertex(xOrigin+squareSize, yOrigin+squareSize));
         aSquare.add(new Vertex(xOrigin, yOrigin+squareSize));
+
         return aSquare;
     }
 

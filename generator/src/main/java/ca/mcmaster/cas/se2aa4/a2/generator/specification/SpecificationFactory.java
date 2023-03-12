@@ -17,6 +17,7 @@ public class SpecificationFactory {
 
     public static Buildable create(Configuration configuration) {
         Map<String, String> options = configuration.export();
+
         // This code can be simplified with a switch case over the kind of mesh
         try {
             Class klass = bindings.get(options.get(Configuration.KIND));
