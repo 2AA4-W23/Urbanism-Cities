@@ -16,18 +16,21 @@ import java.util.*;
 public class IrregularSpecification implements Buildable {
 
     private final int width, height, nbTiles, relax;
-    public IrregularSpecification(int width, int height, int nbTiles, int relax) {
+    private final String shape;
+    public IrregularSpecification(int width, int height, int nbTiles, int relax, String shape) {
         this.nbTiles = nbTiles;
         this.relax = relax;
         this.width = width;
         this.height = height;
+        this.shape = shape;
     }
 
      IrregularSpecification(Map<String, String> options){
         this(Integer.parseInt(options.getOrDefault(Configuration.WIDTH, "500")),
                 Integer.parseInt(options.getOrDefault(Configuration.HEIGHT, "1000")),
                 Integer.parseInt(options.getOrDefault(Configuration.NB_POLYGONS, "200")),
-                Integer.parseInt(options.getOrDefault(Configuration.RELAXATION, "10")));
+                Integer.parseInt(options.getOrDefault(Configuration.RELAXATION, "10")),
+                options.getOrDefault(Configuration.SHAPE, "circle"));
     }
 
     @Override
