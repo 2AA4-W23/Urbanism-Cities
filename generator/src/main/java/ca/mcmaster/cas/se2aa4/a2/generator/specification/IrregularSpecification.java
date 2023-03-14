@@ -35,7 +35,7 @@ public class IrregularSpecification implements Buildable {
         Set<Coordinate> seeds = initialize();
         Set<Polygon> polygons = generate(this.relax, seeds);
         Mesh result = new Mesh(this.width, this.height);
-        HeightWidth hw = new HeightWidth(this.height, this.width);
+        Dimensons hw = new Dimensons(this.height, this.width);
         for (Polygon p: polygons){
             result.register(p);
         }

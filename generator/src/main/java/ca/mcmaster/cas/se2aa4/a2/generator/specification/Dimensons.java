@@ -1,14 +1,14 @@
 package ca.mcmaster.cas.se2aa4.a2.generator.specification;
 
-public class HeightWidth {
+public class Dimensons {
 
     private static int height, width;
 
-    public HeightWidth() {
+    public Dimensons() {
 
     }
 
-    public HeightWidth(int height, int width) {
+    public Dimensons(int height, int width) {
         this.height = height;
         this.width = width;
     }

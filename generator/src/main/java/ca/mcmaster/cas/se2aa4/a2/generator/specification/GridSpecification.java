@@ -4,10 +4,8 @@ import ca.mcmaster.cas.se2aa4.a2.generator.adt.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.generator.configuration.Configuration;
-import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.DelaunayNeighbourhood;
 import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.GridNeighborhood;
 
-import java.awt.geom.Ellipse2D;
 import java.util.Map;
 
 public class GridSpecification implements Buildable {
@@ -39,7 +37,7 @@ public class GridSpecification implements Buildable {
     @Override
     public Mesh build() {
         Mesh result = new Mesh(this.width, this.height);
-        HeightWidth hw = new HeightWidth(this.height, this.width);
+        Dimensons hw = new Dimensons(this.height, this.width);
         int nbSquareWidth = this.width / this.squareSize;
         int nbSquareHeight = this.height / this.squareSize;
         for(int i = 0; i < nbSquareWidth; i++){
