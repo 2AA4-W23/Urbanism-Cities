@@ -31,9 +31,9 @@ public class RandomEnricher implements Enricher {
         clone.addAllSegments(aMesh.getSegmentsList());
 
         Bounds b = new Bounds();
-        b.setBounds(new Circle(meshDimensions.height(), meshDimensions.width(), 250));
-        b.setBounds(new Circle(meshDimensions.height(), meshDimensions.width(), 500));
-        b.setBounds(new Circle(meshDimensions.height(), meshDimensions.width(), 1500));
+        b.setLagoonBounds(new Circle(meshDimensions.height(), meshDimensions.width(), 250));
+        b.setLandBounds(new Circle(meshDimensions.height(), meshDimensions.width(), 500));
+        b.setOceanBounds(new Circle(meshDimensions.height(), meshDimensions.width(), 1500));
 
         for (Structs.Polygon poly: aMesh.getPolygonsList()) {
             float level = bag.nextFloat();
