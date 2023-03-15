@@ -31,7 +31,7 @@ public class Bounds {
         lagoon = new Lagoon(c.createCircle());
     }
 
-    public String checkBounds(double centroid_x, double centroid_y, int numPolygon, Structs.Polygon poly) {
+    public String checkBoundsForColor(double centroid_x, double centroid_y, int numPolygon, Structs.Polygon poly) {
 
         this.add = true;
 
@@ -50,7 +50,7 @@ public class Bounds {
 
     }
 
-    public List<Structs.Polygon.Builder> beachTile(Structs.Mesh aMesh) {
+    public List<Structs.Polygon.Builder> checkIfBeachTile(Structs.Mesh aMesh) {
 
         List<Structs.Polygon.Builder> pcList = new ArrayList<>();
 

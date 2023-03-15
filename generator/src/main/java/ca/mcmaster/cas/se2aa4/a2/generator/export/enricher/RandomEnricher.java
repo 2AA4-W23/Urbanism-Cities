@@ -43,7 +43,7 @@ public class RandomEnricher implements Enricher {
                 double centroid_x = aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
                 double centroid_y = aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
 
-                color = b.checkBounds(centroid_x, centroid_y, numPolygon, poly);
+                color = b.checkBoundsForColor(centroid_x, centroid_y, numPolygon, poly);
 
                 Structs.Property p = Structs.Property.newBuilder()
                         .setKey("rgb_color")
@@ -57,7 +57,7 @@ public class RandomEnricher implements Enricher {
             numPolygon++;
         }
 
-        List<Structs.Polygon.Builder> beachTiles = b.beachTile(aMesh);
+        List<Structs.Polygon.Builder> beachTiles = b.checkIfBeachTile(aMesh);
 
         for (Structs.Polygon.Builder p : beachTiles) {
             clone.addPolygons(p);

@@ -2,6 +2,7 @@ package ca.mcmaster.cas.se2aa4.a2.generator.shapes;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Path2D;
 
 public class Circle extends Shape {
 
