@@ -7,35 +7,20 @@ import java.util.Map;
 
 public class Configuration {
 
-    public static final String WIDTH = "w";
-    public static final String HEIGHT = "h";
-    public static final String KIND = "k";
-    public static final String NB_POLYGONS = "p";
-    public static final String SIZE_SQUARES = "s";
+    public static final String INPUT = "i";
     public static final String FILENAME = "o";
-    public static final String RELAXATION = "r";
-    public static final String DEMO = "d";
-    public static final String HELP = "help";
-
-    public static final String SHAPE = "shape";
+    public static final String MODE = "m";
+    public static final String MODE_LONG = "mode";
+    public static final String SHAPE = "s";
 
     private CommandLine cli;
 
     public Configuration(String[] args) {
         try {
             this.cli = parser().parse(options(), args);
-            if (cli.hasOption(HELP)) {
-                help();
-            }
         } catch (ParseException pe) {
             throw new IllegalArgumentException(pe);
         }
-    }
-
-    private void help() {
-        HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("java -jar generator.jar", options());
-        System.exit(0);
     }
 
     public Map<String, String> export() {
@@ -54,23 +39,23 @@ public class Configuration {
         return new DefaultParser();
     }
 
+    public String input() {
+        return this.cli.getOptionValue(INPUT);
+    }
+    public String mode() {
+        return this.cli.getOptionValue(MODE);
+    }
+
+    public String output() {
+        return this.cli.getOptionValue(FILENAME, "output.mesh");
+    }
+
     private Options options() {
         Options options = new Options();
-        options.addOption(new Option(WIDTH, true, "Width of the Mesh"));
-        options.addOption(new Option(HEIGHT, true, "Heigth of the Mesh"));
+        options.addOption(new Option(INPUT, true, "Input mesh file name"));
         options.addOption(new Option(FILENAME, true, "Output file name"));
-        options.addOption(new Option(FILENAME, true, "Output file name"));
-        options.addOption(new Option(KIND, true, "Kind: grid or irregular"));
-        // Regular mesh
-        options.addOption(new Option(SIZE_SQUARES, true, "Size of squares (if grid mesh)"));
-        // Irregular mesh
-        options.addOption(new Option(NB_POLYGONS, true, "Numbers of polygons (if irregular mesh"));
-        options.addOption(new Option(RELAXATION, true, "Relaxation coefficient"));
-        options.addOption(new Option(SHAPE, true, "Shape"));
-        // Demo mode (filling the mesh with random properties
-        options.addOption(new Option(DEMO, false, "activate DEMO mode"));
-        // Global help
-        options.addOption(new Option(HELP, false, "print help message"));
+        options.addOption(new Option(MODE, MODE_LONG,true, "Mode"));
+//        options.addOption(new Option(SHAPE, true, "Shape"));
         return options;
     }
 
