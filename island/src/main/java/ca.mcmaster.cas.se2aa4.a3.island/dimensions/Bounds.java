@@ -1,11 +1,11 @@
-package ca.mcmaster.cas.se2aa4.a2.generator.specification;
+package ca.mcmaster.cas.se2aa4.a3.island.dimensions;
 
-import ca.mcmaster.cas.se2aa4.a2.generator.shapes.Circle;
-import ca.mcmaster.cas.se2aa4.a2.generator.terrain.Lagoon;
-import ca.mcmaster.cas.se2aa4.a2.generator.terrain.Land;
-import ca.mcmaster.cas.se2aa4.a2.generator.terrain.Ocean;
-import ca.mcmaster.cas.se2aa4.a2.generator.terrain.Tile;
+import ca.mcmaster.cas.se2aa4.a3.island.shapes.Circle;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a3.island.terrain.Lagoon;
+import ca.mcmaster.cas.se2aa4.a3.island.terrain.Land;
+import ca.mcmaster.cas.se2aa4.a3.island.terrain.Ocean;
+import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

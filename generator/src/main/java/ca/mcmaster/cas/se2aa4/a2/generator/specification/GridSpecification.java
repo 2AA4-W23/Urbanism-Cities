@@ -37,7 +37,6 @@ public class GridSpecification implements Buildable {
     @Override
     public Mesh build() {
         Mesh result = new Mesh(this.width, this.height);
-        Dimensons hw = new Dimensons(this.height, this.width);
         int nbSquareWidth = this.width / this.squareSize;
         int nbSquareHeight = this.height / this.squareSize;
         for(int i = 0; i < nbSquareWidth; i++){

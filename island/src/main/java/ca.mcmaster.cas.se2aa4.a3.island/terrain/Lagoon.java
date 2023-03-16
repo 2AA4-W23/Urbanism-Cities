@@ -1,9 +1,6 @@
-package ca.mcmaster.cas.se2aa4.a2.generator.terrain;
-import ca.mcmaster.cas.se2aa4.a2.generator.shapes.Circle;
+package ca.mcmaster.cas.se2aa4.a3.island.terrain;
 
 import java.awt.geom.Ellipse2D;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Lagoon extends Terrain implements Water {
 

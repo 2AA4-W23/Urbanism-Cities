@@ -11,7 +11,9 @@ public class Configuration {
     public static final String FILENAME = "o";
     public static final String MODE = "m";
     public static final String MODE_LONG = "mode";
+
     public static final String SHAPE = "s";
+    public static final String SHAPE_LONG = "shape";
 
     private CommandLine cli;
 
@@ -54,7 +56,7 @@ public class Configuration {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input mesh file name"));
         options.addOption(new Option(FILENAME, true, "Output file name"));
-        options.addOption(new Option(MODE, MODE_LONG,true, "Mode"));
+        options.addOption(new Option(MODE, MODE_LONG,false, "Mode"));
 //        options.addOption(new Option(SHAPE, true, "Shape"));
         return options;
     }

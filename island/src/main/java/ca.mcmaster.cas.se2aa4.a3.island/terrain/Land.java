@@ -1,7 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator.terrain;
-
-import ca.mcmaster.cas.se2aa4.a2.generator.shapes.Circle;
-import ca.mcmaster.cas.se2aa4.a2.generator.specification.Dimensons;
+package ca.mcmaster.cas.se2aa4.a3.island.terrain;
 
 import java.awt.geom.Ellipse2D;
 
