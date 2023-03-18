@@ -15,6 +15,27 @@ public class Configuration {
     public static final String SHAPE = "s";
     public static final String SHAPE_LONG = "shape";
 
+    public static final String ELEVATION = "e";
+    public static final String ELEVATION_LONG = "elevation";
+
+    public static final String LAKES = "l";
+    public static final String LAKES_LONG = "altitude";
+
+    public static final String RIVERS = "r";
+    public static final String RIVERS_LONG = "rivers";
+
+    public static final String AQUIFIERS = "a";
+    public static final String AQUIFIERS_LONG = "aquifiers";
+
+    public static final String SOIL = "d";
+    public static final String SOIL_LONG = "soil";
+
+    public static final String BIOMES = "b";
+    public static final String BIOMES_LONG = "biomes";
+
+    public static final String SEED = "g";
+    public static final String SEED_LONG = "seed";
+
     private CommandLine cli;
 
     public Configuration(String[] args) {
@@ -52,12 +73,23 @@ public class Configuration {
         return this.cli.getOptionValue(FILENAME, "output.mesh");
     }
 
+    public String elevation() {
+        return this.cli.getOptionValue(ELEVATION, "0");
+    }
+
     private Options options() {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input mesh file name"));
         options.addOption(new Option(FILENAME, true, "Output file name"));
         options.addOption(new Option(MODE, MODE_LONG,false, "Mode"));
-//        options.addOption(new Option(SHAPE, true, "Shape"));
+        options.addOption(new Option(SHAPE, SHAPE_LONG, false, "Shape"));
+        options.addOption(new Option(ELEVATION, ELEVATION_LONG,false, "Elevation"));
+        options.addOption(new Option(LAKES, LAKES_LONG, false, "Lakes"));
+        options.addOption(new Option(RIVERS, RIVERS_LONG, false, "Rivers"));
+        options.addOption(new Option(AQUIFIERS, AQUIFIERS_LONG, false, "Aquifiers"));
+        options.addOption(new Option(SOIL, SOIL_LONG, false, "Soil"));
+        options.addOption(new Option(BIOMES, BIOMES_LONG, false, "Biomes"));
+        options.addOption(new Option(SEED, SEED_LONG, false, "Seed"));
         return options;
     }
 

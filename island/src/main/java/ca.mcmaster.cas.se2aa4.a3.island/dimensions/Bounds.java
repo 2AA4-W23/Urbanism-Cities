@@ -6,6 +6,7 @@ import ca.mcmaster.cas.se2aa4.a3.island.terrain.Lagoon;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Land;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Ocean;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
+import ca.mcmaster.cas.se2aa4.a3.island.terrain.Beach;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Bounds {
     private Land land;
     private Ocean ocean;
     private Lagoon lagoon;
+    private Beach beach;
     private Tile tileType;
     private String color = "";
     boolean add = true;
@@ -53,12 +55,14 @@ public class Bounds {
     public List<Structs.Polygon.Builder> checkIfBeachTile(Structs.Mesh aMesh) {
 
         List<Structs.Polygon.Builder> pcList = new ArrayList<>();
+        this.beach = new Beach();
 
         for (int l : land.terrainPolygons) {
             Structs.Polygon.Builder pc = Structs.Polygon.newBuilder(aMesh.getPolygons(l));
             for (int n : aMesh.getPolygons(l).getNeighborIdxsList()) {
                 if (lagoon.terrainPolygons.contains(n) || ocean.terrainPolygons.contains(n)) {
                     this.color = tileType.BEACH.color;
+                    this.beach.addBeachPolygon(l);
                     break;
                 }
                 this.color = tileType.LAND.color;
@@ -69,6 +73,7 @@ public class Bounds {
                     .build();
 
             pc.addProperties(p);
+
             pcList.add(pc);
         }
 

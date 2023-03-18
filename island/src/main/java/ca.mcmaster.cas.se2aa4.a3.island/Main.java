@@ -11,9 +11,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Configuration config = new Configuration(args);
         Structs.Mesh aMesh = new MeshFactory().read(config.input());
-        Structs.Mesh island = aMesh;
+        Structs.Mesh island = new MeshEnricher(aMesh, config.elevation()).buildNewMesh();
         if(config.export().containsKey(Configuration.MODE)) {
-            island = new MeshEnricher(aMesh).buildNewMesh();
+            island = new MeshEnricher(aMesh, config.elevation()).buildNewMesh();
         }
         new MeshFactory().write(island, config.export(Configuration.FILENAME));
     }

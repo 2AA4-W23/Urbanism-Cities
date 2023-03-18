@@ -14,7 +14,7 @@ public class MeshEnricher {
     private int height;
     private int width;
 
-    public MeshEnricher(Structs.Mesh aMesh) {
+    public MeshEnricher(Structs.Mesh aMesh, String elevation) {
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
         this.aMesh.addAllPolygons(colorPolygons(aMesh));
@@ -43,16 +43,16 @@ public class MeshEnricher {
         for (Structs.Polygon poly: aMesh.getPolygonsList()) {
             Structs.Polygon.Builder pc = Structs.Polygon.newBuilder(poly);
 
-                double centroid_x = aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
-                double centroid_y = aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
+            double centroid_x = aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
+            double centroid_y = aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
 
-                color = b.checkBoundsForColor(centroid_x, centroid_y, numPolygon, poly);
+            color = b.checkBoundsForColor(centroid_x, centroid_y, numPolygon, poly);
 
-                Structs.Property p = Structs.Property.newBuilder()
-                        .setKey("rgb_color")
-                        .setValue(color)
-                        .build();
-                pc.addProperties(p);
+            Structs.Property p = Structs.Property.newBuilder()
+                    .setKey("rgb_color")
+                    .setValue(color)
+                    .build();
+            pc.addProperties(p);
             if (b.add()) {
                 clone.addPolygons(pc);
             }

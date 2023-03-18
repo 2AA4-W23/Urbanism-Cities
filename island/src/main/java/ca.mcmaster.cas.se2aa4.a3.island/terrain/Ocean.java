@@ -2,7 +2,7 @@ package ca.mcmaster.cas.se2aa4.a3.island.terrain;
 
 import java.awt.geom.Ellipse2D;
 
-public class Ocean extends Terrain implements Water {
+public class Ocean extends Terrain {
 
     Ellipse2D oceanBounds;
 
