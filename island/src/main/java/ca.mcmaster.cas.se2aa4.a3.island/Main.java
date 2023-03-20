@@ -2,9 +2,7 @@ package ca.mcmaster.cas.se2aa4.a3.island;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
-import ca.mcmaster.cas.se2aa4.a3.island.enricher.IslandCreator;
-import specification.Buildable;
-import specification.SpecificationFactory;
+import ca.mcmaster.cas.se2aa4.a3.island.enricher.Sandbox;
 
 import java.io.IOException;
 
@@ -16,9 +14,9 @@ public class Main {
         // the two below commands will be called once the biome situation is figured out
         //Buildable specification = SpecificationFactory.create(config);
         //IslandCreator theIsland = specification.build();
-        Structs.Mesh island = new IslandCreator(aMesh, config.elevation()).buildNewMesh();
+        Structs.Mesh island = new Sandbox(aMesh, config.elevation()).buildNewMesh();
         if(config.export().containsKey(Configuration.MODE)) {
-            island = new IslandCreator(aMesh, config.elevation()).buildNewMesh();
+            island = new Sandbox(aMesh, config.elevation()).buildNewMesh();
         }
         new MeshFactory().write(island, config.export(Configuration.FILENAME));
     }

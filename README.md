@@ -35,11 +35,12 @@ mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/irregular.mesh -o 
 
 Note: PDF versions of the SVG files were created with `rsvg-convert`.
 
-
+Command to run generator and visualizer subproject:
 java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000 -r 5 -o ireg.mesh -d
 java -jar visualizer/visualizer.jar -i ireg.mesh -o irregular.svg -x
 
-
+Command to run island subproject:
+java -jar island/island.jar -i input.mesh -o output.mesh
 
 | Feature ID | Feature Description | Feature Implementer | Week to be Implemented |
 | :-:  | ---       | :-:     | :-:       |

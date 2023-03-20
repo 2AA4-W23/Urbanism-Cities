@@ -7,14 +7,14 @@ import ca.mcmaster.cas.se2aa4.a3.island.shapes.Circle;
 
 import java.util.List;
 
-public class IslandCreator {
+public class Sandbox {
 
     public Structs.Mesh.Builder aMesh = Structs.Mesh.newBuilder();
     private Dimensons meshDimensions;
     private int height;
     private int width;
 
-    public IslandCreator(Structs.Mesh aMesh, String elevation) {
+    public Sandbox(Structs.Mesh aMesh, String elevation) {
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
         this.aMesh.addAllPolygons(colorPolygons(aMesh));

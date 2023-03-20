@@ -1,9 +1,9 @@
 package specification;
 
-import ca.mcmaster.cas.se2aa4.a3.island.enricher.IslandCreator;
+import ca.mcmaster.cas.se2aa4.a3.island.enricher.Sandbox;
 
 public interface Buildable {
 
-    IslandCreator create();
+    Sandbox create();
 
 }
