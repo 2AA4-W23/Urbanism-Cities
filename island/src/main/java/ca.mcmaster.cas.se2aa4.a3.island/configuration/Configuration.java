@@ -77,6 +77,10 @@ public class Configuration {
         return this.cli.getOptionValue(ELEVATION, "0");
     }
 
+    public String shape() {
+        return this.cli.getOptionValue(SHAPE, "0");
+    }
+
     private Options options() {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input mesh file name"));

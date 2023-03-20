@@ -4,6 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a3.island.dimensions.Bounds;
 import ca.mcmaster.cas.se2aa4.a3.island.dimensions.Dimensons;
 import ca.mcmaster.cas.se2aa4.a3.island.shapes.Circle;
+import ca.mcmaster.cas.se2aa4.a3.island.shapes.Rectangle;
 
 import java.util.List;
 
@@ -47,6 +48,8 @@ public class Sandbox {
             double centroid_y = aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
 
             color = b.checkBoundsForColor(centroid_x, centroid_y, numPolygon, poly);
+
+
 
             Structs.Property p = Structs.Property.newBuilder()
                     .setKey("rgb_color")
