@@ -5,7 +5,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Lagoon;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Land;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Ocean;
-import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
+import ca.mcmaster.cas.se2aa4.a3.island.terrain.TileColor;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Beach;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Bounds {
     private Ocean ocean;
     private Lagoon lagoon;
     private Beach beach;
-    private Tile tileType;
+    private TileColor tileColorType;
     private String color = "";
     boolean add = true;
 
@@ -39,13 +39,13 @@ public class Bounds {
 
         if (lagoon.contains(centroid_x, centroid_y)) {
             this.lagoon.addLagoonPolygon(numPolygon);
-            this.color = tileType.LAGOON.color;
+            this.color = tileColorType.LAGOON.color;
         } else if (land.contains(centroid_x, centroid_y)) {
             this.land.addLandPolygon(numPolygon);
             this.add = false;
         } else if (ocean.contains(centroid_x, centroid_y)) {
             this.ocean.addOceanPolygon(numPolygon);
-            this.color = tileType.OCEAN.color;
+            this.color = tileColorType.OCEAN.color;
         }
 
         return this.color;
@@ -61,11 +61,11 @@ public class Bounds {
             Structs.Polygon.Builder pc = Structs.Polygon.newBuilder(aMesh.getPolygons(l));
             for (int n : aMesh.getPolygons(l).getNeighborIdxsList()) {
                 if (lagoon.terrainPolygons.contains(n) || ocean.terrainPolygons.contains(n)) {
-                    this.color = tileType.BEACH.color;
+                    this.color = tileColorType.BEACH.color;
                     this.beach.addBeachPolygon(l);
                     break;
                 }
-                this.color = tileType.LAND.color;
+                this.color = tileColorType.LAND.color;
             }
             Structs.Property p = Structs.Property.newBuilder()
                     .setKey("rgb_color")
