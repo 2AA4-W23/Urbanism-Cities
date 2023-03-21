@@ -44,7 +44,7 @@ public class Bounds {
             this.land.addLandPolygon(numPolygon);
             this.add = false;
         } else if (ocean.contains(centroid_x, centroid_y)) {
-            this.ocean.addOceanPolygon(numPolygon);
+            this.ocean.addOceanPolygon(numxPolygon);
             this.color = tileColorType.OCEAN.color;
         }
 

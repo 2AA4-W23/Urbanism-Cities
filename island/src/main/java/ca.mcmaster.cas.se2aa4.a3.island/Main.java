@@ -16,7 +16,7 @@ public class Main {
         //Buildable specification = SpecificationFactory.create(config);
         //IslandCreator theIsland = specification.build();
         //Island island = new Island(config.shape());
-        Structs.Mesh island = new Sandbox(aMesh, config.elevation()).buildNewMesh();
+        Structs.Mesh island = new Island(aMesh, config.shape()).buildNewMesh();
         if(config.export().containsKey(Configuration.MODE)) {
             island = new Sandbox(aMesh, config.elevation()).buildNewMesh();
         }

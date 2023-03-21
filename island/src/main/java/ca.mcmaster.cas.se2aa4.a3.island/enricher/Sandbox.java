@@ -8,7 +8,7 @@ import ca.mcmaster.cas.se2aa4.a3.island.shapes.Rectangle;
 
 import java.util.List;
 
-public class Sandbox {
+public class Sandbox implements Enricher {
 
     public Structs.Mesh.Builder aMesh = Structs.Mesh.newBuilder();
     private Dimensons meshDimensions;
@@ -18,10 +18,11 @@ public class Sandbox {
     public Sandbox(Structs.Mesh aMesh, String elevation) {
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
-        this.aMesh.addAllPolygons(colorPolygons(aMesh));
+        this.aMesh.addAllPolygons(process(aMesh));
     }
 
-    private List<Structs.Polygon> colorPolygons(Structs.Mesh aMesh) {
+    @Override
+    public List<Structs.Polygon> process(Structs.Mesh aMesh) {
 
         int numPolygon = 0;
 
@@ -72,6 +73,7 @@ public class Sandbox {
 
     }
 
+    @Override
     public Structs.Mesh buildNewMesh() {
         return this.aMesh.build();
     }
