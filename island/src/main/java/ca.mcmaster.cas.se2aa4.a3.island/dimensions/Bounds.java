@@ -8,6 +8,7 @@ import ca.mcmaster.cas.se2aa4.a3.island.terrain.Ocean;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.TileColor;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Beach;
 
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +23,15 @@ public class Bounds {
     boolean add = true;
 
     public void setOceanBounds(Circle c) {
-        ocean = new Ocean(c.createCircle());
+        ocean = new Ocean((Ellipse2D) c.createSelf());
     }
 
     public void setLandBounds(Circle c) {
-        land = new Land(c.createCircle());
+        land = new Land((Ellipse2D) c.createSelf());
     }
 
     public void setLagoonBounds(Circle c) {
-        lagoon = new Lagoon(c.createCircle());
+        lagoon = new Lagoon((Ellipse2D) c.createSelf());
     }
 
     public String checkBoundsForColor(double centroid_x, double centroid_y, int numPolygon, Structs.Polygon poly) {
@@ -44,7 +45,7 @@ public class Bounds {
             this.land.addLandPolygon(numPolygon);
             this.add = false;
         } else if (ocean.contains(centroid_x, centroid_y)) {
-            this.ocean.addOceanPolygon(numxPolygon);
+            this.ocean.addOceanPolygon(numPolygon);
             this.color = tileColorType.OCEAN.color;
         }
 

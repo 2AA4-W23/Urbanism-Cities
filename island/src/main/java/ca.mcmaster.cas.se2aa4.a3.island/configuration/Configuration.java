@@ -80,19 +80,22 @@ public class Configuration {
     public String shape() {
         return this.cli.getOptionValue(SHAPE, "0");
     }
+    public String biome() {
+        return this.cli.getOptionValue(BIOMES, "Land");
+    }
 
     private Options options() {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input mesh file name"));
         options.addOption(new Option(FILENAME, true, "Output file name"));
         options.addOption(new Option(MODE, MODE_LONG,false, "Mode"));
-        options.addOption(new Option(SHAPE, SHAPE_LONG, false, "Shape"));
-        options.addOption(new Option(ELEVATION, ELEVATION_LONG,false, "Elevation"));
+        options.addOption(new Option(SHAPE, SHAPE_LONG, true, "Shape"));
+        options.addOption(new Option(ELEVATION, ELEVATION_LONG,true, "Elevation"));
         options.addOption(new Option(LAKES, LAKES_LONG, false, "Lakes"));
         options.addOption(new Option(RIVERS, RIVERS_LONG, false, "Rivers"));
         options.addOption(new Option(AQUIFIERS, AQUIFIERS_LONG, false, "Aquifiers"));
         options.addOption(new Option(SOIL, SOIL_LONG, false, "Soil"));
-        options.addOption(new Option(BIOMES, BIOMES_LONG, false, "Biomes"));
+        options.addOption(new Option(BIOMES, BIOMES_LONG, true, "Biomes"));
         options.addOption(new Option(SEED, SEED_LONG, false, "Seed"));
         return options;
     }

@@ -3,6 +3,7 @@ package ca.mcmaster.cas.se2aa4.a3.island.shapes;
 import ca.mcmaster.cas.se2aa4.a3.island.dimensions.Dimensons;
 
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 import java.io.Serializable;
 
 public class Rectangle implements Shape{
@@ -22,7 +23,7 @@ public class Rectangle implements Shape{
     }
 
     @Override
-    public Serializable createSelf() {
+    public RectangularShape createSelf() {
         return new Rectangle2D.Double(this.centreX - this.distFromCentre, this.centreY - this.distFromCentre, this.distFromCentre * 2, this.distFromCentre * 2);
     }
 }

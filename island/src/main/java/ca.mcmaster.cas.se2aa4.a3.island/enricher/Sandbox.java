@@ -11,18 +11,20 @@ import java.util.List;
 public class Sandbox implements Enricher {
 
     public Structs.Mesh.Builder aMesh = Structs.Mesh.newBuilder();
+    public Structs.Mesh originalMesh = null;
     private Dimensons meshDimensions;
     private int height;
     private int width;
 
     public Sandbox(Structs.Mesh aMesh, String elevation) {
+        this.originalMesh = aMesh;
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
-        this.aMesh.addAllPolygons(process(aMesh));
+        this.aMesh.addAllPolygons(process());
     }
 
     @Override
-    public List<Structs.Polygon> process(Structs.Mesh aMesh) {
+    public List<Structs.Polygon> process() {
 
         int numPolygon = 0;
 
@@ -42,7 +44,7 @@ public class Sandbox implements Enricher {
         b.setLandBounds(new Circle(this.height, this.width, 500));
         b.setOceanBounds(new Circle(this.height, this.width, 1500));
 
-        for (Structs.Polygon poly: aMesh.getPolygonsList()) {
+        for (Structs.Polygon poly: originalMesh.getPolygonsList()) {
             Structs.Polygon.Builder pc = Structs.Polygon.newBuilder(poly);
 
             double centroid_x = aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
@@ -63,7 +65,7 @@ public class Sandbox implements Enricher {
             numPolygon++;
         }
 
-        List<Structs.Polygon.Builder> beachTiles = b.checkIfBeachTile(aMesh);
+        List<Structs.Polygon.Builder> beachTiles = b.checkIfBeachTile(this.originalMesh);
 
         for (Structs.Polygon.Builder p : beachTiles) {
             clone.addPolygons(p);
