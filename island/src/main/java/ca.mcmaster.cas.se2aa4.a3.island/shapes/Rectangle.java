@@ -24,6 +24,7 @@ public class Rectangle implements Shape{
 
     @Override
     public RectangularShape createSelf() {
-        return new Rectangle2D.Double(this.centreX - this.distFromCentre, this.centreY - this.distFromCentre, this.distFromCentre * 2, this.distFromCentre * 2);
+        calculateCenter();
+        return new Rectangle2D.Double(this.centreX - this.distFromCentre*2, this.centreY - this.distFromCentre*1.5, this.distFromCentre * 4, this.distFromCentre * 3);
     }
 }

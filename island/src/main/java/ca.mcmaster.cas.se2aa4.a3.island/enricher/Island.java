@@ -13,15 +13,16 @@ import water.Lakes;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Island implements Enricher {
-    private Ellipse2D circleIsland;
 
     public Structs.Mesh originalMesh = null;
 
-    private Rectangle2D rectangleIsland;
+    private RectangularShape shapeIsland;
+
     public Structs.Mesh.Builder aMesh = Structs.Mesh.newBuilder();
     private Dimensons meshDimensions;
     private int height;
@@ -42,9 +43,9 @@ public class Island implements Enricher {
         this.lakes = lakes;
 
         if (shape.equals("circle")) {
-            this.circleIsland = (Ellipse2D) new Circle(this.meshDimensions.height(), this.meshDimensions.width(), this.meshDimensions.width()/4).createSelf();
-        } else {
-            this.rectangleIsland = (Rectangle2D) new Rectangle(this.meshDimensions.height(), this.meshDimensions.width(), 250).createSelf();
+            this.shapeIsland = (Ellipse2D) new Circle(this.meshDimensions.height(), this.meshDimensions.width(), this.meshDimensions.width()/4).createSelf();
+        } else if (shape.equals("rectangle")){
+            this.shapeIsland = (Rectangle2D) new Rectangle(this.meshDimensions.height(), this.meshDimensions.width(), 250).createSelf();
         }
     }
 
@@ -72,7 +73,7 @@ public class Island implements Enricher {
             double centroid_x = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
             double centroid_y = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
 
-            Tile tile = new Tile(this.biome, this.elevation, this.circleIsland, centroid_x, centroid_y, poly.getNeighborIdxsList(), numPolygon);
+            Tile tile = new Tile(this.biome, this.elevation, this.shapeIsland, centroid_x, centroid_y, poly.getNeighborIdxsList(), numPolygon);
             this.tileList.add(tile);
 
             ++numPolygon;
