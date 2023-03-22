@@ -9,6 +9,7 @@ import ca.mcmaster.cas.se2aa4.a3.island.dimensions.Dimensons;
 
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
 import org.locationtech.jts.geom.Geometry;
+import water.Aquifier;
 import water.Lakes;
 
 import java.awt.geom.Ellipse2D;
@@ -29,11 +30,12 @@ public class Island implements Enricher {
     private int width;
     private String elevation;
     private String biome;
+    private String aquifiers;
     private List<Tile> tileList = new ArrayList<>();
 
     private String lakes;
 
-    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes) {
+    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers) {
         this.originalMesh = aMesh;
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
@@ -41,6 +43,7 @@ public class Island implements Enricher {
         this.elevation = elevation;
         this.biome = biome;
         this.lakes = lakes;
+        this.aquifiers = aquifiers;
 
         if (shape.equals("circle")) {
             this.shapeIsland = (Ellipse2D) new Circle(this.meshDimensions.height(), this.meshDimensions.width(), this.meshDimensions.width()/4).createSelf();
@@ -84,6 +87,7 @@ public class Island implements Enricher {
     public Structs.Mesh buildNewMesh() {
         this.process();
         this.buildLakes();
+        this.buildAquifier();
         this.colorPolygons();
         return this.aMesh.build();
     }
@@ -93,6 +97,13 @@ public class Island implements Enricher {
         if (Integer.parseInt(this.lakes) > 0) {
             Lakes lakes = new Lakes(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.lakes));
             this.tileList = lakes.createLakes();
+        }
+    }
+
+    private void buildAquifier() {
+        if (Integer.parseInt(this.aquifiers) > 0) {
+            Aquifier aquifier = new Aquifier(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.aquifiers));
+            this.tileList = aquifier.createAquifiers();
         }
     }
 

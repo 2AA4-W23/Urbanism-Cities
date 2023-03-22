@@ -18,6 +18,7 @@ public class Tile {
     public double centroidY;
     private final int ID;
 
+    private boolean isAquifier = false;
     private List<Integer> neighbours;
 
     private boolean isIsland = false;
@@ -83,6 +84,10 @@ public class Tile {
         return this.isLake;
     }
 
+    private boolean isAquifier() {
+        return this.isAquifier;
+    }
+
     public List<Integer> getNeighbours() {
         return this.neighbours;
     }
@@ -94,10 +99,12 @@ public class Tile {
     public boolean createLake(Tile tile, List<Tile> tileList) {
         if (tile.isIsland() && !tile.isLake()) {
             this.isLake = true;
+            this.humidity += 40;
             this.color = this.tileColor.LAKE.color;
             for (Integer neighbourTileIdx : tile.getNeighbours()) {
                 if (tileList.get(neighbourTileIdx).isIsland() && !tileList.get(neighbourTileIdx).isLake()) {
                     tileList.get(neighbourTileIdx).isLake = true;
+                    tileList.get(neighbourTileIdx).humidity += 10;
                     tileList.get(neighbourTileIdx).color = this.tileColor.LAKE.color;
                     this.setHumidity(tileList, tileList.get(neighbourTileIdx));
                 }
@@ -107,9 +114,23 @@ public class Tile {
         return false;
     }
 
+    public boolean createAquifier(Tile tile, List<Tile> tileList) {
+        if (tile.isIsland() && !tile.isAquifier()) {
+            this.isAquifier = true;
+            this.humidity += 20;
+            for (Integer neighbourTileIdx : tile.getNeighbours()) {
+                if (tileList.get(neighbourTileIdx).isIsland()) {
+                    tileList.get(neighbourTileIdx).addHumidity();
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     private void setHumidity(List<Tile> tileList, Tile tile) {
         for (Integer i : tile.getNeighbours()) {
-            if (tileList.get(i).isIsland() && !tileList.get(i).isLake()) {
+            if (tileList.get(i).isIsland()) {
                 tileList.get(i).addHumidity();
             }
         }
