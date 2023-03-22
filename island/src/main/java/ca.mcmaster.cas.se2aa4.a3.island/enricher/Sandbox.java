@@ -20,11 +20,10 @@ public class Sandbox implements Enricher {
         this.originalMesh = aMesh;
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
-        this.aMesh.addAllPolygons(process());
     }
 
     @Override
-    public List<Structs.Polygon> process() {
+    public void process() {
 
         int numPolygon = 0;
 
@@ -35,10 +34,6 @@ public class Sandbox implements Enricher {
 
         String color = "";
 
-        Structs.Mesh.Builder clone = Structs.Mesh.newBuilder();
-        clone.addAllVertices(aMesh.getVerticesList());
-        clone.addAllSegments(aMesh.getSegmentsList());
-
         Bounds b = new Bounds();
         b.setLagoonBounds(new Circle(this.height, this.width, 250));
         b.setLandBounds(new Circle(this.height, this.width, 500));
@@ -47,8 +42,8 @@ public class Sandbox implements Enricher {
         for (Structs.Polygon poly: originalMesh.getPolygonsList()) {
             Structs.Polygon.Builder pc = Structs.Polygon.newBuilder(poly);
 
-            double centroid_x = aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
-            double centroid_y = aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
+            double centroid_x = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
+            double centroid_y = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
 
             color = b.checkBoundsForColor(centroid_x, centroid_y, numPolygon, poly);
 
@@ -60,7 +55,7 @@ public class Sandbox implements Enricher {
                     .build();
             pc.addProperties(p);
             if (b.add()) {
-                clone.addPolygons(pc);
+                this.aMesh.addPolygons(pc);
             }
             numPolygon++;
         }
@@ -68,15 +63,13 @@ public class Sandbox implements Enricher {
         List<Structs.Polygon.Builder> beachTiles = b.checkIfBeachTile(this.originalMesh);
 
         for (Structs.Polygon.Builder p : beachTiles) {
-            clone.addPolygons(p);
+            this.aMesh.addPolygons(p);
         }
-
-        return clone.getPolygonsList();
-
     }
 
     @Override
     public Structs.Mesh buildNewMesh() {
+        this.process();
         return this.aMesh.build();
     }
 

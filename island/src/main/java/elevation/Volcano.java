@@ -30,8 +30,8 @@ public class Volcano implements Elevation{
                 colour = tileRaise.ARCTIC.color;
                 System.out.println("Here right after getting arctic.color: "+ colour);
                 String[] colourArray = colour.split(",");
-                colourArray[1] = String.valueOf((int) (Integer.parseInt(colour.split(",")[1]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/5));
-                colourArray[0] = String.valueOf((int) (Integer.parseInt(colour.split(",")[0]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/5));
+                colourArray[1] = String.valueOf((int) (Integer.parseInt(colour.split(",")[1]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/10));
+                colourArray[0] = String.valueOf((int) (Integer.parseInt(colour.split(",")[0]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/10));
                 colour = String.join(",", colourArray);
                 System.out.println("After converting colour to string: "+colour);
             } else if (biome.equals("Desert")) {

@@ -83,6 +83,9 @@ public class Configuration {
     public String biome() {
         return this.cli.getOptionValue(BIOMES, "Land");
     }
+    public String lakes() {
+        return this.cli.getOptionValue(LAKES, "4");
+    }
 
     private Options options() {
         Options options = new Options();
@@ -91,7 +94,7 @@ public class Configuration {
         options.addOption(new Option(MODE, MODE_LONG,false, "Mode"));
         options.addOption(new Option(SHAPE, SHAPE_LONG, true, "Shape"));
         options.addOption(new Option(ELEVATION, ELEVATION_LONG,true, "Elevation"));
-        options.addOption(new Option(LAKES, LAKES_LONG, false, "Lakes"));
+        options.addOption(new Option(LAKES, LAKES_LONG, true, "Lakes"));
         options.addOption(new Option(RIVERS, RIVERS_LONG, false, "Rivers"));
         options.addOption(new Option(AQUIFIERS, AQUIFIERS_LONG, false, "Aquifiers"));
         options.addOption(new Option(SOIL, SOIL_LONG, false, "Soil"));

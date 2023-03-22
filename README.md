@@ -50,8 +50,8 @@ java -jar island/island.jar -i input.mesh -o output.mesh
 | F04 | Implement inner circle which should be lagoon water (create a water interface to differentiate between ocean water and lagoon)| Mankaran | Week 2
 | F05 | Ensure tiles between inner and outer circle are land tiles | Mankaran | Week 2
 | F06 | Implement beach tiles which are ones touching the water at the edge of the inner circle (lagoon) and the edge of the outer circle (ocean)| Mankaran | Week 2
-| F07 | Create the elevation interface. Implement “--altitude” CLA. | Amaan | Week 3
-| F08 | Lakes contain humidity and implements elevation and water. Land depends on its nearby lake’s humidity. Implement “--lakes” CLA. | Mujtaba | Week 3
+| F07 | Create the elevation interface. Implement “--altitude” CLA. | Mujtaba | Week 3
+| F08 | Lakes contain humidity and implements elevation and water. Land depends on its nearby lake’s humidity. Implement “--lakes” CLA. | Amaan | Week 3
 | F09 | Implement rivers that start at a vertex and follow edges until they reach the lowest possible point or the ocean. Rivers implement elevation. | Mankaran | Week 3
 | F10 | For rivers, if the lowest point is a tile, this forms and endorheic lake. | Amaan | Week 3
 | F11 | Rivers bring humidity to lands around them. Land depends on its nearby river’s humidity | Mujtaba | Week 3
