@@ -25,16 +25,20 @@ public class Hills implements Elevation{
         this.tile = tile;
     }
 
+    public void setBiome(String biome) {
+        this.biome = biome;
+    }
+
     @Override
     public String gradient() {
         String colour = "";
 
-        int max = 5;
-        int min = 0;
-
-        Random bag = new Random();
-
-        this.random = bag.nextInt(max - min + 1) + min;
+//        int max = 5;
+//        int min = 0;
+//
+//        Random bag = new Random();
+//
+//        this.random = bag.nextInt(max - min + 1) + min;
 
         if (island.contains(tile.centroidX, tile.centroidY)) {
             if (biome.equals("Arctic")) {
@@ -43,6 +47,18 @@ public class Hills implements Elevation{
                 colour = desertColors[this.random];
             } else if (biome.equals("Tropical")) {
                 colour = tropicalColors[this.random];
+            } else if (biome.equals("Rocky")) {
+                colour = tileRaise.ROCKY.color;
+            } else if (biome.equals("Muddy")) {
+                colour = tileRaise.MUDDY.color;
+            } else if (biome.equals("Savannah")) {
+                colour = tileRaise.SAVANNAH.color;
+            } else if (biome.equals("Taiga")) {
+                colour = tileRaise.TAIGA.color;
+            } else if (biome.equals("Beach")) {
+                colour = tileRaise.BEACH.color;
+            } else if (biome.equals("Glacier")) {
+                colour = tileRaise.GLACIER.color;
             }
         } else {
             colour = tileRaise.OCEAN.color;
@@ -61,49 +77,26 @@ public class Hills implements Elevation{
 
         int elevation = 0;
 
+        int max = 5;
+        int min = 0;
+
+        Random bag = new Random();
+
+        this.random = bag.nextInt(max - min + 1) + min;
+
         if (island.contains(tile.centroidX, tile.centroidY)) {
-            if (biome.equals("Arctic")) {
-                if (this.random == 5) {
-                    elevation = 1000;
-                } else if (this.random == 4) {
-                    elevation = 800;
-                } else if (this.random == 3) {
-                    elevation = 600;
-                } else if (this.random == 2) {
-                    elevation = 400;
-                } else if (this.random == 1) {
-                    elevation = 200;
-                } else if (this.random == 0) {
-                    elevation = 100;
-                }
-            } else if (biome.equals("Desert")) {
-                if (this.random == 5) {
-                    elevation = 100;
-                } else if (this.random == 4) {
-                    elevation = 80;
-                } else if (this.random == 3) {
-                    elevation = 60;
-                } else if (this.random == 2) {
-                    elevation = 40;
-                } else if (this.random == 1) {
-                    elevation = 20;
-                } else if (this.random == 0) {
-                    elevation = 10;
-                }
-            } else if (biome.equals("Tropical")) {
-                if (this.random == 5) {
-                    elevation = 1000;
-                } else if (this.random == 4) {
-                    elevation = 800;
-                } else if (this.random == 3) {
-                    elevation = 600;
-                } else if (this.random == 2) {
-                    elevation = 400;
-                } else if (this.random == 1) {
-                    elevation = 200;
-                } else if (this.random == 0) {
-                    elevation = 100;
-                }
+            if (this.random == 5) {
+                elevation = 60;
+            } else if (this.random == 4) {
+                elevation = 60;
+            } else if (this.random == 3) {
+                elevation = 40;
+            } else if (this.random == 2) {
+                elevation = 40;
+            } else if (this.random == 1) {
+                elevation = 20;
+            } else if (this.random == 0) {
+                elevation = 20;
             }
         }
 

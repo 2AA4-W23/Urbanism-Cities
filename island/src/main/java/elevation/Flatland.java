@@ -18,6 +18,9 @@ public class Flatland implements Elevation{
         this.biome = biome;
         this.tile = tile;
     }
+    public void setBiome(String biome) {
+        this.biome = biome;
+    }
 
     @Override
     public String gradient() {
@@ -29,6 +32,18 @@ public class Flatland implements Elevation{
                 colour = tileRaise.DESERT.color;
             } else if (biome.equals("Tropical")) {
                 colour = tileRaise.TROPICAL.color;
+            }  else if (biome.equals("Rocky")) {
+                colour = tileRaise.ROCKY.color;
+            } else if (biome.equals("Muddy")) {
+                colour = tileRaise.MUDDY.color;
+            } else if (biome.equals("Savannah")) {
+                colour = tileRaise.SAVANNAH.color;
+            } else if (biome.equals("Taiga")) {
+                colour = tileRaise.TAIGA.color;
+            } else if (biome.equals("Beach")) {
+                colour = tileRaise.BEACH.color;
+            } else if (biome.equals("Glacier")) {
+                colour = tileRaise.GLACIER.color;
             }
         } else {
             colour = tileRaise.OCEAN.color;
@@ -45,17 +60,17 @@ public class Flatland implements Elevation{
     @Override
     public int assignElevation() {
 
-        int elevation = 0;
+        int elevation = 60;
 
-        if (island.contains(tile.centroidX, tile.centroidY)) {
-            if (biome.equals("Arctic")) {
-                elevation = 1000;
-            } else if (biome.equals("Desert")) {
-                elevation = 100;
-            } else if (biome.equals("Tropical")) {
-                elevation = 500;
-            }
-        }
+//        if (island.contains(tile.centroidX, tile.centroidY)) {
+//            if (biome.equals("Arctic")) {
+//                elevation = 1000;
+//            } else if (biome.equals("Desert")) {
+//                elevation = 100;
+//            } else if (biome.equals("Tropical")) {
+//                elevation = 500;
+//            }
+//        }
 
         return elevation;
     }

@@ -20,14 +20,18 @@ public class Lakes {
     }
 
     private void setLakeTiles() {
+        System.out.println("SET LAKES");
         for (Tile t : this.tileList) {
+            System.out.println("THERE ARE TILES!");
             if (t.createLake(t, this.tileList)) {
+                System.out.println("maed at least 1 lake");
                 break;
             }
         }
     }
 
     public List<Tile> createLakes() {
+        System.out.println("NGNGNG");
         for (int i = 0; i < this.numLakes; i++) {
             this.setLakeTiles();
         }

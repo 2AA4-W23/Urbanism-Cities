@@ -10,7 +10,6 @@ public class Aquifier {
     List<Structs.Polygon> polylist;
     List<Tile> tileList;
     int numAquifiers;
-    TileColor lakeColor;
 
     public Aquifier(List<Structs.Polygon> polylist, List<Tile> tileList, int numAquifiers) {
         this.polylist = polylist;

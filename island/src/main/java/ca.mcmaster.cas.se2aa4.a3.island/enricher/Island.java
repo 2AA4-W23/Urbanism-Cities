@@ -11,6 +11,7 @@ import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
 import org.locationtech.jts.geom.Geometry;
 import water.Aquifier;
 import water.Lakes;
+import whitaker.WhitakerDiagram;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
@@ -88,8 +89,23 @@ public class Island implements Enricher {
         this.process();
         this.buildLakes();
         this.buildAquifier();
+        this.elevateIsland();
+//        this.buildLakes();
+//        this.buildAquifier();
         this.colorPolygons();
         return this.aMesh.build();
+    }
+
+    private void elevateIsland() {
+        for (Tile t : this.tileList) {
+            if (this.elevation.equals("Volcano")) {
+                t.volcanizer();
+            } else if (this.elevation.equals("Flatland")) {
+                t.flatlander();
+            } else if (this.elevation.equals("Hills")) {
+                t.hiller();
+            }
+        }
     }
 
 
