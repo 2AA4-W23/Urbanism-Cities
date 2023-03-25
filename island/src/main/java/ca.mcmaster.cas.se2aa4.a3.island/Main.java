@@ -17,7 +17,7 @@ public class Main {
         //IslandCreator theIsland = specification.build();
         //Island island = new Island(config.shape());
         System.out.println(config.elevation());
-        Structs.Mesh island = new Island(aMesh, config.shape(), config.elevation(), config.biome(), config.lakes(), config.aquifiers()).buildNewMesh();
+        Structs.Mesh island = new Island(aMesh, config.shape(), config.elevation(), config.biome(), config.lakes(), config.aquifiers(), config.rivers()).buildNewMesh();
         if(config.export().containsKey(Configuration.MODE)) {
             island = new Sandbox(aMesh, config.elevation()).buildNewMesh();
         }

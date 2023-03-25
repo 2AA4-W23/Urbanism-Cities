@@ -60,7 +60,11 @@ public class Flatland implements Elevation{
     @Override
     public int assignElevation() {
 
-        int elevation = 60;
+        int elevation = 0;
+
+        if (this.island.contains(tile.centroidX, tile.centroidY)) {
+            elevation = 60;
+        }
 
 //        if (island.contains(tile.centroidX, tile.centroidY)) {
 //            if (biome.equals("Arctic")) {

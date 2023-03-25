@@ -4,6 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.ColorProperty;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.ThicknessProperty;
 
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -22,6 +23,7 @@ public class GraphicRenderer implements Renderer {
         Stroke stroke = new BasicStroke(0.2f);
         canvas.setStroke(stroke);
         drawPolygons(aMesh,canvas);
+        drawSegments(aMesh,canvas);
     }
 
     private void drawPolygons(Mesh aMesh, Graphics2D canvas) {
@@ -54,11 +56,23 @@ public class GraphicRenderer implements Renderer {
         }
     }
 
-    private void drawShapes(Mesh aMesh, Graphics2D canvas) {
+    private void drawSegments(Mesh aMesh, Graphics2D canvas) {
+        Optional<Color> fill;
+        Optional<String> thickness;
+        Path2D river = new Path2D.Float();
+        for (Structs.Segment s : aMesh.getSegmentsList()) {
+            fill = new ColorProperty().extract(s.getPropertiesList());
+            if (fill.isPresent()) {
+                System.out.println("HERE3333");
+                canvas.setColor(fill.get());
+                river.moveTo(aMesh.getVertices(s.getV1Idx()).getX(), aMesh.getVertices(s.getV1Idx()).getY());
+                river.lineTo(aMesh.getVertices(s.getV2Idx()).getX(), aMesh.getVertices(s.getV2Idx()).getY());
+                river.closePath();
+                thickness = new ThicknessProperty().extract(s.getPropertiesList());
+                canvas.setStroke(new BasicStroke(Float.parseFloat(thickness.get())));
+                canvas.draw(river);
+            }
+
+        }
     }
-
-    private void drawAShape(Mesh aMesh, Graphics2D canvas) {
-
-    }
-
 }

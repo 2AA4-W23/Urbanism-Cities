@@ -11,6 +11,7 @@ import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
 import org.locationtech.jts.geom.Geometry;
 import water.Aquifier;
 import water.Lakes;
+import water.Rivers;
 import whitaker.WhitakerDiagram;
 
 import java.awt.geom.Ellipse2D;
@@ -33,10 +34,11 @@ public class Island implements Enricher {
     private String biome;
     private String aquifiers;
     private List<Tile> tileList = new ArrayList<>();
-
+    private List<Structs.Segment> riverSegments = new ArrayList<>();
     private String lakes;
+    private String rivers;
 
-    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers) {
+    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers, String rivers) {
         this.originalMesh = aMesh;
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
@@ -45,6 +47,7 @@ public class Island implements Enricher {
         this.biome = biome;
         this.lakes = lakes;
         this.aquifiers = aquifiers;
+        this.rivers = rivers;
 
         if (shape.equals("circle")) {
             this.shapeIsland = (Ellipse2D) new Circle(this.meshDimensions.height(), this.meshDimensions.width(), this.meshDimensions.width()/4).createSelf();
@@ -77,7 +80,7 @@ public class Island implements Enricher {
             double centroid_x = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
             double centroid_y = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
 
-            Tile tile = new Tile(this.biome, this.elevation, this.shapeIsland, centroid_x, centroid_y, poly.getNeighborIdxsList(), numPolygon);
+            Tile tile = new Tile(this.biome, this.elevation, this.shapeIsland, centroid_x, centroid_y, poly.getNeighborIdxsList(), numPolygon, poly.getCentroidIdx());
             this.tileList.add(tile);
 
             ++numPolygon;
@@ -90,8 +93,7 @@ public class Island implements Enricher {
         this.buildLakes();
         this.buildAquifier();
         this.elevateIsland();
-//        this.buildLakes();
-//        this.buildAquifier();
+        this.buildRivers();
         this.colorPolygons();
         return this.aMesh.build();
     }
@@ -121,6 +123,14 @@ public class Island implements Enricher {
             Aquifier aquifier = new Aquifier(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.aquifiers));
             this.tileList = aquifier.createAquifiers();
         }
+    }
+
+    private void buildRivers() {
+        if (Integer.parseInt(this.rivers) > 0) {
+            Rivers river = new Rivers(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.aquifiers));
+            this.riverSegments = river.createRivers();
+        }
+        this.aMesh.addAllSegments(this.riverSegments);
     }
 
 }

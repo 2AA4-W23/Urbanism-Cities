@@ -89,7 +89,9 @@ public class Configuration {
     public String aquifiers() {
         return this.cli.getOptionValue(AQUIFIERS, "4");
     }
-
+    public String rivers() {
+        return this.cli.getOptionValue(RIVERS, "4");
+    }
     private Options options() {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input mesh file name"));
