@@ -26,6 +26,7 @@ public class Rivers {
         int counter = 0;
         int tileIdx = 0;
         while (counter < this.numRivers && tileIdx < this.tileList.size()) {
+            System.out.println("NUM TILE: " + tileIdx);
             System.out.println("NUM RIVERS: " + counter);
             if (this.tileList.get(tileIdx).createRiver(this.tileList.get(tileIdx), this.tileList)) {
                 System.out.println("CREATED A RIVER!");
@@ -34,7 +35,8 @@ public class Rivers {
             }
             tileIdx++;
         }
-        System.out.println("ALL RIVER SEGMENTS: " + this.riverSegments);
+        System.out.println("NUM RIVERS COUNTED: " + counter);
+//        System.out.println("ALL RIVER SEGMENTS: " + this.riverSegments);
         return this.riverSegments;
     }
 

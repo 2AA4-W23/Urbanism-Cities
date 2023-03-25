@@ -100,7 +100,7 @@ public class Configuration {
         options.addOption(new Option(SHAPE, SHAPE_LONG, true, "Shape"));
         options.addOption(new Option(ELEVATION, ELEVATION_LONG,true, "Elevation"));
         options.addOption(new Option(LAKES, LAKES_LONG, true, "Lakes"));
-        options.addOption(new Option(RIVERS, RIVERS_LONG, false, "Rivers"));
+        options.addOption(new Option(RIVERS, RIVERS_LONG, true, "Rivers"));
         options.addOption(new Option(AQUIFIERS, AQUIFIERS_LONG, true, "Aquifiers"));
         options.addOption(new Option(SOIL, SOIL_LONG, false, "Soil"));
         options.addOption(new Option(BIOMES, BIOMES_LONG, true, "Biomes"));

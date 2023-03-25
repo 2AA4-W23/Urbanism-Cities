@@ -127,10 +127,11 @@ public class Island implements Enricher {
 
     private void buildRivers() {
         if (Integer.parseInt(this.rivers) > 0) {
-            Rivers river = new Rivers(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.aquifiers));
+            Rivers river = new Rivers(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.rivers));
             this.riverSegments = river.createRivers();
         }
         this.aMesh.addAllSegments(this.riverSegments);
+        System.out.println("RIVERS ENTERED: " + this.rivers);
     }
 
 }

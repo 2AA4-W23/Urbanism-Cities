@@ -26,6 +26,8 @@ public class Tile {
     private boolean isAquifier = false;
     private List<Integer> neighbours;
 
+    private boolean isEndorheic = false;
+
     private boolean isIsland = false;
 
     private boolean isLake = false;
@@ -55,11 +57,7 @@ public class Tile {
     public void volcanizer() {
         Volcano volcano = new Volcano(this.shape, this.biome, this);
         this.elevation = volcano.assignElevation();
-        //System.out.println("The humidity of the tile in the volcanizer is: "+this.humidity);
 
-//        if (!this.color.equals(this.tileColor.OCEAN.color)) {
-//            this.isIsland = true;
-//        }
         if (!this.isLake) {
             this.biome = this.WD.determineSubBiome(this.elevation, this.humidity, this.biome);
             volcano.setBiome(this.biome);
@@ -99,9 +97,14 @@ public class Tile {
     private boolean isLake() {
         return this.isLake;
     }
-
+    private boolean isRiver() {
+        return this.isRiver;
+    }
     private boolean isAquifier() {
         return this.isAquifier;
+    }
+    private boolean isEndorheic() {
+        return this.isEndorheic;
     }
     public List<Integer> getNeighbours() {
         return this.neighbours;
@@ -124,10 +127,8 @@ public class Tile {
             this.isLake = true;
             this.humidity += 40;
             this.color = this.tileColor.LAKE.color;
-            System.out.println("Humidity of og lake tile: "+this.humidity);
             for (Integer neighbourTileIdx : tile.getNeighbours()) {
                 if (tileList.get(neighbourTileIdx).isIsland() && !tileList.get(neighbourTileIdx).isLake()) {
-                    System.out.println("LAKE TILE: "+tileList.get(neighbourTileIdx).humidity);
                     tileList.get(neighbourTileIdx).isLake = true;
                     tileList.get(neighbourTileIdx).humidity += 20;
                     tileList.get(neighbourTileIdx).color = this.tileColor.LAKE.color;
@@ -159,21 +160,30 @@ public class Tile {
         boolean isRiverFull = false;
 
         while (true) {
-            if (tempTile.isIsland() && !tempTile.isLake()) {
+            if (tempTile.isIsland() && !tempTile.isLake() && !tempTile.isEndorheic()) {
                 Structs.Segment s;
-                this.isRiver = true;
                 int lowestElevationIdx = tempTile.getID();
                 int lowestElevation = tempTile.getElevation();
+                int tempLowestElevation;
                 for (Integer neighbourTileIdx : tempTile.getNeighbours()) {
-                    int tempLowestElevation = lowestElevation;
+                    tempLowestElevation = lowestElevation;
                     lowestElevation = Math.min(tileList.get(neighbourTileIdx).getElevation(), lowestElevation);
                     if (lowestElevation < tempLowestElevation) {
                         lowestElevationIdx = neighbourTileIdx;
                     }
                 }
-                System.out.println(lowestElevationIdx != tempTile.getID());
                 if (lowestElevationIdx != tempTile.getID()) {
-                    System.out.println("I CAN MAKE RIVER!");
+                    this.isRiver = true;
+                    int thicknessValue = 1;
+                    this.setHumidity(tileList, tileList.get(lowestElevation));
+                    this.endorheicLake(tileList, lowestElevationIdx);
+
+                    if (tileList.get(lowestElevationIdx).isRiver() && !tileList.get(lowestElevationIdx).isEndorheic() && !tileList.get(lowestElevationIdx).isLake()) {
+                        thicknessValue *= 3;
+                    } else {
+                        tileList.get(lowestElevationIdx).isRiver = true;
+                    }
+
                     Structs.Segment.Builder sc = Structs.Segment.newBuilder().setV1Idx(tileList.get(tempTile.getID()).getCentroidIdx()).setV2Idx(tileList.get(lowestElevationIdx).getCentroidIdx());
                     Structs.Property rgb = Structs.Property.newBuilder()
                             .setKey("rgb_color")
@@ -181,16 +191,13 @@ public class Tile {
                             .build();
                     Structs.Property thickness = Structs.Property.newBuilder()
                             .setKey("thickness")
-                            .setValue("3")
+                            .setValue(String.valueOf(thicknessValue))
                             .build();
                     sc.addProperties(rgb);
                     sc.addProperties(thickness);
                     s = sc.build();
                     this.riverSegments.add(s);
-                    this.setHumidity(tileList, tileList.get(lowestElevation));
-                    this.endorheicLake(tileList, lowestElevationIdx);
                 } else {
-                    System.out.println("BROKE");
                     break;
                 }
                 tempTile = tileList.get(lowestElevationIdx);
@@ -200,7 +207,6 @@ public class Tile {
         }
 
         if (!this.riverSegments.isEmpty()) {
-            System.out.println("RIVER SEGMENTS R NOT EMPTY: " + this.riverSegments);
             isRiverFull = true;
         }
 
@@ -209,13 +215,13 @@ public class Tile {
     }
 
     private boolean endorheicLake(List<Tile> tileList, int lowestElevationIdx) {
-        if (tileList.get(lowestElevationIdx).isIsland() && !tileList.get(lowestElevationIdx).isLake()) {
+        if (tileList.get(lowestElevationIdx).isIsland() && !tileList.get(lowestElevationIdx).isLake() && !tileList.get(lowestElevationIdx).isEndorheic()) {
             for (Integer i : tileList.get(lowestElevationIdx).getNeighbours()) {
                 if (!tileList.get(i).isIsland()) {
                     return false;
                 }
             }
-            tileList.get(lowestElevationIdx).isLake = true;
+            tileList.get(lowestElevationIdx).isEndorheic = true;
             tileList.get(lowestElevationIdx).color = this.tileColor.RIVER.color;
         }
         return true;
