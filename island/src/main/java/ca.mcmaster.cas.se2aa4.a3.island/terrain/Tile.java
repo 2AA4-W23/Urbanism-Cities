@@ -8,7 +8,9 @@ import whitaker.WhitakerDiagram;
 
 import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Tile {
 
@@ -35,6 +37,7 @@ public class Tile {
     private boolean isRiver = false;
     private TileColor tileColor;
 
+    private static List<Integer> riverPolygons = new ArrayList<>();
     private WhitakerDiagram WD = new WhitakerDiagram();
 
     String color = "";
@@ -158,53 +161,61 @@ public class Tile {
 
         Tile tempTile = tile;
         boolean isRiverFull = false;
+        int lowestElevation = tempTile.getElevation();
+        int tempLowestElevation = lowestElevation;
+        int minIdx = tempTile.getID();
+
+        if (!tempTile.isIsland() || tempTile.isLake() || tempTile.isEndorheic() || tempTile.isRiver()) {
+            return isRiverFull;
+        }
 
         while (true) {
-            if (tempTile.isIsland() && !tempTile.isLake() && !tempTile.isEndorheic()) {
-                Structs.Segment s;
-                int lowestElevationIdx = tempTile.getID();
-                int lowestElevation = tempTile.getElevation();
-                int tempLowestElevation;
-                for (Integer neighbourTileIdx : tempTile.getNeighbours()) {
-                    tempLowestElevation = lowestElevation;
-                    lowestElevation = Math.min(tileList.get(neighbourTileIdx).getElevation(), lowestElevation);
-                    if (lowestElevation < tempLowestElevation) {
-                        lowestElevationIdx = neighbourTileIdx;
-                    }
-                }
-                if (lowestElevationIdx != tempTile.getID()) {
-                    this.isRiver = true;
-                    int thicknessValue = 1;
-                    this.setHumidity(tileList, tileList.get(lowestElevation));
-                    this.endorheicLake(tileList, lowestElevationIdx);
-
-                    if (tileList.get(lowestElevationIdx).isRiver() && !tileList.get(lowestElevationIdx).isEndorheic() && !tileList.get(lowestElevationIdx).isLake()) {
-                        thicknessValue *= 3;
-                    } else {
-                        tileList.get(lowestElevationIdx).isRiver = true;
-                    }
-
-                    Structs.Segment.Builder sc = Structs.Segment.newBuilder().setV1Idx(tileList.get(tempTile.getID()).getCentroidIdx()).setV2Idx(tileList.get(lowestElevationIdx).getCentroidIdx());
-                    Structs.Property rgb = Structs.Property.newBuilder()
-                            .setKey("rgb_color")
-                            .setValue(tileColor.RIVER.color)
-                            .build();
-                    Structs.Property thickness = Structs.Property.newBuilder()
-                            .setKey("thickness")
-                            .setValue(String.valueOf(thicknessValue))
-                            .build();
-                    sc.addProperties(rgb);
-                    sc.addProperties(thickness);
-                    s = sc.build();
-                    this.riverSegments.add(s);
-                } else {
-                    break;
-                }
-                tempTile = tileList.get(lowestElevationIdx);
-            } else {
+            if (tempTile.isRiver()) {
                 break;
             }
+            minIdx = tempTile.getID();
+            for (Integer i : tempTile.getNeighbours()) {
+                tempLowestElevation = lowestElevation;
+                lowestElevation = Math.min(tileList.get(i).getElevation(), lowestElevation);
+                if (lowestElevation < tempLowestElevation) {
+                    minIdx = i;
+                }
+            }
+            if (minIdx == tempTile.getID()) {
+                break;
+            }
+            if (!tileList.get(minIdx).isLake() && !tileList.get(minIdx).isEndorheic()) {
+                int thicknessValue = 1;
+
+                if (tileList.get(minIdx).isRiver()) {
+                    thicknessValue *= 3;
+                }
+
+                tempTile.isRiver = true;
+
+                Structs.Segment s;
+                Structs.Segment.Builder sc = Structs.Segment.newBuilder().setV1Idx(tileList.get(tempTile.getID()).getCentroidIdx()).setV2Idx(tileList.get(minIdx).getCentroidIdx());
+                Structs.Property rgb = Structs.Property.newBuilder()
+                        .setKey("rgb_color")
+                        .setValue(tileColor.RIVER.color)
+                        .build();
+                Structs.Property thickness = Structs.Property.newBuilder()
+                        .setKey("thickness")
+                        .setValue(String.valueOf(thicknessValue))
+                        .build();
+                sc.addProperties(rgb);
+                sc.addProperties(thickness);
+                sc.build();
+                s = sc.build();
+                this.setHumidity(tileList, tileList.get(minIdx));
+                this.riverSegments.add(s);
+            }
+            tempTile = tileList.get(minIdx);
+            lowestElevation = tempTile.getElevation();
+            tempLowestElevation = lowestElevation;
         }
+
+        this.endorheicLake(tileList, minIdx);
 
         if (!this.riverSegments.isEmpty()) {
             isRiverFull = true;
