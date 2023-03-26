@@ -1,4 +1,4 @@
-# Mesh Generator (Assignment #2 Walkthrough)
+# Terrain Generator (Assignment #2 Walkthrough)
 
 - Author: Sébastien Mosser
 
