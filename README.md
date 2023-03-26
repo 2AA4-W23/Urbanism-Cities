@@ -5,7 +5,7 @@
 ## How to install?
 
 ```
-user A2 % mvn install
+user A3 % mvn install
 ```
 
 It creates two jars:
@@ -18,7 +18,7 @@ It creates two jars:
 ### Generate an irregular mesh
 
 ```
-user A2 % java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000 -s 20 -o input.mesh
+user A3 % java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000 -s 20 -o input.mesh
 ```
 
 One can run the generator with `-help` as option to see the different command line arguments that are available
@@ -26,27 +26,27 @@ One can run the generator with `-help` as option to see the different command li
 ### Visualizing an island, (sandbox mode)
 
 ```
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -mode lagoon 
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -mode lagoon 
 ```
 
 ### Visualizing an island with various parameters, (island mode)
 
 ```
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Arctic -e Hills -l 11 -a 5 -r 11
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Arctic -e Volcano -l 11 -a 5 -r 11
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Arctic -e Flatland -l 11 -a 5 -r 11
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Desert -e Hills -l 11 -a 5 -r 11
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Desert -e Volcano -l 11 -a 5 -r 11
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Desert -e Flatland -l 11 -a 5 -r 11
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Tropical -e Hills -l 11 -a 5 -r 11
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Volcano -l 11 -a 5 -r 11
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Arctic -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Arctic -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Arctic -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Desert -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Desert -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Desert -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Tropical -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
 ```
 
 ### Seed regeneration. Each time an island is produced (not including sandbox mode), it generates a seed which the user can call to regenerate the exact same island. In the example below, the seed of the island to be regenerated is 232258.
 
 ```
-user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -seed 232258
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -seed 232258
 ```
 
 Command to run visualizer subproject once island mesh is generated:
