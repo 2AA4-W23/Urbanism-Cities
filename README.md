@@ -5,13 +5,14 @@
 ## How to install?
 
 ```
-user A3 % mvn install
+user A3 % mvn install clean package
 ```
 
-It creates two jars:
+It creates three jars:
 
 1. `generator/generator.jar` to generate meshes
-2. `visualizer/visualizer.jar` to visualize such meshes as SVG files
+2. `island/island.jar` to generate islands
+3. `visualizer/visualizer.jar` to visualize such meshes as SVG files
 
 ## Examples of execution
 
@@ -43,14 +44,30 @@ user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
 ```
 
+### Command line arguments that can be used with java -jar island/island.jar (not for sandbox mode)
+
+```
+-i        <arg>      Input mesh filename
+-o        <arg>      Output mesh filename
+-s        <arg>      Shape (circle, rectangle)
+-b        <arg>      Biome type (arctic, desert, circle)
+-e        <arg>      Elevation (volcano, hills, flatland)
+-l        <arg>      Number of lakes
+-a        <arg>      Number of aquifiers
+-r        <arg>      Number of rivers
+-seed     <arg>      Seed to regenerate island
+```
+
 ### Seed regeneration. Each time an island is produced (not including sandbox mode), it generates a seed which the user can call to regenerate the exact same island. In the example below, the seed of the island to be regenerated is 232258.
 
 ```
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -seed 232258
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -seed 232258
 ```
 
-Command to run visualizer subproject once island mesh is generated:
-java -jar visualizer/visualizer.jar -i island.mesh -o island.svg 
+### Command to run visualizer subproject once island mesh is generated:
+```
+java -jar visualizer/visualizer.jar -i island.mesh -o island.svg
+```
 
 | Feature ID | Feature Description | Feature Implementer | Week to be Implemented |
 | :-:  | ---       | :-:     | :-:       |

@@ -28,17 +28,16 @@ public class Island implements Enricher {
 
     public Structs.Mesh.Builder aMesh = Structs.Mesh.newBuilder();
     private Dimensons meshDimensions;
-    private int height;
-    private int width;
-    public String elevation;
-    public String biome;
+    private String elevation;
+    private String biome;
     private String aquifiers;
-    public List<Tile> tileList = new ArrayList<>();
+    private List<Tile> tileList = new ArrayList<>();
     private List<Structs.Segment> riverSegments = new ArrayList<>();
-    public String lakes;
+    private String lakes;
     private String rivers;
+    private String soil;
 
-    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers, String rivers) {
+    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers, String rivers, String soil) {
         this.originalMesh = aMesh;
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
@@ -48,6 +47,7 @@ public class Island implements Enricher {
         this.lakes = lakes;
         this.aquifiers = aquifiers;
         this.rivers = rivers;
+        this.soil = soil;
 
         if (shape.equals("circle")) {
             this.shapeIsland = (Ellipse2D) new Circle(this.meshDimensions.height(), this.meshDimensions.width(), this.meshDimensions.width()/4).createSelf();
@@ -56,7 +56,7 @@ public class Island implements Enricher {
         }
     }
 
-    public void colorPolygons() {
+    private void colorPolygons() {
         String color = "";
         for (Tile tile : this.tileList) {
             Structs.Polygon.Builder pc = Structs.Polygon.newBuilder(this.originalMesh.getPolygonsList().get(tile.getID()));
@@ -80,7 +80,7 @@ public class Island implements Enricher {
             double centroid_x = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
             double centroid_y = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
 
-            Tile tile = new Tile(this.biome, this.elevation, this.shapeIsland, centroid_x, centroid_y, poly.getNeighborIdxsList(), numPolygon, poly.getCentroidIdx());
+            Tile tile = new Tile(this.biome, this.shapeIsland, centroid_x, centroid_y, poly.getNeighborIdxsList(), numPolygon, poly.getCentroidIdx(), this.soil);
             this.tileList.add(tile);
 
             ++numPolygon;
@@ -100,18 +100,18 @@ public class Island implements Enricher {
 
     private void elevateIsland() {
         for (Tile t : this.tileList) {
-            if (this.elevation.equals("Volcano")) {
+            if (this.elevation.equals("volcano")) {
                 t.volcanizer();
-            } else if (this.elevation.equals("Flatland")) {
+            } else if (this.elevation.equals("flatland")) {
                 t.flatlander();
-            } else if (this.elevation.equals("Hills")) {
+            } else if (this.elevation.equals("hills")) {
                 t.hiller();
             }
         }
     }
 
 
-    public void buildLakes() {
+    private void buildLakes() {
         if (Integer.parseInt(this.lakes) > 0) {
             Lakes lakes = new Lakes(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.lakes));
             this.tileList = lakes.createLakes();

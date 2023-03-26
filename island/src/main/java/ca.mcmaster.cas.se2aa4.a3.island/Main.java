@@ -22,9 +22,9 @@ public class Main {
             out.writeObject(dictionary);
             out.close();
             fileOut.close();
-            System.out.println("Dictionary saved to " + DICTIONARY_FILE_NAME);
+            //System.out.println("Dictionary saved to " + DICTIONARY_FILE_NAME);
         } catch (IOException e) {
-            System.err.println("Error saving dictionary to file: " + e.getMessage());
+            //System.err.println("Error saving dictionary to file: " + e.getMessage());
         }
     }
 
@@ -35,11 +35,11 @@ public class Main {
             outputFiles = (Map<String, Structs.Mesh>) in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("Dictionary loaded from " + DICTIONARY_FILE_NAME);
+            //System.out.println("Dictionary loaded from " + DICTIONARY_FILE_NAME);
         } catch (IOException e) {
-            System.err.println("Error loading dictionary from file: " + e.getMessage());
+            //System.err.println("Error loading dictionary from file: " + e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.err.println("Error loading dictionary from file: " + e.getMessage());
+            //System.err.println("Error loading dictionary from file: " + e.getMessage());
         }
     }
 
@@ -57,7 +57,7 @@ public class Main {
             if (outputFiles.containsKey(config.seed())) {
                 island = outputFiles.get(String.valueOf(config.seed()));
             } else {
-                island = new Island(aMesh, config.shape(), config.elevation(), config.biome(), config.lakes(), config.aquifiers(), config.rivers()).buildNewMesh();
+                island = new Island(aMesh, config.shape(), config.elevation(), config.biome(), config.lakes(), config.aquifiers(), config.rivers(), config.soil()).buildNewMesh();
                 outputFiles.put(String.valueOf(seed), island);
                 saveDictionary(outputFiles);
                 System.out.println("SEED FOR REGENERATION: " + seed);

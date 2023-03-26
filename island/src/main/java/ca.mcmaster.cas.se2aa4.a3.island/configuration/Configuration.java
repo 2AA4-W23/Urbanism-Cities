@@ -36,11 +36,16 @@ public class Configuration {
     public static final String SEED = "g";
     public static final String SEED_LONG = "seed";
 
+    public static final String HELP = "help";
+
     private CommandLine cli;
 
     public Configuration(String[] args) {
         try {
             this.cli = parser().parse(options(), args);
+            if (cli.hasOption(HELP)) {
+                help();
+            }
         } catch (ParseException pe) {
             throw new IllegalArgumentException(pe);
         }
@@ -62,21 +67,24 @@ public class Configuration {
         return new DefaultParser();
     }
 
+    private void help() {
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp("java -jar island.jar", options());
+        System.exit(0);
+    }
+
     public String input() {
         return this.cli.getOptionValue(INPUT);
     }
     public String mode() {
         return this.cli.getOptionValue(MODE);
     }
-
     public String output() {
         return this.cli.getOptionValue(FILENAME, "output.mesh");
     }
-
     public String elevation() {
         return this.cli.getOptionValue(ELEVATION, "0");
     }
-
     public String shape() {
         return this.cli.getOptionValue(SHAPE, "0");
     }
@@ -84,22 +92,25 @@ public class Configuration {
         return this.cli.getOptionValue(BIOMES, "Land");
     }
     public String lakes() {
-        return this.cli.getOptionValue(LAKES, "4");
+        return this.cli.getOptionValue(LAKES, "0");
     }
     public String aquifiers() {
-        return this.cli.getOptionValue(AQUIFIERS, "4");
+        return this.cli.getOptionValue(AQUIFIERS, "0");
     }
     public String rivers() {
-        return this.cli.getOptionValue(RIVERS, "4");
+        return this.cli.getOptionValue(RIVERS, "0");
     }
     public String seed() {
         return this.cli.getOptionValue(SEED, "0");
+    }
+    public String soil() {
+        return this.cli.getOptionValue(SOIL, "0");
     }
     private Options options() {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input mesh file name"));
         options.addOption(new Option(FILENAME, true, "Output file name"));
-        options.addOption(new Option(MODE, MODE_LONG,false, "Mode"));
+        options.addOption(new Option(MODE, MODE_LONG,true, "Mode"));
         options.addOption(new Option(SHAPE, SHAPE_LONG, true, "Shape"));
         options.addOption(new Option(ELEVATION, ELEVATION_LONG,true, "Elevation"));
         options.addOption(new Option(LAKES, LAKES_LONG, true, "Lakes"));
@@ -108,6 +119,7 @@ public class Configuration {
         options.addOption(new Option(SOIL, SOIL_LONG, true, "Soil"));
         options.addOption(new Option(BIOMES, BIOMES_LONG, true, "Biomes"));
         options.addOption(new Option(SEED, SEED_LONG, true, "Seed"));
+        options.addOption(new Option(HELP, false, "print help message"));
         return options;
     }
 
