@@ -5,7 +5,7 @@
 ## How to install?
 
 ```
-user A3 % mvn install
+user A3 % mvn install clean package
 ```
 
 It creates two jars:
