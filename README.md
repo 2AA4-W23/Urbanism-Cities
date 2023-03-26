@@ -1,11 +1,11 @@
-# Terrain Generator (Assignment #2 Walkthrough)
+# Terrain Generator (Assignment #3)
 
-- Author: Sébastien Mosser
+- Author: Mankaran Rooprai, Mujtaba Zaidi, Amaan Khakiani
 
 ## How to install?
 
 ```
-mosser@azrael A2 % mvn install
+user A2 % mvn install
 ```
 
 It creates two jars:
@@ -15,22 +15,32 @@ It creates two jars:
 
 ## Examples of execution
 
-### Generating a mesh, grid or irregular
+### Generate an irregular mesh
 
 ```
-mosser@azrael A2 % java -jar generator/generator.jar -k grid -h 1080 -w 1920 -p 1000 -s 20 -o img/grid.mesh
-mosser@azrael A2 % java -jar generator/generator.jar -k grid -h 1080 -w 1920 -p 1000 -s 20 -o img/irregular.mesh
+user A2 % java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000 -s 20 -o input.mesh
 ```
 
 One can run the generator with `-help` as option to see the different command line arguments that are available
 
-### Visualizing a mesh, (regular or debug mode)
+### Visualizing an island, (sandbox mode)
 
 ```
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/grid.mesh -o img/grid.svg
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/grid.mesh -o img/grid_debug.svg -x
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/irregular.mesh -o img/irregular.svg
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/irregular.mesh -o img/irregular_debug.svg -x
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -mode lagoon 
+```
+
+### Visualizing an island with various parameters, (island mode)
+
+```
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Arctic -e Hills -l 11 -a 5 -r 11
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Arctic -e Volcano -l 11 -a 5 -r 11
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Arctic -e Flatland -l 11 -a 5 -r 11
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Desert -e Hills -l 11 -a 5 -r 11
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Desert -e Volcano -l 11 -a 5 -r 11
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Desert -e Flatland -l 11 -a 5 -r 11
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Tropical -e Hills -l 11 -a 5 -r 11
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Volcano -l 11 -a 5 -r 11
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
 ```
 
 Note: PDF versions of the SVG files were created with `rsvg-convert`.
