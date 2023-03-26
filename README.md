@@ -1,46 +1,73 @@
-# Mesh Generator (Assignment #2 Walkthrough)
+# Terrain Generator (Assignment #3)
 
-- Author: Sébastien Mosser
+- Author: Mankaran Rooprai, Mujtaba Zaidi, Amaan Khakiani
 
 ## How to install?
 
 ```
-mosser@azrael A2 % mvn install
+user A3 % mvn install clean package
 ```
 
-It creates two jars:
+It creates three jars:
 
 1. `generator/generator.jar` to generate meshes
-2. `visualizer/visualizer.jar` to visualize such meshes as SVG files
+2. `island/island.jar` to generate islands
+3. `visualizer/visualizer.jar` to visualize such meshes as SVG files
 
 ## Examples of execution
 
-### Generating a mesh, grid or irregular
+### Generate an irregular mesh
 
 ```
-mosser@azrael A2 % java -jar generator/generator.jar -k grid -h 1080 -w 1920 -p 1000 -s 20 -o img/grid.mesh
-mosser@azrael A2 % java -jar generator/generator.jar -k grid -h 1080 -w 1920 -p 1000 -s 20 -o img/irregular.mesh
+user A3 % java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000 -s 20 -o input.mesh
 ```
 
 One can run the generator with `-help` as option to see the different command line arguments that are available
 
-### Visualizing a mesh, (regular or debug mode)
+### Visualizing an island, (sandbox mode)
 
 ```
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/grid.mesh -o img/grid.svg
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/grid.mesh -o img/grid_debug.svg -x
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/irregular.mesh -o img/irregular.svg
-mosser@azrael A2 % java -jar visualizer/visualizer.jar -i img/irregular.mesh -o img/irregular_debug.svg -x
+user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -mode lagoon 
 ```
 
-Note: PDF versions of the SVG files were created with `rsvg-convert`.
+### Visualizing an island with various parameters, (island mode)
 
-Command to run generator and visualizer subproject:
-java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000 -r 5 -o ireg.mesh -d
-java -jar visualizer/visualizer.jar -i ireg.mesh -o irregular.svg -x
+```
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Arctic -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Arctic -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Arctic -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Desert -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Desert -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Desert -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Tropical -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Tropical -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
+```
 
-Command to run island subproject:
-java -jar island/island.jar -i input.mesh -o output.mesh
+### Command line arguments that can be used with java -jar island/island.jar (not for sandbox mode)
+
+```
+-i        <arg>      Input mesh filename
+-o        <arg>      Output mesh filename
+-s        <arg>      Shape (circle, rectangle)
+-b        <arg>      Biome type (arctic, desert, circle)
+-e        <arg>      Elevation (volcano, hills, flatland)
+-l        <arg>      Number of lakes
+-a        <arg>      Number of aquifiers
+-r        <arg>      Number of rivers
+-seed     <arg>      Seed to regenerate island
+```
+
+### Seed regeneration. Each time an island is produced (not including sandbox mode), it generates a seed which the user can call to regenerate the exact same island. In the example below, the seed of the island to be regenerated is 232258.
+
+```
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -seed 232258
+```
+
+### Command to run visualizer subproject once island mesh is generated:
+```
+java -jar visualizer/visualizer.jar -i island.mesh -o island.svg
+```
 
 | Feature ID | Feature Description | Feature Implementer | Week to be Implemented |
 | :-:  | ---       | :-:     | :-:       |
