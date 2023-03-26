@@ -60,7 +60,7 @@ user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 ### Seed regeneration. Each time an island is produced (not including sandbox mode), it generates a seed which the user can call to regenerate the exact same island. In the example below, the seed of the island to be regenerated is 232258.
 
 ```
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -seed 232258
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -seed 232258
 ```
 
 Command to run visualizer subproject once island mesh is generated:
