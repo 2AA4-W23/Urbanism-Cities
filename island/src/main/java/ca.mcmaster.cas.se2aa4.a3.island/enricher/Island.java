@@ -100,11 +100,11 @@ public class Island implements Enricher {
 
     private void elevateIsland() {
         for (Tile t : this.tileList) {
-            if (this.elevation.equals("Volcano")) {
+            if (this.elevation.equals("volcano")) {
                 t.volcanizer();
-            } else if (this.elevation.equals("Flatland")) {
+            } else if (this.elevation.equals("flatland")) {
                 t.flatlander();
-            } else if (this.elevation.equals("Hills")) {
+            } else if (this.elevation.equals("hills")) {
                 t.hiller();
             }
         }

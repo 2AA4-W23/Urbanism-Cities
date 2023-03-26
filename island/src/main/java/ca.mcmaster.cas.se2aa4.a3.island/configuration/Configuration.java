@@ -104,7 +104,7 @@ public class Configuration {
         return this.cli.getOptionValue(SEED, "0");
     }
     public String soil() {
-        return this.cli.getOptionValue(SEED, "0");
+        return this.cli.getOptionValue(SOIL, "0");
     }
     private Options options() {
         Options options = new Options();

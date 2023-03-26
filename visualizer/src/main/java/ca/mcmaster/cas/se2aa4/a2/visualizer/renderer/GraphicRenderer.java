@@ -63,7 +63,6 @@ public class GraphicRenderer implements Renderer {
         for (Structs.Segment s : aMesh.getSegmentsList()) {
             fill = new ColorProperty().extract(s.getPropertiesList());
             if (fill.isPresent()) {
-                System.out.println("HERE3333");
                 canvas.setColor(fill.get());
                 river.moveTo(aMesh.getVertices(s.getV1Idx()).getX(), aMesh.getVertices(s.getV1Idx()).getY());
                 river.lineTo(aMesh.getVertices(s.getV2Idx()).getX(), aMesh.getVertices(s.getV2Idx()).getY());
