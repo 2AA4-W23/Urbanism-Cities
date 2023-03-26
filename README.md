@@ -64,8 +64,10 @@ user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -seed 232258
 ```
 
-Command to run visualizer subproject once island mesh is generated:
-java -jar visualizer/visualizer.jar -i island.mesh -o island.svg 
+### Command to run visualizer subproject once island mesh is generated:
+```
+java -jar visualizer/visualizer.jar -i island.mesh -o island.svg
+```
 
 | Feature ID | Feature Description | Feature Implementer | Week to be Implemented |
 | :-:  | ---       | :-:     | :-:       |
