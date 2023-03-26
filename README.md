@@ -43,14 +43,14 @@ user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle 
 user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
 ```
 
-Note: PDF versions of the SVG files were created with `rsvg-convert`.
+### Seed regeneration. Each time an island is produced (not including sandbox mode), it generates a seed which the user can call to regenerate the exact same island. In the example below, the seed of the island to be regenerated is 232258.
 
-Command to run generator and visualizer subproject:
-java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000 -r 5 -o ireg.mesh -d
-java -jar visualizer/visualizer.jar -i ireg.mesh -o irregular.svg -x
+```
+user A2 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -seed 232258
+```
 
-Command to run island subproject:
-java -jar island/island.jar -i input.mesh -o output.mesh
+Command to run visualizer subproject once island mesh is generated:
+java -jar visualizer/visualizer.jar -i island.mesh -o island.svg 
 
 | Feature ID | Feature Description | Feature Implementer | Week to be Implemented |
 | :-:  | ---       | :-:     | :-:       |
