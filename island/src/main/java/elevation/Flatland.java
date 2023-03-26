@@ -53,11 +53,6 @@ public class Flatland implements Elevation{
     }
 
     @Override
-    public void temperature() {
-
-    }
-
-    @Override
     public int assignElevation() {
 
         int elevation = 0;
@@ -65,16 +60,6 @@ public class Flatland implements Elevation{
         if (this.island.contains(tile.centroidX, tile.centroidY)) {
             elevation = 60;
         }
-
-//        if (island.contains(tile.centroidX, tile.centroidY)) {
-//            if (biome.equals("Arctic")) {
-//                elevation = 1000;
-//            } else if (biome.equals("Desert")) {
-//                elevation = 100;
-//            } else if (biome.equals("Tropical")) {
-//                elevation = 500;
-//            }
-//        }
 
         return elevation;
     }

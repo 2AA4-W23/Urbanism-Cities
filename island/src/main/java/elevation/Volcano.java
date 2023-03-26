@@ -33,29 +33,23 @@ public class Volcano implements Elevation{
         if (island.contains(tile.centroidX, tile.centroidY)) {
             if (biome.equals("Arctic")) {
                 colour = tileRaise.ARCTIC.color;
-                System.out.println("Here right after getting arctic.color: "+ colour);
                 String[] colourArray = colour.split(",");
                 colourArray[1] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[1]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/5), 255));
                 colourArray[0] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[0]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/5), 255));                colour = String.join(",", colourArray);
                 colour = String.join(",", colourArray);
-                System.out.println("After converting colour to string: "+colour);
             } else if (biome.equals("Desert")) {
                 colour = tileRaise.DESERT.color;
-                System.out.println("Here right after getting arctic.color: "+ colour);
                 String[] colourArray = colour.split(",");
                 colourArray[1] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[1]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/5), 255));
                 colourArray[2] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[2]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/5), 255));
                 colour = String.join(",", colourArray);
-                System.out.println("After converting colour to string: "+colour);
             } else if (biome.equals("Tropical")) {
                 colour = tileRaise.TROPICAL.color;
-                System.out.println("Here right after getting arctic.color: "+ colour);
                 String[] colourArray = colour.split(",");
                 colourArray[1] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[1]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/10), 255));
                 colourArray[2] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[2]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/10), 255));
                 colourArray[0] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[0]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/10), 255));                colour = String.join(",", colourArray);
                 colour = String.join(",", colourArray);
-                System.out.println("After converting colour to string: "+colour);
             } else if (biome.equals("Rocky")) {
                 colour = tileRaise.ROCKY.color;
             } else if (biome.equals("Muddy")) {
@@ -78,21 +72,10 @@ public class Volcano implements Elevation{
     }
 
     @Override
-    public void temperature() {
-
-    }
-
-    @Override
     public int assignElevation() {
-        int baseelevation = 10000;
-//        if (this.biome.equals("Arctic")) {
-//            baseelevation = 10000;
-//        } else if (this.biome.equals("Desert")) {
-//            baseelevation =100;
-//        } else if (this.biome.equals("Tropical")) {
-//            baseelevation = 1000;
-//        }
-        int elevation = (int) (baseelevation/Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX));
+        int baselevation = 10000;
+
+        int elevation = (int) (baselevation/Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX));
         return elevation;
     }
 }

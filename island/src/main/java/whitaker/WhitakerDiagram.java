@@ -21,7 +21,6 @@ public class WhitakerDiagram {
     public String determineSubBiome(int elevation, int humidity, String biome) {
 
         if (biome.equals("Arctic")) {
-            System.out.println("Elevation is currently: "+elevation+" humidity is: "+humidity);
             if (elevation >= 60 && humidity >= 10) { //highest elevation and water
                 this.subBiome = new Glacier();
             } else if (elevation >= 60 && humidity < 10) { //highest elevation and no water

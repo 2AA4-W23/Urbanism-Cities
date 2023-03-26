@@ -8,8 +8,6 @@ import java.awt.geom.RectangularShape;
 public interface Elevation {
     public String gradient();
 
-    public void temperature();
-
     public int assignElevation();
 
 }

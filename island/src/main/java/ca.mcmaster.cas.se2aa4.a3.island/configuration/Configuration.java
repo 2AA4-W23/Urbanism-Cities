@@ -92,6 +92,9 @@ public class Configuration {
     public String rivers() {
         return this.cli.getOptionValue(RIVERS, "4");
     }
+    public String seed() {
+        return this.cli.getOptionValue(SEED, "0");
+    }
     private Options options() {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input mesh file name"));
@@ -102,9 +105,9 @@ public class Configuration {
         options.addOption(new Option(LAKES, LAKES_LONG, true, "Lakes"));
         options.addOption(new Option(RIVERS, RIVERS_LONG, true, "Rivers"));
         options.addOption(new Option(AQUIFIERS, AQUIFIERS_LONG, true, "Aquifiers"));
-        options.addOption(new Option(SOIL, SOIL_LONG, false, "Soil"));
+        options.addOption(new Option(SOIL, SOIL_LONG, true, "Soil"));
         options.addOption(new Option(BIOMES, BIOMES_LONG, true, "Biomes"));
-        options.addOption(new Option(SEED, SEED_LONG, false, "Seed"));
+        options.addOption(new Option(SEED, SEED_LONG, true, "Seed"));
         return options;
     }
 

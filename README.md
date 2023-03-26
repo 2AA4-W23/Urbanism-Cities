@@ -68,7 +68,7 @@ java -jar island/island.jar -i input.mesh -o output.mesh
 | F22 | Implement whitaker diagram: depends on humidity, elevation, temperature. Implement “--biomes” CLA. | Mujtaba | Week 4
 | F23 | Biome depends on whitaker diagram. | Mujtaba | Week 4
 | F24 | Each tile depends on biome. | Mujtaba | Week 4
-| F25 | Implement a seed for each island generated (similar to a hash value). Implement “--seed” CLA. | Amaan | Week 4
-| F26 | Island seed will be stored so the user can regenerate the island. | Mujtaba | Week 4
+| F25 | Implement a seed for each island generated (similar to a hash value). Implement “--seed” CLA. | Mankaran | Week 4
+| F26 | Island seed will be stored so the user can regenerate the island. | Mankaran | Week 4
 
 

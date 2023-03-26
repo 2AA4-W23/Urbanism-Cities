@@ -33,12 +33,12 @@ public class Hills implements Elevation{
     public String gradient() {
         String colour = "";
 
-//        int max = 5;
-//        int min = 0;
-//
-//        Random bag = new Random();
-//
-//        this.random = bag.nextInt(max - min + 1) + min;
+        int max = 5;
+        int min = 0;
+
+        Random bag = new Random();
+
+        this.random = bag.nextInt(max - min + 1) + min;
 
         if (island.contains(tile.centroidX, tile.centroidY)) {
             if (biome.equals("Arctic")) {
@@ -65,11 +65,6 @@ public class Hills implements Elevation{
         }
 
         return colour;
-    }
-
-    @Override
-    public void temperature() {
-
     }
 
     @Override

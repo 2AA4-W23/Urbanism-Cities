@@ -131,7 +131,6 @@ public class Island implements Enricher {
             this.riverSegments = river.createRivers();
         }
         this.aMesh.addAllSegments(this.riverSegments);
-        System.out.println("RIVERS ENTERED: " + this.rivers);
     }
 
 }
