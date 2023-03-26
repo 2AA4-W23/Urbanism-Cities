@@ -43,6 +43,20 @@ user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
 ```
 
+### Command line arguments that can be used with java -jar island/island.jar (not for sandbox mode)
+
+```
+-i <arg>      Input mesh filename
+-o <arg>      Output mesh filename
+-s <arg>      Shape (circle, rectangle)
+-b <arg>      Biome type (arctic, desert, circle)
+-e <arg>      Elevation (volcano, hills, flatland)
+-l <arg>      Number of lakes
+-a <arg>      Number of aquifiers
+-r <arg>      Number of rivers
+-seed <arg>   Seed to regenerate island
+```
+
 ### Seed regeneration. Each time an island is produced (not including sandbox mode), it generates a seed which the user can call to regenerate the exact same island. In the example below, the seed of the island to be regenerated is 232258.
 
 ```
