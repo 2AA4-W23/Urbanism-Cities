@@ -32,15 +32,15 @@ user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -mode lagoon
 ### Visualizing an island with various parameters, (island mode)
 
 ```
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Arctic -e Hills -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Arctic -e Volcano -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Arctic -e Flatland -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Desert -e Hills -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Desert -e Volcano -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Desert -e Flatland -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s circle -b Tropical -e Hills -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Volcano -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Arctic -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Arctic -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Arctic -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Desert -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Desert -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Desert -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Tropical -e Hills -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Tropical -e Volcano -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
 ```
 
 ### Seed regeneration. Each time an island is produced (not including sandbox mode), it generates a seed which the user can call to regenerate the exact same island. In the example below, the seed of the island to be regenerated is 232258.
