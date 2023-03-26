@@ -13,6 +13,7 @@ import elevation.Volcano;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import water.Rivers;
 
 @RunWith(Suite.class)
 
@@ -24,7 +25,8 @@ import org.junit.runners.Suite.SuiteClasses;
         CircleTest.class,
         RectangleTest.class,
         TileTest.class,
-        Volcano.class
+        Volcano.class,
+        Rivers.class
 
 })
 

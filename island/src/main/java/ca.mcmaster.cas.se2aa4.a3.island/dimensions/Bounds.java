@@ -14,9 +14,9 @@ import java.util.List;
 
 public class Bounds {
 
-    private Land land;
-    private Ocean ocean;
-    private Lagoon lagoon;
+    public Land land;
+    public Ocean ocean;
+    public Lagoon lagoon;
     private Beach beach;
     private TileColor tileColorType;
     private String color = "";

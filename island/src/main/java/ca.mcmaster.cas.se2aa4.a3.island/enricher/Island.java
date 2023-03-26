@@ -30,12 +30,12 @@ public class Island implements Enricher {
     private Dimensons meshDimensions;
     private int height;
     private int width;
-    private String elevation;
-    private String biome;
+    public String elevation;
+    public String biome;
     private String aquifiers;
-    private List<Tile> tileList = new ArrayList<>();
+    public List<Tile> tileList = new ArrayList<>();
     private List<Structs.Segment> riverSegments = new ArrayList<>();
-    private String lakes;
+    public String lakes;
     private String rivers;
 
     public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers, String rivers) {
@@ -56,7 +56,7 @@ public class Island implements Enricher {
         }
     }
 
-    private void colorPolygons() {
+    public void colorPolygons() {
         String color = "";
         for (Tile tile : this.tileList) {
             Structs.Polygon.Builder pc = Structs.Polygon.newBuilder(this.originalMesh.getPolygonsList().get(tile.getID()));
@@ -111,7 +111,7 @@ public class Island implements Enricher {
     }
 
 
-    private void buildLakes() {
+    public void buildLakes() {
         if (Integer.parseInt(this.lakes) > 0) {
             Lakes lakes = new Lakes(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.lakes));
             this.tileList = lakes.createLakes();

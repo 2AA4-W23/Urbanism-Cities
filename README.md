@@ -80,5 +80,11 @@ java -jar visualizer/visualizer.jar -i island.mesh -o island.svg
 | F24 | Each tile depends on biome. | Mujtaba | Week 4
 | F25 | Implement a seed for each island generated (similar to a hash value). Implement “--seed” CLA. | Mankaran | Week 4
 | F26 | Island seed will be stored so the user can regenerate the island. | Mankaran | Week 4
+| F27 | Test the Island class | Amaan | Week 4
+| F28 | Test the Sandbox class | Amaan | Week 4
+| F29 | Test the Waters like rivers and lakes class | Amaan | Week 4
+| F30 | Test the Bounds and Dimensions class | Amaan | Week 4
+| F31 | Test the Shapes classes like circle and rectangles | Amaan | Week 4
+| F32 | Test the Sandbox class | Amaan | Week 4
 
 

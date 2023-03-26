@@ -20,7 +20,7 @@ class VolcanoTest {
     public void setUp() {
         Rectangle2D.Double island = new Rectangle2D.Double(0, 0, 100, 100);
         String biome = "Arctic";
-        Tile tile = new Tile(biome, "volcano", island, 5,5, Arrays.asList(1, 2, 3), 1);
+        Tile tile = new Tile(biome, "volcano", island, 5,5, Arrays.asList(1, 2, 3), 1,1);
         this.volcano = new Volcano(island, biome, tile);
     }
 

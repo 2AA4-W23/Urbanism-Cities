@@ -14,7 +14,7 @@ import java.awt.geom.RectangularShape;
 
 public class Volcano implements Elevation{
     private RectangularShape island;
-    private String biome;
+    public String biome;
     private Tile tile;
     private TileColor tileRaise;
     public Volcano(RectangularShape island, String biome, Tile tile){

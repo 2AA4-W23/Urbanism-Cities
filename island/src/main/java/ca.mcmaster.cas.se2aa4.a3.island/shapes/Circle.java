@@ -8,7 +8,11 @@ import java.io.Serializable;
 
 public class Circle implements Shape {
 
-    private int height, width, radius, centreX, centreY;
+    private int height;
+    private int width;
+    private int radius;
+    public int centreX;
+    public int centreY;
 
     public Circle(int height, int width, int radius) {
         this.height = height;

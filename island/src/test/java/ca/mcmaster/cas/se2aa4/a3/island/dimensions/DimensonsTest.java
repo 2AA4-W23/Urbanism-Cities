@@ -17,10 +17,6 @@ class DimensonsTest {
     public void setUp() {
         // create some sample vertices for testing
         this.vertices = new ArrayList<>();
-//        vertices.add(new Structs.Vertex(0, 0));
-//        vertices.add(new Structs.Vertex(2, 1));
-//        vertices.add(new Structs.Vertex(3, 2));
-//        vertices.add(new Structs.Vertex(1, 3));
     }
 
     @Test
@@ -33,9 +29,10 @@ class DimensonsTest {
 
     @Test
     public void testDimensionsWithNonEmptyList() {
+        vertices.add(Structs.Vertex.newBuilder().setX(10).setY(10).build());
         Dimensons dimensions = new Dimensons(this.vertices);
-        assertEquals(3, dimensions.width());
-        assertEquals(3, dimensions.height());
+        assertEquals(10, dimensions.width());
+        assertEquals(10, dimensions.height());
     }
 
 }

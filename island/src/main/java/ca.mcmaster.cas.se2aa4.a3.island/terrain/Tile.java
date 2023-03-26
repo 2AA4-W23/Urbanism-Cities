@@ -15,8 +15,8 @@ import java.util.Set;
 public class Tile {
 
     private int humidity;
-    private int elevation;
-    private String biome = "";
+    public int elevation;
+    public String biome = "";
     private int temperature;
     private RectangularShape shape;
     public double centroidX;
@@ -97,7 +97,7 @@ public class Tile {
     private boolean isIsland() {
         return this.isIsland;
     }
-    private boolean isLake() {
+    public boolean isLake() {
         return this.isLake;
     }
     private boolean isRiver() {

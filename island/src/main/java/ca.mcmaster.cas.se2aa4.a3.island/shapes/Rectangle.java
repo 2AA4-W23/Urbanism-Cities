@@ -8,7 +8,11 @@ import java.io.Serializable;
 
 public class Rectangle implements Shape{
 
-    private int height, width, distFromCentre, centreX, centreY;
+    private int height;
+    private int width;
+    private int distFromCentre;
+    public int centreX;
+    public int centreY;
 
     public Rectangle(int height, int width, int distFromCentre) {
         this.height = height;

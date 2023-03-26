@@ -18,7 +18,7 @@ public class Lakes {
         this.numLakes = numLakes;
     }
 
-    private void setLakeTiles() {
+    public void setLakeTiles() {
         for (Tile t : this.tileList) {
             if (t.createLake(t, this.tileList)) {
                 break;
