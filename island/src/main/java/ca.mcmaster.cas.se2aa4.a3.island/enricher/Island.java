@@ -28,8 +28,6 @@ public class Island implements Enricher {
 
     public Structs.Mesh.Builder aMesh = Structs.Mesh.newBuilder();
     private Dimensons meshDimensions;
-    private int height;
-    private int width;
     private String elevation;
     private String biome;
     private String aquifiers;
@@ -37,8 +35,9 @@ public class Island implements Enricher {
     private List<Structs.Segment> riverSegments = new ArrayList<>();
     private String lakes;
     private String rivers;
+    private String soil;
 
-    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers, String rivers) {
+    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers, String rivers, String soil) {
         this.originalMesh = aMesh;
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
@@ -48,6 +47,7 @@ public class Island implements Enricher {
         this.lakes = lakes;
         this.aquifiers = aquifiers;
         this.rivers = rivers;
+        this.soil = soil;
 
         if (shape.equals("circle")) {
             this.shapeIsland = (Ellipse2D) new Circle(this.meshDimensions.height(), this.meshDimensions.width(), this.meshDimensions.width()/4).createSelf();
@@ -80,7 +80,7 @@ public class Island implements Enricher {
             double centroid_x = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getX();
             double centroid_y = this.aMesh.getVerticesList().get(poly.getCentroidIdx()).getY();
 
-            Tile tile = new Tile(this.biome, this.elevation, this.shapeIsland, centroid_x, centroid_y, poly.getNeighborIdxsList(), numPolygon, poly.getCentroidIdx());
+            Tile tile = new Tile(this.biome, this.shapeIsland, centroid_x, centroid_y, poly.getNeighborIdxsList(), numPolygon, poly.getCentroidIdx(), this.soil);
             this.tileList.add(tile);
 
             ++numPolygon;

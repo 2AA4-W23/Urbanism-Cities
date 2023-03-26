@@ -36,13 +36,12 @@ public class Tile {
 
     private boolean isRiver = false;
     private TileColor tileColor;
-
-    private static List<Integer> riverPolygons = new ArrayList<>();
+    private boolean isSoil = false;
     private WhitakerDiagram WD = new WhitakerDiagram();
 
     String color = "";
 
-    public Tile(String biome, String elevation, RectangularShape islandshape, double centroidX, double centroidY, List<Integer> neighbours, int ID, int centroidIdx) {
+    public Tile(String biome, RectangularShape islandshape, double centroidX, double centroidY, List<Integer> neighbours, int ID, int centroidIdx, String soil) {
         this.biome = biome;
         this.shape  = islandshape;
         this.centroidX = centroidX;
@@ -50,6 +49,10 @@ public class Tile {
         this.neighbours = neighbours;
         this.ID = ID;
         this.centroidIdx = centroidIdx;
+
+        if (!soil.equals("0")) {
+            this.isSoil = true;
+        }
 
         if (this.shape.contains(this.centroidX, this.centroidY)) {
             this.isIsland = true;
@@ -105,6 +108,9 @@ public class Tile {
     }
     private boolean isAquifier() {
         return this.isAquifier;
+    }
+    private boolean isSoil() {
+        return this.isSoil;
     }
     private boolean isEndorheic() {
         return this.isEndorheic;
@@ -247,7 +253,9 @@ public class Tile {
     }
 
     private void addHumidity() {
-        this.humidity += 10;
+        if (this.isSoil()) {
+            this.humidity += 10;
+        }
     }
 
     public int getHumidity() {
