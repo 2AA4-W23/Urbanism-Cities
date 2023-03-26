@@ -8,10 +8,11 @@
 user A3 % mvn install clean package
 ```
 
-It creates two jars:
+It creates three jars:
 
 1. `generator/generator.jar` to generate meshes
-2. `visualizer/visualizer.jar` to visualize such meshes as SVG files
+2. `island/island.jar` to generate islands
+3. `visualizer/visualizer.jar` to visualize such meshes as SVG files
 
 ## Examples of execution
 
