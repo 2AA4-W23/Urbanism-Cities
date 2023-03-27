@@ -46,7 +46,6 @@ public class Volcano implements Elevation{
             } else if (biome.equals("tropical")) {
                 colour = tileRaise.TROPICAL.color;
                 String[] colourArray = colour.split(",");
-                colourArray[1] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[1]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/10), 255));
                 colourArray[2] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[2]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/10), 255));
                 colourArray[0] = String.valueOf(Math.min((int) (Integer.parseInt(colour.split(",")[0]) + Math.hypot(island.getCenterY()- tile.centroidY, island.getCenterX()- tile.centroidX)/10), 255));                colour = String.join(",", colourArray);
                 colour = String.join(",", colourArray);

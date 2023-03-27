@@ -26,11 +26,11 @@ public class Flatland implements Elevation{
     public String gradient() {
         String colour = "";
         if (island.contains(tile.centroidX, tile.centroidY)) {
-            if (biome.equals("Arctic")) {
+            if (biome.equals("arctic")) {
                 colour = tileRaise.ARCTIC.color;
-            } else if (biome.equals("Desert")) {
+            } else if (biome.equals("desert")) {
                 colour = tileRaise.DESERT.color;
-            } else if (biome.equals("Tropical")) {
+            } else if (biome.equals("tropical")) {
                 colour = tileRaise.TROPICAL.color;
             }  else if (biome.equals("Rocky")) {
                 colour = tileRaise.ROCKY.color;

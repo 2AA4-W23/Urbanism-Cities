@@ -16,7 +16,7 @@ public class Sandbox implements Enricher {
     private int height;
     private int width;
 
-    public Sandbox(Structs.Mesh aMesh, String elevation) {
+    public Sandbox(Structs.Mesh aMesh) {
         this.originalMesh = aMesh;
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());

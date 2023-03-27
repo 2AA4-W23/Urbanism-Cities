@@ -20,7 +20,7 @@ public class WhitakerDiagram {
 
     public String determineSubBiome(int elevation, int humidity, String biome) {
 
-        if (biome.equals("Arctic")) {
+        if (biome.equals("arctic")) {
             if (elevation >= 60 && humidity >= 10) { //highest elevation and water
                 this.subBiome = new Glacier();
             } else if (elevation >= 60 && humidity < 10) { //highest elevation and no water
@@ -30,7 +30,7 @@ public class WhitakerDiagram {
             } else { // not highest elevation and no water makes it rocky
                 this.subBiome = new Rocky();
             }
-        } else if (biome.equals("Desert")) {
+        } else if (biome.equals("desert")) {
             if (humidity >= 10) { //highest elevation and water
                 this.subBiome = new Taiga();
             } else if (elevation >= 60) { //highest elevation and no water
@@ -40,7 +40,7 @@ public class WhitakerDiagram {
             } else { // not highest elevation and no water makes it rocky
                 this.subBiome = new Beach();
             }
-        } else if (biome.equals("Tropical")) {
+        } else if (biome.equals("tropical")) {
             if (humidity >= 10) {
                 this.subBiome = new Muddy();
             } else if (elevation >= 60) { //highest elevation and water

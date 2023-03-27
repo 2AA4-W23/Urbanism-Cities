@@ -41,11 +41,11 @@ public class Hills implements Elevation{
         this.random = bag.nextInt(max - min + 1) + min;
 
         if (island.contains(tile.centroidX, tile.centroidY)) {
-            if (biome.equals("Arctic")) {
+            if (biome.equals("arctic")) {
                 colour = arcticColors[this.random];
-            } else if (biome.equals("Desert")) {
+            } else if (biome.equals("desert")) {
                 colour = desertColors[this.random];
-            } else if (biome.equals("Tropical")) {
+            } else if (biome.equals("tropical")) {
                 colour = tropicalColors[this.random];
             } else if (biome.equals("Rocky")) {
                 colour = tileRaise.ROCKY.color;

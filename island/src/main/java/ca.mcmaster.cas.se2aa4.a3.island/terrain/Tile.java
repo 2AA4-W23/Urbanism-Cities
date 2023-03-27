@@ -50,7 +50,7 @@ public class Tile {
         this.ID = ID;
         this.centroidIdx = centroidIdx;
 
-        if (!soil.equals("0")) {
+        if (!soil.equals("dry")) {
             this.isSoil = true;
         }
 

@@ -6,6 +6,6 @@ public class Desert implements Biome{
     TileColor biomeColour;
     @Override
     public String getColour() {
-        return "Desert";
+        return "desert";
     }
 }

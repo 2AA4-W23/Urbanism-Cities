@@ -49,7 +49,7 @@ public class Main {
         Structs.Mesh aMesh = new MeshFactory().read(config.input());
         Structs.Mesh island;
         if(config.export().containsKey(Configuration.MODE)) {
-            island = new Sandbox(aMesh, config.elevation()).buildNewMesh();
+            island = new Sandbox(aMesh).buildNewMesh();
         } else {
             Random rand = new Random();
             int seed = rand.nextInt(1000000 - 1 + 1) + 1;

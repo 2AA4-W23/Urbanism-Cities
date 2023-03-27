@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 public class IslandTest {
     Island island;
     String shape;
@@ -19,6 +18,7 @@ public class IslandTest {
     String elevation;
     String aquifiers;
     String rivers;
+    String soil;
     Structs.Mesh aMesh;
 
 
@@ -26,14 +26,14 @@ public class IslandTest {
     public void setUp() {
         // Create a new Island object with some initial parameters
         aMesh = Structs.Mesh.newBuilder().build();
-        //Structs.Mesh aMesh = new MeshFactory().read(output.mesh);
         shape = "circle";
         elevation = "volcano";
         biome = "tundra";
         lakes = "0";
         aquifiers = "0";
         rivers = "0";
-        island = new Island(aMesh, shape, elevation, biome, lakes, aquifiers, rivers);
+        soil = "dry";
+        island = new Island(aMesh, shape, elevation, biome, lakes, aquifiers, rivers, soil);
     }
 
     @Test
@@ -67,13 +67,11 @@ public class IslandTest {
     public void testBuildLakes() {
         // Check that the buildLakes method creates lakes correctly
         lakes = "3";
-        island = new Island(aMesh, shape, elevation, biome, lakes, aquifiers, rivers);
+        island = new Island(aMesh, shape, elevation, biome, lakes, aquifiers, rivers, soil);
         island.process();
         island.buildLakes();
         List<Tile> tileList = island.tileList;
         assertNotNull(tileList);
-        //assertTrue(tileList.size() > 0);
-        //assertTrue(tileList.stream().anyMatch(Tile::isLake));
     }
 
     @Test

@@ -19,17 +19,18 @@ class VolcanoTest {
     @BeforeEach
     public void setUp() {
         Rectangle2D.Double island = new Rectangle2D.Double(0, 0, 100, 100);
-        String biome = "Arctic";
-        Tile tile = new Tile(biome, "volcano", island, 5,5, Arrays.asList(1, 2, 3), 1,1);
+        String biome = "arctic";
+        Tile tile = new Tile(biome, island, 5,5, Arrays.asList(1, 2, 3), 1, 1,"dry");
         this.volcano = new Volcano(island, biome, tile);
     }
 
     @Test
     public void testGradientArctic() {
-        this.volcano.biome = "Arctic";
+        this.volcano.biome = "arctic";
         String r = "41";
         String g = "176";
         String b = "196";
+
         String result = this.volcano.gradient();
         String[] resultValues = result.split(",");
         int resultR = Integer.parseInt(resultValues[0]);
@@ -46,10 +47,11 @@ class VolcanoTest {
 
     @Test
     public void testGradientDesert() {
-        this.volcano.biome = "Desert";
+        this.volcano.biome = "desert";
         String r = "179";
         String g = "145";
         String b = "46";
+
         String result = this.volcano.gradient();
         String[] resultValues = result.split(",");
         int resultR = Integer.parseInt(resultValues[0]);
@@ -65,7 +67,7 @@ class VolcanoTest {
 
     @Test
     public void testGradientTropical() {
-        this.volcano.biome = "Tropical";
+        this.volcano.biome = "tropical";
         String r = "92";
         String g = "138";
         String b = "59";
