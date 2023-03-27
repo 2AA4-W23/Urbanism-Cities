@@ -2,7 +2,7 @@
 
 - Author: Mankaran Rooprai, Mujtaba Zaidi, Amaan Khakiani
 
-## How to install?
+## How to install? NOTE: TESTS COMPILE/EXECUTE WHEN THE BELOW COMMAND IS CALLED. THEY DO NOT WORK SEPARATELY - I.E. YOU CANNOT CALL TESTSUITE SEPARATELY.
 
 ```
 user A3 % mvn install clean package
@@ -13,8 +13,6 @@ It creates three jars:
 1. `generator/generator.jar` to generate meshes
 2. `island/island.jar` to generate islands
 3. `visualizer/visualizer.jar` to visualize such meshes as SVG files
-
-## Examples of execution
 
 ### Generate an irregular mesh
 
@@ -30,18 +28,17 @@ One can run the generator with `-help` as option to see the different command li
 user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -mode lagoon 
 ```
 
-### Visualizing an island with various parameters, (island mode)
+### Visualizing an island with various parameters, (island mode). Examples of execution.
 
 ```
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Arctic -e Hills -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Arctic -e Volcano -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Arctic -e Flatland -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Desert -e Hills -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Desert -e Volcano -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Desert -e Flatland -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b Tropical -e Hills -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Tropical -e Volcano -l 11 -a 5 -r 11
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b Tropical -e Flatland -l 11 -a 5 -r 11
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b arctic -e hills -l 11 -a 5 -r 11 -soil dry
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b arctic -e flatland -l 11 -a 5 -r 11 -soil wet
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b desert -e hills -l 11 -a 5 -r 11 -soil dry
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b desert -e volcano -l 11 -a 5 -r 11 -soil wet
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b desert -e flatland -l 11 -a 5 -r 11 -soil dry
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e volcano -l 11 -a 5 -r 11 -soil dry
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e flatland -l 11 -a 5 -r 11 -soil wet
 ```
 
 ### Command line arguments that can be used with java -jar island/island.jar (not for sandbox mode)
@@ -55,6 +52,7 @@ user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 -l        <arg>      Number of lakes
 -a        <arg>      Number of aquifiers
 -r        <arg>      Number of rivers
+-soil     <arg>      Type of soil (wet, dry)
 -seed     <arg>      Seed to regenerate island
 ```
 
@@ -103,5 +101,3 @@ java -jar visualizer/visualizer.jar -i island.mesh -o island.svg
 | F30 | Test the Bounds and Dimensions class | Amaan | Week 4
 | F31 | Test the Shapes classes like circle and rectangles | Amaan | Week 4
 | F32 | Test the Sandbox class | Amaan | Week 4
-
-
