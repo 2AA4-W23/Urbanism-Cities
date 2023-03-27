@@ -2,7 +2,8 @@
 
 - Author: Mankaran Rooprai, Mujtaba Zaidi, Amaan Khakiani
 
-## How to install? NOTE: TESTS COMPILE/EXECUTE WHEN THE BELOW COMMAND IS CALLED. THEY DO NOT WORK SEPARATELY - I.E. YOU CANNOT CALL TESTSUITE SEPARATELY.
+## How to install?
+## NOTE: TESTS COMPILE/EXECUTE WHEN THE BELOW COMMAND IS CALLED. THEY DO NOT WORK SEPARATELY - I.E. YOU CANNOT CALL TESTSUITE SEPARATELY.
 
 ```
 user A3 % mvn install clean package
@@ -34,10 +35,9 @@ user A3 % java -jar island/island.jar -i input.mesh -o lagoon.mesh -mode lagoon
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b arctic -e hills -l 11 -a 5 -r 11 -soil dry
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b arctic -e flatland -l 11 -a 5 -r 11 -soil wet
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b desert -e hills -l 11 -a 5 -r 11 -soil dry
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b desert -e volcano -l 11 -a 5 -r 11 -soil wet
+user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b arctic -e volcano -l 11 -a 5 -r 11 -soil dry
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b desert -e flatland -l 11 -a 5 -r 11 -soil dry
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet
-user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e volcano -l 11 -a 5 -r 11 -soil dry
 user A3 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e flatland -l 11 -a 5 -r 11 -soil wet
 ```
 
