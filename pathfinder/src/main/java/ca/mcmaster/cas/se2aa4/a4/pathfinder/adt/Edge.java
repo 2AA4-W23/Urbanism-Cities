@@ -5,7 +5,6 @@ import java.util.*;
 public class Edge {
 
     private final List<Node> nodes;
-    private String attributes;
 
     public Edge(Node n1, Node n2) {
         this.nodes = new ArrayList<>();

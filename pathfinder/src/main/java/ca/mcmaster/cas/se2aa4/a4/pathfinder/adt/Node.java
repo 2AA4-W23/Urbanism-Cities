@@ -39,6 +39,14 @@ public class Node {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node that = (Node) o;
+        return this.vertex.equals(that.vertex);
+    }
+
+    @Override
     public String toString() {
         return "[(" + x() +
                 ", " + y() +

@@ -59,7 +59,7 @@ public class Main {
         System.out.println();
         System.out.println();
         System.out.println();
-        System.out.println(yo);
+        System.out.println(yo.toArray().toString());
 
         //Graph graph = new Exporter().run(aMesh.verticesList, aMesh.segmentsList);
     }

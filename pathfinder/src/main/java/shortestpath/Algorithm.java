@@ -22,13 +22,13 @@ public class Algorithm implements Traversal {
         visited.add(source);
 
         // iterate through the queue
-        while (!queue.isEmpty()) {
+        while (!queue.isEmpty() && !graph.isEmpty()) {
             Node node = queue.poll();
             // break if target node is found
             if (node.equals(target)) {
                 break;
             }
-            // iterate throiugh nodes that current node is connected to
+            // iterate through nodes that current node is connected to
             for (Node neighbor : graph.getAdjacencyNodes(node)) {
                 if (!visited.contains(neighbor)) {
                     visited.add(neighbor);

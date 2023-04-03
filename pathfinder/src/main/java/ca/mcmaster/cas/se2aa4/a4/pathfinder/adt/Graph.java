@@ -24,8 +24,24 @@ public class Graph implements Iterable<Edge> {
         this.nodes.add(n);
     }
 
+    public void removeNode(Node node) {
+        // Remove the node from the nodes set
+        this.nodes.remove(node);
+
+        // Remove the node from the adjacency list and its corresponding edges
+        List<Node> neighbors = this.adjacencyList.remove(node);
+        for (Node neighbor : neighbors) {
+            this.adjacencyList.get(neighbor).remove(node);
+            this.edges.remove(new Edge(node, neighbor));
+        }
+    }
+
     public List<Node> getAdjacencyNodes(Node node) {
-        return this.adjacencyList.get(node);
+        if (this.adjacencyList.containsKey(node)) {
+            return this.adjacencyList.get(node);
+        } else {
+            return new ArrayList<Node>();
+        }
     }
 
     public int printAdjacencyList() {
@@ -35,15 +51,21 @@ public class Graph implements Iterable<Edge> {
         return 0;
     }
 
+    public void clear() {
+        this.adjacencyList.clear();
+    }
+
+    public boolean isEmpty() {
+        return this.adjacencyList.isEmpty();
+    }
+
     public void setEdgeIndices(Map<Edge, Integer> edgeIdx) {
         this.edgeIdx = edgeIdx;
     }
-
     @Override
     public Iterator<Edge> iterator() {
         return this.edges.iterator();
     }
-
 
     @Override
     public String toString() {
