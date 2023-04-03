@@ -5,7 +5,7 @@
 ## How to install?
 
 ```
-user A3 % mvn install clean package
+user A4 % mvn install clean package
 ```
 
 It creates a jar file for the pathfinder subproject:
