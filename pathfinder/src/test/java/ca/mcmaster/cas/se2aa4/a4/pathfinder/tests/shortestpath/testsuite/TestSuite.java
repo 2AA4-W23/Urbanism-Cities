@@ -1,11 +1,12 @@
 package ca.mcmaster.cas.se2aa4.a4.pathfinder.tests.shortestpath.testsuite;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.tests.shortestpath.tests.AlgorithmTest;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
+import org.junit.platform.suite.api.SuiteDisplayName;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({AlgorithmTest.class})
+@Suite
+@SuiteDisplayName("Test Suite")
+@SelectClasses({AlgorithmTest.class})
 public class TestSuite {
-
 }

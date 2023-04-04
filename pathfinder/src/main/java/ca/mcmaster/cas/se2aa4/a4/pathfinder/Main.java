@@ -4,11 +4,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Edge;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Node;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.exporter.Exporter;
 import shortestpath.Algorithm;
 
 import java.util.List;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {

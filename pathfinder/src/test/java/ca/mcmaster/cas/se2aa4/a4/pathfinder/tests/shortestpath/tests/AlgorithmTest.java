@@ -4,10 +4,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Edge;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Node;
-import org.junit.Before;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.Test;
 import shortestpath.Algorithm;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class AlgorithmTest {
     Graph g;
     Algorithm a;
 
-    @Before
+    @BeforeEach
     public void setup() {
 
         Structs.Vertex testVertex1  = Structs.Vertex.newBuilder().setX(40).setY(40).build();

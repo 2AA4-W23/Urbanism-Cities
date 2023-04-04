@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a4.pathfinder.exporter;
+package ca.mcmaster.cas.se2aa4.a4.pathfinder.adapter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Edge;
@@ -7,9 +7,9 @@ import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Node;
 
 import java.util.*;
 
-public class Exporter {
+public class Adapter {
 
-    public Exporter() {}
+    public Adapter() {}
 
     public Graph run(List<Structs.Vertex> vertices, List<Structs.Segment> segments) {
         Graph graph = new Graph();
