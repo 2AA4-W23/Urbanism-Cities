@@ -36,6 +36,9 @@ public class Configuration {
     public static final String SEED = "g";
     public static final String SEED_LONG = "seed";
 
+    public static final String CITIES = "c";
+    public static final String CITIES_LONG = "cities";
+
     public static final String HELP = "help";
 
     private CommandLine cli;
@@ -119,6 +122,7 @@ public class Configuration {
         options.addOption(new Option(SOIL, SOIL_LONG, true, "Soil"));
         options.addOption(new Option(BIOMES, BIOMES_LONG, true, "Biomes"));
         options.addOption(new Option(SEED, SEED_LONG, true, "Seed"));
+        options.addOption(new Option(CITIES, CITIES_LONG, true, "Cities"));
         options.addOption(new Option(HELP, false, "print help message"));
         return options;
     }
