@@ -57,7 +57,7 @@ public class Main {
             if (outputFiles.containsKey(config.seed())) {
                 island = outputFiles.get(String.valueOf(config.seed()));
             } else {
-                island = new Island(aMesh, config.shape(), config.elevation(), config.biome(), config.lakes(), config.aquifiers(), config.rivers(), config.soil()).buildNewMesh();
+                island = new Island(aMesh, config.shape(), config.elevation(), config.biome(), config.lakes(), config.aquifiers(), config.rivers(), config.soil(), config.cities()).buildNewMesh();
                 outputFiles.put(String.valueOf(seed), island);
                 saveDictionary(outputFiles);
                 System.out.println("SEED FOR REGENERATION: " + seed);

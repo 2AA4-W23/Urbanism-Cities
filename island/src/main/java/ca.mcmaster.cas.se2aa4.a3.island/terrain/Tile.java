@@ -8,9 +8,7 @@ import whitaker.WhitakerDiagram;
 
 import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Tile {
 
@@ -35,6 +33,7 @@ public class Tile {
     private boolean isLake = false;
 
     private boolean isRiver = false;
+    private boolean isCity = false;
     private TileColor tileColor;
     private boolean isSoil = false;
     private WhitakerDiagram WD = new WhitakerDiagram();
@@ -114,6 +113,9 @@ public class Tile {
     }
     private boolean isEndorheic() {
         return this.isEndorheic;
+    }
+    private boolean isCity() {
+        return this.isCity;
     }
     public List<Integer> getNeighbours() {
         return this.neighbours;
@@ -242,6 +244,18 @@ public class Tile {
             tileList.get(lowestElevationIdx).color = this.tileColor.RIVER.color;
         }
         return true;
+    }
+
+    public boolean canMakeCity() {
+        if (this.isIsland() && !this.isRiver() && !this.isLake() && !this.isEndorheic()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void createCity() {
+        this.isCity = true;
+        this.color = this.tileColor.CITY.color;
     }
 
     private void setHumidity(List<Tile> tileList, Tile tile) {

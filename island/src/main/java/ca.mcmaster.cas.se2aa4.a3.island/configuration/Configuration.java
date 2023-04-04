@@ -109,6 +109,9 @@ public class Configuration {
     public String soil() {
         return this.cli.getOptionValue(SOIL, "dry");
     }
+    public String cities() {
+        return this.cli.getOptionValue(CITIES, "0");
+    }
     private Options options() {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input mesh file name"));

@@ -19,6 +19,7 @@ public class IslandTest {
     String aquifiers;
     String rivers;
     String soil;
+    String cities;
     Structs.Mesh aMesh;
 
 
@@ -33,7 +34,8 @@ public class IslandTest {
         aquifiers = "0";
         rivers = "0";
         soil = "dry";
-        island = new Island(aMesh, shape, elevation, biome, lakes, aquifiers, rivers, soil);
+        cities = "0";
+        island = new Island(aMesh, shape, elevation, biome, lakes, aquifiers, rivers, soil, cities);
     }
 
     @Test
@@ -67,7 +69,7 @@ public class IslandTest {
     public void testBuildLakes() {
         // Check that the buildLakes method creates lakes correctly
         lakes = "3";
-        island = new Island(aMesh, shape, elevation, biome, lakes, aquifiers, rivers, soil);
+        island = new Island(aMesh, shape, elevation, biome, lakes, aquifiers, rivers, soil, cities);
         island.process();
         island.buildLakes();
         List<Tile> tileList = island.tileList;

@@ -1,6 +1,7 @@
 package ca.mcmaster.cas.se2aa4.a3.island.enricher;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a3.island.city.City;
 import ca.mcmaster.cas.se2aa4.a3.island.dimensions.Bounds;
 import ca.mcmaster.cas.se2aa4.a3.island.shapes.Circle;
 import ca.mcmaster.cas.se2aa4.a3.island.shapes.Rectangle;
@@ -36,8 +37,9 @@ public class Island implements Enricher {
     public String lakes;
     private String rivers;
     private String soil;
+    private String cities;
 
-    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers, String rivers, String soil) {
+    public Island(Structs.Mesh aMesh, String shape, String elevation, String biome, String lakes, String aquifiers, String rivers, String soil, String cities) {
         this.originalMesh = aMesh;
         this.aMesh.addAllVertices(aMesh.getVerticesList());
         this.aMesh.addAllSegments(aMesh.getSegmentsList());
@@ -48,6 +50,7 @@ public class Island implements Enricher {
         this.aquifiers = aquifiers;
         this.rivers = rivers;
         this.soil = soil;
+        this.cities = cities;
 
         if (shape.equals("circle")) {
             this.shapeIsland = (Ellipse2D) new Circle(this.meshDimensions.height(), this.meshDimensions.width(), this.meshDimensions.width()/4).createSelf();
@@ -94,6 +97,7 @@ public class Island implements Enricher {
         this.buildAquifier();
         this.elevateIsland();
         this.buildRivers();
+        this.buildCities();
         this.colorPolygons();
         return this.aMesh.build();
     }
@@ -131,6 +135,13 @@ public class Island implements Enricher {
             this.riverSegments = river.createRivers();
         }
         this.aMesh.addAllSegments(this.riverSegments);
+    }
+
+    private void buildCities() {
+        if (Integer.parseInt(this.cities) > 0) {
+            City city = new City(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.cities));
+            this.tileList = city.createCities();
+        }
     }
 
 }
