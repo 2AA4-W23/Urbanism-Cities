@@ -139,8 +139,12 @@ public class Island implements Enricher {
     private void buildCities() {
         if (Integer.parseInt(this.cities) > 0) {
             Map<City, Tile> cityTiles = new CityBuilder().run(this.cities, this.tileList);
-            List<Structs.Segment> shortestPath = new Adapter().run(this.originalMesh, cityTiles);
+            Adapter a = new Adapter();
+            List<Structs.Segment> shortestPath = a.run(this.originalMesh, cityTiles, this.tileList);
+            List<Structs.Vertex> cityColors = a.cityColors();
+            System.out.println("HERE IN ISLAND: " + cityColors);
             this.aMesh.addAllSegments(shortestPath);
+            this.aMesh.addAllVertices(cityColors);
         }
     }
 

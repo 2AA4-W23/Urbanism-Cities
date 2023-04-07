@@ -96,7 +96,7 @@ public class Tile {
         return this.color;
     }
 
-    private boolean isIsland() {
+    public boolean isIsland() {
         return this.isIsland;
     }
     public boolean isLake() {

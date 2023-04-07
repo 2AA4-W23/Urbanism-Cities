@@ -24,6 +24,7 @@ public class GraphicRenderer implements Renderer {
         canvas.setStroke(stroke);
         drawPolygons(aMesh,canvas);
         drawSegments(aMesh,canvas);
+        drawVertices(aMesh,canvas);
     }
 
     private void drawPolygons(Mesh aMesh, Graphics2D canvas) {
@@ -75,4 +76,19 @@ public class GraphicRenderer implements Renderer {
 
         }
     }
+
+    private void drawVertices(Mesh aMesh, Graphics2D canvas) {
+        Optional<Color> fill;
+        Ellipse2D city = new Ellipse2D.Float();
+        for (Structs.Vertex v : aMesh.getVerticesList()) {
+            fill = new ColorProperty().extract(v.getPropertiesList());
+            if (fill.isPresent()) {
+                canvas.setColor(fill.get());
+                city.setFrame(v.getX() - 5, v.getY() - 5, 10, 10);
+                canvas.fill(city);
+            }
+
+        }
+    }
+
 }

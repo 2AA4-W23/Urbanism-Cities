@@ -12,14 +12,15 @@ import java.util.*;
 
 public class Adapter {
 
+    List<Structs.Vertex> coloredCities = new ArrayList<>();
+
     public Adapter() {}
 
-    public List<Structs.Segment> run(Structs.Mesh mesh, Map<City, Tile> cityTiles) {
+    public List<Structs.Segment> run(Structs.Mesh mesh, Map<City, Tile> cityTiles, List<Tile> tileList) {
         Graph graph = new Graph();
-        graph = buildGraph(graph, mesh.getSegmentsList());
+        graph = buildGraph(graph, mesh, tileList);
         Map<Integer, Boolean> cityVerticesIdx = calculateCityVertices(mesh.getPolygonsList(), mesh.getSegmentsList(), cityTiles);
-        List<Structs.Segment> shortestPath = calculateStarNetwork(graph, cityVerticesIdx);
-//        List<Structs.Vertex> coloredCities = colorCities(graph, cityVerticesIdx, mesh);
+        List<Structs.Segment> shortestPath = calculateStarNetwork(graph, cityVerticesIdx, mesh);
         return shortestPath;
     }
 
@@ -35,12 +36,10 @@ public class Adapter {
             }
         }
 
-        System.out.println("CITY VERTICES: " + cityVertices);
-
         return cityVertices;
     }
 
-    private List<Structs.Segment> calculateStarNetwork(Graph graph, Map<Integer, Boolean> cityVertices) {
+    private List<Structs.Segment> calculateStarNetwork(Graph graph, Map<Integer, Boolean> cityVertices, Structs.Mesh mesh) {
 
         List<Structs.Segment> roads = new ArrayList<>();
         TileColor t = null;
@@ -59,7 +58,6 @@ public class Adapter {
             // calculates the shortest path between the central hub node and the connecting city
             Node connectingCity = graph.getNode(c);
             List<Node> shortestPath = new ShortestPathBFS().findShortestPath(graph, hub, connectingCity);
-            System.out.println("SHORTEST PATH: " + shortestPath);
             // add the node ID to the roads list
             for (int i = 0; i < shortestPath.size() - 1; i++) {
                 Structs.Segment.Builder roadBuilder = Structs.Segment.newBuilder().setV1Idx(shortestPath.get(i).ID()).setV2Idx(shortestPath.get(i+1).ID());
@@ -79,33 +77,60 @@ public class Adapter {
 
         }
 
+        this.coloredCities = colorCities(cityVertices, mesh);
+
         return roads;
 
     }
 
-//    public List<Structs.Vertex> colorCities(Graph graph, Map<Integer, Boolean> cityVerticesIdx, Structs.Mesh mesh) {
-//        for (Map.Entry<Integer, Boolean> kv : cityVerticesIdx.entrySet()) {
-//            if (kv.getValue()) {
-//                double x = mesh.getVerticesList().get(kv.getKey()).getX();
-//                double y = mesh.getVerticesList().get(kv.getKey()).getY();
-//                Structs.Vertex.Builder cityBuilder = Structs.Vertex.newBuilder().setX(kv);
-//                Structs.Property rgb = Structs.Property.newBuilder()
-//                        .setKey("rgb_color")
-//                        .setValue(t.ROAD.color)
-//                        .build();
-//                Structs.Property thickness = Structs.Property.newBuilder()
-//                        .setKey("thickness")
-//                        .setValue(String.valueOf(3f))
-//                        .build();
-//            }
-//        }
-//    }
+    public List<Structs.Vertex> cityColors() {
+        return this.coloredCities;
+    }
+
+    private List<Structs.Vertex> colorCities(Map<Integer, Boolean> cityVerticesIdx, Structs.Mesh mesh) {
+        List<Structs.Vertex> cities = new ArrayList<>();
+        TileColor t = null;
+
+        for (Map.Entry<Integer, Boolean> kv : cityVerticesIdx.entrySet()) {
+            double x = mesh.getVerticesList().get(kv.getKey()).getX();
+            double y = mesh.getVerticesList().get(kv.getKey()).getY();
+            Structs.Vertex.Builder cityBuilder = Structs.Vertex.newBuilder().setX(x).setY(y);
+
+            String colorValue = kv.getValue() ? t.CAPITAL.color : t.CITY.color;
+
+            Structs.Property rgb = Structs.Property.newBuilder()
+                    .setKey("rgb_color")
+                    .setValue(colorValue)
+                    .build();
+            cityBuilder.addProperties(rgb);
+            Structs.Vertex city = cityBuilder.build();
+            cities.add(city);
+        }
+
+        System.out.println("CAPITAL CITIES: " + cities);
+
+        return cities;
+
+    }
 
 
-    private Graph buildGraph(Graph graph, List<Structs.Segment> segments) {
+    private Graph buildGraph(Graph graph, Structs.Mesh mesh, List<Tile> tileList) {
+
+        List<Integer> segmentIdx = new ArrayList<>();
+        List<Structs.Segment> segmentsList = new ArrayList<>();
+
+        for (Tile t : tileList) {
+            if (t.isIsland()) {
+                segmentIdx.addAll(mesh.getPolygonsList().get(t.getID()).getSegmentIdxsList());
+            }
+        }
+
+        for (Integer s : segmentIdx) {
+            segmentsList.add(mesh.getSegments(s));
+        }
 
         // builds the graph using the segment's vertices' indices
-        for (Structs.Segment s : segments) {
+        for (Structs.Segment s : segmentsList) {
 
             int n1Idx = s.getV1Idx();
             int n2Idx = s.getV2Idx();
@@ -124,11 +149,6 @@ public class Adapter {
 
             Edge e = new Edge(n1, n2);
             graph.registerEdge(e);
-            if (n1Idx == 2917) {
-                System.out.println("adjacnency list 2917 (n1): " + graph.getAdjacencyNodes(n1));
-            } else if (n2Idx == 2917) {
-                System.out.println("adjacnency list 2917 (n2): " + graph.getAdjacencyNodes(n2));
-            }
         }
 
         return graph;

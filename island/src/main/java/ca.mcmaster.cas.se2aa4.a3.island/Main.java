@@ -61,7 +61,6 @@ public class Main {
                 outputFiles.put(String.valueOf(seed), island);
                 saveDictionary(outputFiles);
                 System.out.println("SEED FOR REGENERATION: " + seed);
-                System.out.println("SEGMENT 0: " + aMesh.getSegmentsList().get(0));
             }
         }
         new MeshFactory().write(island, config.export(Configuration.FILENAME));
