@@ -1,25 +1,24 @@
 package ca.mcmaster.cas.se2aa4.a3.island.enricher;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a3.island.city.Adapter;
 import ca.mcmaster.cas.se2aa4.a3.island.city.City;
-import ca.mcmaster.cas.se2aa4.a3.island.dimensions.Bounds;
+import ca.mcmaster.cas.se2aa4.a3.island.city.CityBuilder;
 import ca.mcmaster.cas.se2aa4.a3.island.shapes.Circle;
 import ca.mcmaster.cas.se2aa4.a3.island.shapes.Rectangle;
-import ca.mcmaster.cas.se2aa4.a3.island.shapes.Shape;
 import ca.mcmaster.cas.se2aa4.a3.island.dimensions.Dimensons;
 
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
-import org.locationtech.jts.geom.Geometry;
+import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Graph;
+import shortestpath.ShortestPathBFS;
 import water.Aquifier;
 import water.Lakes;
 import water.Rivers;
-import whitaker.WhitakerDiagram;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Island implements Enricher {
 
@@ -96,8 +95,8 @@ public class Island implements Enricher {
         this.buildLakes();
         this.buildAquifier();
         this.elevateIsland();
-        this.buildRivers();
         this.buildCities();
+        this.buildRivers();
         this.colorPolygons();
         return this.aMesh.build();
     }
@@ -139,8 +138,9 @@ public class Island implements Enricher {
 
     private void buildCities() {
         if (Integer.parseInt(this.cities) > 0) {
-            City city = new City(this.originalMesh.getPolygonsList(), this.tileList, Integer.parseInt(this.cities));
-            this.tileList = city.createCities();
+            Map<City, Tile> cityTiles = new CityBuilder().run(this.cities, this.tileList);
+            List<Structs.Segment> shortestPath = new Adapter().run(this.originalMesh, cityTiles);
+            this.aMesh.addAllSegments(shortestPath);
         }
     }
 

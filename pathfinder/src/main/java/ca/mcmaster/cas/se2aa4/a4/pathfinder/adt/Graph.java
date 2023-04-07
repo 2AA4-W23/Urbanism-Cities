@@ -13,15 +13,31 @@ public class Graph implements Iterable<Edge> {
     }
 
     public void registerEdge(Edge e) {
+        // Check if edge already exists
+        for (Edge existingEdge : edges) {
+            if (existingEdge.equals(e)) {
+                return; // Edge already exists, so don't add it again
+            }
+        }
+
         Node[] contents = e.contents();
+        // Add nodes to adjacency list if they don't exist
+        if (!this.adjacencyList.containsKey(contents[0])) {
+            this.adjacencyList.put(contents[0], new ArrayList<>());
+        }
+        if (!this.adjacencyList.containsKey(contents[1])) {
+            this.adjacencyList.put(contents[1], new ArrayList<>());
+        }
+        // Add edge to adjacency list and edges list
         this.adjacencyList.get(contents[0]).add(contents[1]);
-        this.adjacencyList.putIfAbsent(contents[1], new ArrayList<>());
         this.adjacencyList.get(contents[1]).add(contents[0]);
         this.edges.add(e);
     }
     public void registerNode(Node n) {
-        this.adjacencyList.putIfAbsent(n, new ArrayList<>());
-        this.nodes.add(n);
+        if (!this.adjacencyList.containsKey(n)) {
+            this.adjacencyList.putIfAbsent(n, new ArrayList<>());
+            this.nodes.add(n);
+        }
     }
 
     public void removeNode(Node node) {
@@ -44,6 +60,23 @@ public class Graph implements Iterable<Edge> {
         }
     }
 
+    public boolean hasNode(int idx) {
+        Node n = new Node(idx);
+        if (this.adjacencyList.containsKey(n)) {
+            return true;
+        }
+        return false;
+    }
+
+    public Node getNode(int nodeIdx) {
+        for (Map.Entry<Node, List<Node>> kv : this.adjacencyList.entrySet()) {
+            if (nodeIdx == kv.getKey().ID()) {
+                return kv.getKey();
+            }
+        }
+        return null;
+    }
+
     public int printAdjacencyList() {
         for (Map.Entry<Node, List<Node>> entry : this.adjacencyList.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
@@ -62,6 +95,11 @@ public class Graph implements Iterable<Edge> {
     public void setEdgeIndices(Map<Edge, Integer> edgeIdx) {
         this.edgeIdx = edgeIdx;
     }
+
+    public int size() {
+        return this.adjacencyList.size();
+    }
+
     @Override
     public Iterator<Edge> iterator() {
         return this.edges.iterator();

@@ -253,10 +253,10 @@ public class Tile {
         return false;
     }
 
-    public void createCity() {
-        this.isCity = true;
-        this.color = this.tileColor.CITY.color;
-    }
+//    public void createCity() {
+//        this.isCity = true;
+//        this.color = this.tileColor.CITY.color;
+//    }
 
     private void setHumidity(List<Tile> tileList, Tile tile) {
         for (Integer i : tile.getNeighbours()) {

@@ -1,29 +1,21 @@
 package ca.mcmaster.cas.se2aa4.a4.pathfinder;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Edge;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Node;
-import shortestpath.Algorithm;
+import shortestpath.ShortestPathBFS;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        Structs.Vertex v0 = Structs.Vertex.newBuilder().setX(0).setY(0).build();
-        Structs.Vertex v1 = Structs.Vertex.newBuilder().setX(10).setY(10).build();
-        Structs.Vertex v2 = Structs.Vertex.newBuilder().setX(20).setY(20).build();
-        Structs.Vertex v3 = Structs.Vertex.newBuilder().setX(30).setY(30).build();
-        Structs.Vertex v4 = Structs.Vertex.newBuilder().setX(40).setY(40).build();
-        Structs.Vertex v5 = Structs.Vertex.newBuilder().setX(50).setY(50).build();
-
-        Node node0 = new Node(v0, 0);
-        Node node1 = new Node(v1, 1);
-        Node node2 = new Node(v2, 2);
-        Node node3 = new Node(v3, 3);
-        Node node4 = new Node(v4, 4);
-        Node node5 = new Node(v5, 5);
+        Node node0 = new Node(0);
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        Node node3 = new Node(3);
+        Node node4 = new Node(4);
+        Node node5 = new Node(5);
 
         Edge edge0 = new Edge(node0, node1);
         Edge edge1 = new Edge(node1, node2);
@@ -50,7 +42,7 @@ public class Main {
         g.registerEdge(edge5);
         g.registerEdge(edge6);
 
-        Algorithm a = new Algorithm();
+        ShortestPathBFS a = new ShortestPathBFS();
         List<Node> yo = a.findShortestPath(g, node4, node5);
         //System.out.println(yo);
         g.printAdjacencyList();

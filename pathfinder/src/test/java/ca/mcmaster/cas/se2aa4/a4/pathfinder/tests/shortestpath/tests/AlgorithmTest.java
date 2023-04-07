@@ -1,13 +1,12 @@
 package ca.mcmaster.cas.se2aa4.a4.pathfinder.tests.shortestpath.tests;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Edge;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Node;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import shortestpath.Algorithm;
+import shortestpath.ShortestPathBFS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AlgorithmTest {
     List<Node> testExpected = new ArrayList<>();
     List<Node> testResult;
-    Structs.Vertex v0;
-    Structs.Vertex v1;
-    Structs.Vertex v2;
-    Structs.Vertex v3;
-    Structs.Vertex v4;
-    Structs.Vertex v5;
 
     Node node0;
     Node node1;
@@ -40,31 +33,20 @@ public class AlgorithmTest {
     Edge edge6;
 
     Graph g;
-    Algorithm a;
+    ShortestPathBFS a;
 
     @BeforeEach
     public void setup() {
+        testExpected.add(new Node(4));
+        testExpected.add(new Node(3));
+        testExpected.add(new Node(5));
 
-        Structs.Vertex testVertex1  = Structs.Vertex.newBuilder().setX(40).setY(40).build();
-        Structs.Vertex testVertex2  = Structs.Vertex.newBuilder().setX(30).setY(30).build();
-        Structs.Vertex testVertex3  = Structs.Vertex.newBuilder().setX(50).setY(50).build();
-        testExpected.add(new Node(testVertex1, 4));
-        testExpected.add(new Node(testVertex2, 3));
-        testExpected.add(new Node(testVertex3, 5));
-
-        v0  = Structs.Vertex.newBuilder().setX(0).setY(0).build();
-        v1  = Structs.Vertex.newBuilder().setX(10).setY(10).build();
-        v2  = Structs.Vertex.newBuilder().setX(20).setY(20).build();
-        v3  = Structs.Vertex.newBuilder().setX(30).setY(30).build();
-        v4  = Structs.Vertex.newBuilder().setX(40).setY(40).build();
-        v5  = Structs.Vertex.newBuilder().setX(50).setY(50).build();
-
-        node0 = new Node(v0, 0);
-        node1 = new Node(v1, 1);
-        node2 = new Node(v2, 2);
-        node3 = new Node(v3, 3);
-        node4 = new Node(v4, 4);
-        node5 = new Node(v5, 5);
+        node0 = new Node(0);
+        node1 = new Node(1);
+        node2 = new Node(2);
+        node3 = new Node(3);
+        node4 = new Node(4);
+        node5 = new Node(5);
 
         edge0 = new Edge(node0, node1);
         edge1 = new Edge(node1, node2);
@@ -91,7 +73,7 @@ public class AlgorithmTest {
         g.registerEdge(edge5);
         g.registerEdge(edge6);
 
-        a = new Algorithm();
+        a = new ShortestPathBFS();
 
         testResult = a.findShortestPath(g, node4, node5);
     }
@@ -105,8 +87,7 @@ public class AlgorithmTest {
     @Test
     @DisplayName("Tests shortest path between two nodes but expected has an extra node")
     public void findShortestPathFalse() {
-        Structs.Vertex testVertex4  = Structs.Vertex.newBuilder().setX(60).setY(60).build();
-        testExpected.add(new Node(testVertex4, 6));
+        testExpected.add(new Node(6));
         assertNotEquals(testExpected, testResult);
     }
 
@@ -123,7 +104,7 @@ public class AlgorithmTest {
     @Test
     @DisplayName("Node/edge inserted")
     public void dataInsertion() {
-        Node node7 = new Node(Structs.Vertex.newBuilder().setX(70).setY(70).build(), 7);
+        Node node7 = new Node(7);
         g.registerNode(node7);
         g.registerEdge(new Edge(node1, node7));
         testResult = a.findShortestPath(g, node1, node7);
@@ -180,7 +161,7 @@ public class AlgorithmTest {
         boolean ordered = true;
 
         testExpected.remove(1);
-        testExpected.add(new Node(Structs.Vertex.newBuilder().setX(30).setY(30).build(), 3));
+        testExpected.add(new Node(3));
 
         for (int i = 0; i < testResult.size(); i++) {
             if (!testResult.get(i).equals(testExpected.get(i)) || testExpected.size() != testResult.size()) {
