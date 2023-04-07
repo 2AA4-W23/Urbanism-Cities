@@ -62,19 +62,18 @@ public class GraphicRenderer implements Renderer {
     private void drawSegments(Mesh aMesh, Graphics2D canvas) {
         Optional<Color> fill;
         Optional<String> thickness;
-        Path2D river = new Path2D.Float();
         for (Structs.Segment s : aMesh.getSegmentsList()) {
+            Path2D segment = new Path2D.Float(); // Initialize the Path2D here
             fill = new ColorProperty().extract(s.getPropertiesList());
             if (fill.isPresent()) {
                 canvas.setColor(fill.get());
-                river.moveTo(aMesh.getVertices(s.getV1Idx()).getX(), aMesh.getVertices(s.getV1Idx()).getY());
-                river.lineTo(aMesh.getVertices(s.getV2Idx()).getX(), aMesh.getVertices(s.getV2Idx()).getY());
-                river.closePath();
+                segment.moveTo(aMesh.getVertices(s.getV1Idx()).getX(), aMesh.getVertices(s.getV1Idx()).getY());
+                segment.lineTo(aMesh.getVertices(s.getV2Idx()).getX(), aMesh.getVertices(s.getV2Idx()).getY());
+                segment.closePath();
                 thickness = new ThicknessProperty().extract(s.getPropertiesList());
                 canvas.setStroke(new BasicStroke(Float.parseFloat(thickness.get())));
-                canvas.draw(river);
+                canvas.draw(segment);
             }
-
         }
     }
 

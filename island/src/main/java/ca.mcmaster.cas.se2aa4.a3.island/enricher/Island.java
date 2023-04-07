@@ -95,8 +95,8 @@ public class Island implements Enricher {
         this.buildLakes();
         this.buildAquifier();
         this.elevateIsland();
-        this.buildCities();
         this.buildRivers();
+        this.buildCities();
         this.colorPolygons();
         return this.aMesh.build();
     }
