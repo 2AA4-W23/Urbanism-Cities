@@ -19,13 +19,16 @@ public class CityBuilder {
     private Map<City, Tile> cityBuilder(String cities, List<Tile> tileList) {
         int counter = 0;
         int tileIdx = 0;
+        boolean largeCity = false;
         Map<City, Tile> cityMap = new HashMap<>();
 
         while (counter < Integer.parseInt(cities) && tileIdx < tileList.size()) {
             if (tileList.get(tileIdx).canMakeCity()) {
-                City city = new City();
+                String citySize = largeCity ? CitySize.LARGE.name() : CitySize.SMALL.name();
+                City city = new City(citySize);
                 cityMap.put(city, tileList.get(tileIdx));
                 counter++;
+                largeCity = !largeCity;
             }
             tileIdx++;
         }

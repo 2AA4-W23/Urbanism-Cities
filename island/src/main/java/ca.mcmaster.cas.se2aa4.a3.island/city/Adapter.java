@@ -20,7 +20,7 @@ public class Adapter {
         Graph graph = new Graph();
         graph = buildGraph(graph, mesh, tileList);
         Map<Integer, Boolean> cityVerticesIdx = calculateCityVertices(mesh.getPolygonsList(), mesh.getSegmentsList(), cityTiles);
-        List<Structs.Segment> shortestPath = calculateStarNetwork(graph, cityVerticesIdx, mesh);
+        List<Structs.Segment> shortestPath = calculateStarNetwork(graph, cityVerticesIdx, mesh, cityTiles);
         return shortestPath;
     }
 
@@ -39,7 +39,7 @@ public class Adapter {
         return cityVertices;
     }
 
-    private List<Structs.Segment> calculateStarNetwork(Graph graph, Map<Integer, Boolean> cityVertices, Structs.Mesh mesh) {
+    private List<Structs.Segment> calculateStarNetwork(Graph graph, Map<Integer, Boolean> cityVertices, Structs.Mesh mesh, Map<City, Tile> cityTiles) {
 
         List<Structs.Segment> roads = new ArrayList<>();
         TileColor t = null;
@@ -77,7 +77,7 @@ public class Adapter {
 
         }
 
-        this.coloredCities = colorCities(cityVertices, mesh);
+        this.coloredCities = colorCities(cityVertices, mesh, cityTiles);
 
         return roads;
 
@@ -87,27 +87,48 @@ public class Adapter {
         return this.coloredCities;
     }
 
-    private List<Structs.Vertex> colorCities(Map<Integer, Boolean> cityVerticesIdx, Structs.Mesh mesh) {
+    private List<Structs.Vertex> colorCities(Map<Integer, Boolean> cityVerticesIdx, Structs.Mesh mesh, Map<City, Tile> cityTiles) {
         List<Structs.Vertex> cities = new ArrayList<>();
         TileColor t = null;
+        CitySize c = null;
+        String citySize = "";
 
+        List<String> sizeMappings = new ArrayList<>();
+
+        for (Map.Entry<City, Tile> kv : cityTiles.entrySet()) {
+            if (kv.getKey().citySize().equals(c.LARGE.name())) {
+                citySize = c.LARGE.size;
+            } else {
+                citySize = c.SMALL.size;
+            }
+            sizeMappings.add(citySize);
+        }
+
+
+        int index = 0;
         for (Map.Entry<Integer, Boolean> kv : cityVerticesIdx.entrySet()) {
             double x = mesh.getVerticesList().get(kv.getKey()).getX();
             double y = mesh.getVerticesList().get(kv.getKey()).getY();
             Structs.Vertex.Builder cityBuilder = Structs.Vertex.newBuilder().setX(x).setY(y);
 
             String colorValue = kv.getValue() ? t.CAPITAL.color : t.CITY.color;
+            String sizeValue = sizeMappings.get(index);
 
             Structs.Property rgb = Structs.Property.newBuilder()
                     .setKey("rgb_color")
                     .setValue(colorValue)
                     .build();
+            Structs.Property size = Structs.Property.newBuilder()
+                    .setKey("size")
+                    .setValue(String.valueOf(sizeValue))
+                    .build();
             cityBuilder.addProperties(rgb);
+            cityBuilder.addProperties(size);
             Structs.Vertex city = cityBuilder.build();
             cities.add(city);
-        }
 
-        System.out.println("CAPITAL CITIES: " + cities);
+            index++;
+        }
 
         return cities;
 

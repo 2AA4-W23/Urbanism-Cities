@@ -4,6 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.ColorProperty;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.SizeProperty;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.ThicknessProperty;
 
 import java.awt.Graphics2D;
@@ -79,12 +80,15 @@ public class GraphicRenderer implements Renderer {
 
     private void drawVertices(Mesh aMesh, Graphics2D canvas) {
         Optional<Color> fill;
+        Optional<String> size;
         Ellipse2D city = new Ellipse2D.Float();
         for (Structs.Vertex v : aMesh.getVerticesList()) {
             fill = new ColorProperty().extract(v.getPropertiesList());
             if (fill.isPresent()) {
                 canvas.setColor(fill.get());
-                city.setFrame(v.getX() - 5, v.getY() - 5, 10, 10);
+                size = new SizeProperty().extract(v.getPropertiesList());
+                int sizeInt = Integer.parseInt(size.get());
+                city.setFrame(v.getX() - sizeInt/2, v.getY() - sizeInt/2, sizeInt, sizeInt);
                 canvas.fill(city);
             }
 

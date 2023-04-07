@@ -114,9 +114,6 @@ public class Tile {
     private boolean isEndorheic() {
         return this.isEndorheic;
     }
-    private boolean isCity() {
-        return this.isCity;
-    }
     public List<Integer> getNeighbours() {
         return this.neighbours;
     }

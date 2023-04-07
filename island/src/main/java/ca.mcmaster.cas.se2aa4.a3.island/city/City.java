@@ -7,8 +7,14 @@ import java.util.*;
 
 public class City {
     boolean isCapital = false;
+    String citySize = "";
 
-    public City() {
+    public City(String citySize) {
+        this.citySize = citySize;
+    }
+
+    public String citySize() {
+        return this.citySize;
     }
 
     public boolean isCapital() {
