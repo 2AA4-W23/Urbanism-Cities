@@ -29,7 +29,7 @@ public class Edge {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Edge that = (Edge) o;
-        return this.nodes.equals(that.nodes);
+        return this.nodes.containsAll(that.nodes);
     }
 
     @Override

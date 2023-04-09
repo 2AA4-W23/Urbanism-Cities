@@ -18,3 +18,4 @@ It creates a jar file for the pathfinder subproject:
 ```
 user A4 % java -jar pathfinder/pathfinder.jar
 ```
+

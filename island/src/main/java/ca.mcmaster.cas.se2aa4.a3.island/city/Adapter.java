@@ -43,12 +43,12 @@ public class Adapter {
 
         List<Structs.Segment> roads = new ArrayList<>();
         TileColor t = null;
-        Node hub = null;
+        int hub = 0;
 
         // makes a central hub node
         for (Map.Entry<Integer, Boolean> kv : cityVertices.entrySet()) {
             if (kv.getValue()) {
-                hub = graph.getNode(kv.getKey());
+                hub = kv.getKey();
                 break;
             }
         }
@@ -56,7 +56,7 @@ public class Adapter {
         // iterates through the cities
         for (Integer c : cityVertices.keySet()) {
             // calculates the shortest path between the central hub node and the connecting city
-            Node connectingCity = graph.getNode(c);
+            int connectingCity = c;
             List<Node> shortestPath = new ShortestPathBFS().findShortestPath(graph, hub, connectingCity);
             // add the node ID to the roads list
             for (int i = 0; i < shortestPath.size() - 1; i++) {
@@ -153,24 +153,12 @@ public class Adapter {
         // builds the graph using the segment's vertices' indices
         for (Structs.Segment s : segmentsList) {
 
-            int n1Idx = s.getV1Idx();
-            int n2Idx = s.getV2Idx();
+            graph.registerNode(s.getV1Idx());
+            graph.registerNode(s.getV2Idx());
+            graph.registerEdge(s.getV1Idx(), s.getV2Idx());
 
-            Node n1 = graph.getNode(n1Idx);
-            if (n1 == null) {
-                n1 = new Node(n1Idx);
-                graph.registerNode(n1);
-            }
-
-            Node n2 = graph.getNode(n2Idx);
-            if (n2 == null) {
-                n2 = new Node(n2Idx);
-                graph.registerNode(n2);
-            }
-
-            Edge e = new Edge(n1, n2);
-            graph.registerEdge(e);
         }
+
 
         return graph;
     }

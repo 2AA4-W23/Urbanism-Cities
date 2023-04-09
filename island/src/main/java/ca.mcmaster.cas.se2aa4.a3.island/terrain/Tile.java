@@ -111,7 +111,7 @@ public class Tile {
     private boolean isSoil() {
         return this.isSoil;
     }
-    private boolean isEndorheic() {
+    public boolean isEndorheic() {
         return this.isEndorheic;
     }
     public List<Integer> getNeighbours() {
@@ -244,7 +244,7 @@ public class Tile {
     }
 
     public boolean canMakeCity() {
-        if (this.isIsland() && !this.isRiver() && !this.isLake() && !this.isEndorheic()) {
+        if (this.isIsland() && !this.isLake() && !this.isEndorheic() && !this.isRiver()) {
             return true;
         }
         return false;

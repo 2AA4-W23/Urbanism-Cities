@@ -17,21 +17,6 @@ public class AlgorithmTest {
     List<Node> testExpected = new ArrayList<>();
     List<Node> testResult;
 
-    Node node0;
-    Node node1;
-    Node node2;
-    Node node3;
-    Node node4;
-    Node node5;
-
-    Edge edge0;
-    Edge edge1;
-    Edge edge2;
-    Edge edge3;
-    Edge edge4;
-    Edge edge5;
-    Edge edge6;
-
     Graph g;
     ShortestPathBFS a;
 
@@ -41,41 +26,26 @@ public class AlgorithmTest {
         testExpected.add(new Node(3));
         testExpected.add(new Node(5));
 
-        node0 = new Node(0);
-        node1 = new Node(1);
-        node2 = new Node(2);
-        node3 = new Node(3);
-        node4 = new Node(4);
-        node5 = new Node(5);
-
-        edge0 = new Edge(node0, node1);
-        edge1 = new Edge(node1, node2);
-        edge2 = new Edge(node1, node4);
-        edge3 = new Edge(node2, node3);
-        edge4 = new Edge(node2, node5);
-        edge5 = new Edge(node4, node3);
-        edge6 = new Edge(node3, node5);
-
         g = new Graph();
 
-        g.registerNode(node0);
-        g.registerNode(node1);
-        g.registerNode(node2);
-        g.registerNode(node3);
-        g.registerNode(node4);
-        g.registerNode(node5);
+        g.registerNode(0);
+        g.registerNode(1);
+        g.registerNode(2);
+        g.registerNode(3);
+        g.registerNode(4);
+        g.registerNode(5);
 
-        g.registerEdge(edge0);
-        g.registerEdge(edge1);
-        g.registerEdge(edge2);
-        g.registerEdge(edge3);
-        g.registerEdge(edge4);
-        g.registerEdge(edge5);
-        g.registerEdge(edge6);
+        g.registerEdge(0, 1);
+        g.registerEdge(1,2);
+        g.registerEdge(1,4);
+        g.registerEdge(2,3);
+        g.registerEdge(2,5);
+        g.registerEdge(4,3);
+        g.registerEdge(3,5);
 
         a = new ShortestPathBFS();
 
-        testResult = a.findShortestPath(g, node4, node5);
+        testResult = a.findShortestPath(g, 4, 5);
     }
 
     @Test
@@ -96,7 +66,7 @@ public class AlgorithmTest {
     @DisplayName("Empty graph")
     public void emptyGraph() {
         g.clear();
-        testResult = a.findShortestPath(g, node4, node5);
+        testResult = a.findShortestPath(g, 4, 5);
         assertNull(testResult);
     }
 
@@ -104,19 +74,19 @@ public class AlgorithmTest {
     @Test
     @DisplayName("Node/edge inserted")
     public void dataInsertion() {
-        Node node7 = new Node(7);
-        g.registerNode(node7);
-        g.registerEdge(new Edge(node1, node7));
-        testResult = a.findShortestPath(g, node1, node7);
-        assertTrue(testResult.contains(node7));
+        //Node node7 = new Node(7);
+        g.registerNode(7);
+        g.registerEdge(1, 7);
+        testResult = a.findShortestPath(g, 1, 7);
+        assertTrue(testResult.contains(g.getNode(7)));
     }
 
     // data removed should be apparent right after deletion
     @Test
     @DisplayName("Source node removed")
     public void removeSourceNode() {
-        g.removeNode(node1);
-        testResult = a.findShortestPath(g, node1, node2);
+        g.removeNode(1);
+        testResult = a.findShortestPath(g, 1, 2);
         assertNull(testResult);
     }
 
@@ -124,9 +94,9 @@ public class AlgorithmTest {
     @Test
     @DisplayName("Nonexistent path: Nodes in path removed")
     public void removeNodeInPath() {
-        g.removeNode(node2);
-        g.removeNode(node4);
-        testResult = a.findShortestPath(g, node1, node3);
+        g.removeNode(2);
+        g.removeNode(4);
+        testResult = a.findShortestPath(g, 1, 3);
         assertNull(testResult);
     }
 
@@ -134,8 +104,8 @@ public class AlgorithmTest {
     @Test
     @DisplayName("Target node removed")
     public void removeTargetNode() {
-        g.removeNode(node5);
-        testResult = a.findShortestPath(g, node1, node5);
+        g.removeNode(5);
+        testResult = a.findShortestPath(g, 1, 5);
         assertNull(testResult);
     }
 

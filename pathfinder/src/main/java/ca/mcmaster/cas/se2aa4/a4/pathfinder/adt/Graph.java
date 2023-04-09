@@ -11,7 +11,15 @@ public class Graph implements Iterable<Edge> {
     public Graph() {
     }
 
-    public void registerEdge(Edge e) {
+    public void registerEdge(int n1, int n2) {
+        Node node1 = getNode(n1);
+        Node node2 = getNode(n2);
+
+        if (node1 == null || node2 == null) {
+            throw new IllegalArgumentException("Invalid node ID");
+        }
+
+        Edge e = new Edge(node1, node2);
         // Check if edge already exists
         for (Edge existingEdge : edges) {
             if (existingEdge.equals(e)) {
@@ -32,26 +40,41 @@ public class Graph implements Iterable<Edge> {
         this.adjacencyList.get(contents[1]).add(contents[0]);
         this.edges.add(e);
     }
-    public void registerNode(Node n) {
-        if (!this.adjacencyList.containsKey(n)) {
+
+    public void registerNode(int nodeId) {
+        Node n = getNode(nodeId);
+        if (n == null) {
+            n = new Node(nodeId);
             this.adjacencyList.putIfAbsent(n, new ArrayList<>());
             this.nodes.add(n);
         }
     }
 
-    public void removeNode(Node node) {
+    public void removeNode(int nodeIdx) {
+        Node nodeToRemove = getNode(nodeIdx);
+
+        if (nodeToRemove == null) {
+            return; // Node does not exist in graph, so do nothing
+        }
+
         // Remove the node from the nodes set
-        this.nodes.remove(node);
+        this.nodes.remove(nodeToRemove);
 
         // Remove the node from the adjacency list and its corresponding edges
-        List<Node> neighbors = this.adjacencyList.remove(node);
+        List<Node> neighbors = this.adjacencyList.remove(nodeToRemove);
         for (Node neighbor : neighbors) {
-            this.adjacencyList.get(neighbor).remove(node);
-            this.edges.remove(new Edge(node, neighbor));
+            this.adjacencyList.get(neighbor).remove(nodeToRemove);
+            this.edges.remove(new Edge(nodeToRemove, neighbor));
         }
     }
 
-    public List<Node> getAdjacencyNodes(Node node) {
+    public List<Node> getAdjacencyNodes(int nodeIdx) {
+        Node node = getNode(nodeIdx);
+
+        if (node == null) {
+            return new ArrayList<Node>(); // Node does not exist in graph, so return empty list
+        }
+
         if (this.adjacencyList.containsKey(node)) {
             return this.adjacencyList.get(node);
         } else {
@@ -60,9 +83,9 @@ public class Graph implements Iterable<Edge> {
     }
 
     public Node getNode(int nodeIdx) {
-        for (Map.Entry<Node, List<Node>> kv : this.adjacencyList.entrySet()) {
-            if (nodeIdx == kv.getKey().ID()) {
-                return kv.getKey();
+        for (Node node : this.nodes) {
+            if (node.ID() == nodeIdx) {
+                return node;
             }
         }
         return null;
@@ -77,6 +100,8 @@ public class Graph implements Iterable<Edge> {
 
     public void clear() {
         this.adjacencyList.clear();
+        this.edges.clear();
+        this.nodes.clear();
     }
 
     public boolean isEmpty() {
