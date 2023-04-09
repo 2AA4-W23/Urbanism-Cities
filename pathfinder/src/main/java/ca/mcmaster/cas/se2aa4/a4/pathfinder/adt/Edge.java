@@ -5,11 +5,19 @@ import java.util.*;
 public class Edge {
 
     private final List<Node> nodes;
+    private int weight;
 
     public Edge(Node n1, Node n2) {
         this.nodes = new ArrayList<>();
         this.nodes.add(n1);
         this.nodes.add(n2);
+    }
+
+    public Edge(int weight, Node n1, Node n2) {
+        this.nodes = new ArrayList<>();
+        this.nodes.add(n1);
+        this.nodes.add(n2);
+        this.weight = weight;
     }
 
     public Node[] contents() {

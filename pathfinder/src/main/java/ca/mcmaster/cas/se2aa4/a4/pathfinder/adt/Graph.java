@@ -7,7 +7,6 @@ public class Graph implements Iterable<Edge> {
     private Map<Node, List<Node>> adjacencyList = new HashMap<>();
     private Set<Edge> edges = new HashSet<>();
     private Set<Node> nodes = new HashSet<>();
-    private Map<Edge, Integer> edgeIdx;
 
     public Graph() {
     }
@@ -60,14 +59,6 @@ public class Graph implements Iterable<Edge> {
         }
     }
 
-    public boolean hasNode(int idx) {
-        Node n = new Node(idx);
-        if (this.adjacencyList.containsKey(n)) {
-            return true;
-        }
-        return false;
-    }
-
     public Node getNode(int nodeIdx) {
         for (Map.Entry<Node, List<Node>> kv : this.adjacencyList.entrySet()) {
             if (nodeIdx == kv.getKey().ID()) {
@@ -90,10 +81,6 @@ public class Graph implements Iterable<Edge> {
 
     public boolean isEmpty() {
         return this.adjacencyList.isEmpty();
-    }
-
-    public void setEdgeIndices(Map<Edge, Integer> edgeIdx) {
-        this.edgeIdx = edgeIdx;
     }
 
     public int size() {

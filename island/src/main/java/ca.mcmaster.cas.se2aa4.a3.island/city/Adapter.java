@@ -67,7 +67,7 @@ public class Adapter {
                         .build();
                 Structs.Property thickness = Structs.Property.newBuilder()
                         .setKey("thickness")
-                        .setValue(String.valueOf(2))
+                        .setValue(String.valueOf(3))
                         .build();
                 roadBuilder.addProperties(rgb);
                 roadBuilder.addProperties(thickness);

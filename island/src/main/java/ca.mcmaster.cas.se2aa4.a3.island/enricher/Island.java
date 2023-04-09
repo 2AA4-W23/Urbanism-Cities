@@ -9,8 +9,6 @@ import ca.mcmaster.cas.se2aa4.a3.island.shapes.Rectangle;
 import ca.mcmaster.cas.se2aa4.a3.island.dimensions.Dimensons;
 
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Graph;
-import shortestpath.ShortestPathBFS;
 import water.Aquifier;
 import water.Lakes;
 import water.Rivers;

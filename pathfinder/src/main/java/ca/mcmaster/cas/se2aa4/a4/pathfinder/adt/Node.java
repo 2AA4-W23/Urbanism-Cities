@@ -10,6 +10,13 @@ public class Node {
         this.ID = ID;
     }
 
+    public Node (int ID, String cityName, int elevation, String cityType) {
+        this.ID = ID;
+        this.cityName = cityName;
+        this.elevation = elevation;
+        this.cityType = cityType;
+    }
+
     public int ID() {
         return this.ID;
     }
