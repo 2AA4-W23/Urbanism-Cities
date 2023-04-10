@@ -1,12 +1,11 @@
 package ca.mcmaster.cas.se2aa4.a4.pathfinder.tests.shortestpath.tests;
 
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Edge;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Node;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import shortestpath.ShortestPathBFS;
+import shortestpath.Dijkstra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class AlgorithmTest {
     List<Node> testResult;
 
     Graph g;
-    ShortestPathBFS a;
+    Dijkstra a;
 
     @BeforeEach
     public void setup() {
@@ -35,16 +34,15 @@ public class AlgorithmTest {
         g.registerNode(4);
         g.registerNode(5);
 
-        g.registerEdge(0, 1);
-        g.registerEdge(1,2);
-        g.registerEdge(1,4);
-        g.registerEdge(2,3);
-        g.registerEdge(2,5);
-        g.registerEdge(4,3);
-        g.registerEdge(3,5);
+        g.registerEdge(0,1,0);
+        g.registerEdge(1,2,0);
+        g.registerEdge(1,4,0);
+        g.registerEdge(2,3,0);
+        g.registerEdge(2,5,0);
+        g.registerEdge(4,3,0);
+        g.registerEdge(3,5,0);
 
-        a = new ShortestPathBFS();
-
+        a = new Dijkstra();
         testResult = a.findShortestPath(g, 4, 5);
     }
 
@@ -76,8 +74,8 @@ public class AlgorithmTest {
     public void dataInsertion() {
         //Node node7 = new Node(7);
         g.registerNode(7);
-        g.registerEdge(1, 7);
-        testResult = a.findShortestPath(g, 1, 7);
+        g.registerEdge(1,7,0);
+        testResult = a.findShortestPath(g, 1,7);
         assertTrue(testResult.contains(g.getNode(7)));
     }
 
@@ -123,8 +121,8 @@ public class AlgorithmTest {
         assertTrue(ordered);
 
     }
-
-    // check what happens when incorrect ordering
+//
+//    // check what happens when incorrect ordering
     @Test
     @DisplayName("Test incorrect ordering")
     public void incorrectOrder() {

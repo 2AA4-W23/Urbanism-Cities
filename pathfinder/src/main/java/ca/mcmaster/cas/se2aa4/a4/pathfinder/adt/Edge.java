@@ -5,15 +5,9 @@ import java.util.*;
 public class Edge {
 
     private final List<Node> nodes;
-    private int weight;
+    private double weight;
 
-    public Edge(Node n1, Node n2) {
-        this.nodes = new ArrayList<>();
-        this.nodes.add(n1);
-        this.nodes.add(n2);
-    }
-
-    public Edge(int weight, Node n1, Node n2) {
+    public Edge(Node n1, Node n2, double weight) {
         this.nodes = new ArrayList<>();
         this.nodes.add(n1);
         this.nodes.add(n2);
@@ -24,12 +18,16 @@ public class Edge {
         return this.nodes.toArray(new Node[]{});
     }
 
+    public double weight() {
+        return this.weight;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Edge that = (Edge) o;
-        return this.nodes.containsAll(that.nodes);
+        return this.nodes.containsAll(that.nodes) && (this.weight == that.weight);
     }
 
     @Override

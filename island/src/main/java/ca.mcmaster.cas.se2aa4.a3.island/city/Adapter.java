@@ -3,10 +3,9 @@ package ca.mcmaster.cas.se2aa4.a3.island.city;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.Tile;
 import ca.mcmaster.cas.se2aa4.a3.island.terrain.TileColor;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Edge;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.adt.Node;
-import shortestpath.ShortestPathBFS;
+import shortestpath.Dijkstra;
 
 import java.util.*;
 
@@ -57,7 +56,7 @@ public class Adapter {
         for (Integer c : cityVertices.keySet()) {
             // calculates the shortest path between the central hub node and the connecting city
             int connectingCity = c;
-            List<Node> shortestPath = new ShortestPathBFS().findShortestPath(graph, hub, connectingCity);
+            List<Node> shortestPath = new Dijkstra().findShortestPath(graph, hub, connectingCity);
             // add the node ID to the roads list
             for (int i = 0; i < shortestPath.size() - 1; i++) {
                 Structs.Segment.Builder roadBuilder = Structs.Segment.newBuilder().setV1Idx(shortestPath.get(i).ID()).setV2Idx(shortestPath.get(i+1).ID());
@@ -155,10 +154,21 @@ public class Adapter {
 
             graph.registerNode(s.getV1Idx());
             graph.registerNode(s.getV2Idx());
-            graph.registerEdge(s.getV1Idx(), s.getV2Idx());
+
+            double v1xcoordinate = mesh.getVertices(s.getV1Idx()).getX();
+            double v1ycoordinate = mesh.getVertices(s.getV1Idx()).getY();
+            double v2xcoordinate = mesh.getVertices(s.getV2Idx()).getX();
+            double v2ycoordinate = mesh.getVertices(s.getV2Idx()).getY();
+
+            // calculate length of segment
+            double y = Math.abs(v2ycoordinate - v1ycoordinate);
+            double x = Math.abs(v2xcoordinate - v1xcoordinate);
+
+            double distance = Math.hypot(y, x);
+
+            graph.registerEdge(s.getV1Idx(), s.getV2Idx(), distance);
 
         }
-
 
         return graph;
     }
