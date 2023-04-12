@@ -27,7 +27,8 @@ user A4 % java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 10
 ```
 
--c <arg> is the number of cities to be generated on the island. **Note: roads cross lakes via bridges.**
+-c <arg> is the number of cities to be generated on the island.
+  **Note: roads cross lakes via bridges.**
 
 ### Visualize the island
 
@@ -44,7 +45,7 @@ The above image was generated with the following command:
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 5
 ```
 
-**Note: each time island generator generates cities, cities will be randomly generated. For exact same mesh recall, use seed number to regenerate.**
+**Note: whenever the island generator produces cities, they will be generated randomly. In order to reproduce the exact same mesh, utilize the given seed number to regenerate it.**
   
 ## Pathfinder
 
