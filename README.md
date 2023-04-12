@@ -13,7 +13,7 @@ It creates a jar file for the pathfinder subproject:
 1. `pathfinder/pathfinder.jar` to generate the shortest path between two nodes
 2. `island/island.jar` to generate islands
 
-### Run the pathfinder library
+### Run the island generator with cities
 
 ```
 user A4 % java -jar pathfinder/pathfinder.jar
