@@ -19,7 +19,7 @@ It creates a jar file for the pathfinder subproject:
 user A4 % java -jar pathfinder/pathfinder.jar
 ```
 
-### Pathfinder
+## Pathfinder
 
 The Pathfinder project is a sub-project within this repository that provides an implementation of a graph-based algorithm to find the shortest path between two nodes in a graph. This project contains a Graph ADT that represents nodes and edges and an interface to define the public contract of "finding a path between two nodes."
 
