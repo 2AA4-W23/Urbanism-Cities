@@ -21,6 +21,8 @@ user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 
 -c <arg> is the number of cities to be generated on the island. Note that roads cross lakes via bridges.
 
+<img width="710" alt="image" src="https://user-images.githubusercontent.com/13322471/231333519-62f56583-90f8-4c6d-94d5-e5e92bf1de31.png">
+
 ## Pathfinder
 
 The Pathfinder project is a sub-project within this repository that provides an implementation of a graph-based algorithm to find the shortest path between two nodes in a graph, as well as a general-purpose Graph ADT that represents nodes and edges and an interface to define the public contract of "finding a path between two nodes."
