@@ -28,7 +28,7 @@ user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 ```
 
 -c <arg> is the number of cities to be generated on the island.
-  **Note: roads cross lakes via bridges.**
+**Note: roads cross lakes via bridges.**
 
 ### Visualize the island
 
