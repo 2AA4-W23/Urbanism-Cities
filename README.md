@@ -33,7 +33,7 @@ user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 user A4 % java -jar visualizer/visualizer.jar -i island.mesh -o output.svg
 ```
 
--c <arg> is the number of cities to be generated on the island. **Note that roads cross lakes via bridges.**
+-c <arg> is the number of cities to be generated on the island. **Note: roads cross lakes via bridges.**
 
 <img width="710" alt="image" src="https://user-images.githubusercontent.com/13322471/231333519-62f56583-90f8-4c6d-94d5-e5e92bf1de31.png">
 The above image was generated with the following command:
@@ -45,6 +45,7 @@ user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b 
 ```
 
 Since A4 is a separate project from A2/A3, I didn't include generator commands as those would be redundant.
+**Note: each time island generator generates cities, cities will be randomly generated. For exact same mesh recall, use seed number to regenerate.
   
 ## Pathfinder
 
