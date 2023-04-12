@@ -8,15 +8,29 @@
 user A4 % mvn install clean package
 ```
 
-It creates a jar file for the pathfinder subproject:
+It creates a jar file for the generator, visualizer, and pathfinder subproject:
 
-1. `pathfinder/pathfinder.jar` to generate pathfinder library
-2. `island/island.jar` to generate islands
+1. `generator/generator.jar` to generate a mesh
+2. `pathfinder/pathfinder.jar` to generate pathfinder library
+3. `island/island.jar` to generate islands
+4. `visualizer/visualizer.jar` to visualize the island
+
+### Generate a sample mesh
+
+```
+user A4 % java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000 -s 20 -o input.mesh 
+```
 
 ### Run the island generator with cities
 
 ```
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 10
+```
+
+### Visualize the island
+
+```
+user A4 % java -jar visualizer/visualizer.jar -i island.mesh -o output.svg
 ```
 
 -c <arg> is the number of cities to be generated on the island. **Note that roads cross lakes via bridges.**
