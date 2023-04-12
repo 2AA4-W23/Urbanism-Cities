@@ -57,6 +57,7 @@ public class Adapter {
             // calculates the shortest path between the central hub node and the connecting city
             int connectingCity = c;
             List<Node> shortestPath = new Dijkstra().findShortestPath(graph, hub, connectingCity);
+
             // add the node ID to the roads list
             for (int i = 0; i < shortestPath.size() - 1; i++) {
                 Structs.Segment.Builder roadBuilder = Structs.Segment.newBuilder().setV1Idx(shortestPath.get(i).ID()).setV2Idx(shortestPath.get(i+1).ID());
