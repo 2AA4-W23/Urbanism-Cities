@@ -27,7 +27,7 @@ user A4 % java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 10
 ```
 
--c <arg> is the number of cities to be generated on the island.
+-c \<arg>\ is the number of cities to be generated on the island.
 
 **Note: roads cross lakes via bridges.**
 
