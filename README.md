@@ -19,7 +19,7 @@ It creates a jar file for the pathfinder subproject:
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 10
 ```
 
--c <arg> is the number of cities to be generated on the island. Note that roads cross lakes via bridges.
+-c <arg> is the number of cities to be generated on the island. **Note that roads cross lakes via bridges.**
 
 <img width="710" alt="image" src="https://user-images.githubusercontent.com/13322471/231333519-62f56583-90f8-4c6d-94d5-e5e92bf1de31.png">
 The above image was generated with the following command:
