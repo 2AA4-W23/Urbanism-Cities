@@ -63,7 +63,7 @@ The Graph ADT is implemented using an adjacency list representation. Each node i
 The pathfinder algorithm is an implementation of Dijkstra's algorithm, which is a popular algorithm for finding the shortest path between two nodes in a graph. The algorithm maintains a priority queue of nodes to visit and computes the shortest path to each node from the starting node. The algorithm terminates when the destination node is reached, or when there are no more nodes left to visit.
 
 ## Extending the Library
-The Pathfinder project can be extended to include additional pathfinding algorithms between a source and target node, by implementing them as separate classes that implement the same pathfinder interface. Users can then choose the algorithm they want to use based on their specific requirements.
+The Pathfinder project can be extended to include additional pathfinding algorithms between a source and target node, by implementing them as separate classes that implement the same pathfinder interface.
 
 Additionally, the Graph ADT can be extended to include additional functionality such as adding or removing nodes and edges, querying attributes of nodes and edges, and more. This would allow the library to be used in a wider range of applications beyond pathfinding.
 
