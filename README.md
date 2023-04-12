@@ -27,13 +27,13 @@ user A4 % java -jar generator/generator.jar -k irregular -h 1080 -w 1920 -p 1000
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 10
 ```
 
+-c <arg> is the number of cities to be generated on the island. **Note: roads cross lakes via bridges.**
+
 ### Visualize the island
 
 ```
 user A4 % java -jar visualizer/visualizer.jar -i island.mesh -o output.svg
 ```
-
--c <arg> is the number of cities to be generated on the island. **Note: roads cross lakes via bridges.**
 
 <img width="710" alt="image" src="https://user-images.githubusercontent.com/13322471/231333519-62f56583-90f8-4c6d-94d5-e5e92bf1de31.png">
 The above image was generated with the following command:
