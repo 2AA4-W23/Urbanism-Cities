@@ -10,7 +10,7 @@ user A4 % mvn install clean package
 
 It creates a jar file for the pathfinder subproject:
 
-1. `pathfinder/pathfinder.jar` to generate the shortest path between two nodes
+1. `pathfinder/pathfinder.jar` to generate pathfinder library
 2. `island/island.jar` to generate islands
 
 ### Run the island generator with cities
@@ -30,6 +30,8 @@ The above image was generated with the following command:
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 5
 ```
 
+Since A4 is a separate project from A2/A3, I didn't include generator commands as those would be redundant.
+  
 ## Pathfinder
 
 The Pathfinder project is a sub-project within this repository that provides an implementation of a graph-based algorithm to find the shortest path between two nodes in a graph, as well as a general-purpose Graph ADT that represents nodes and edges and an interface to define the public contract of "finding a path between two nodes."
