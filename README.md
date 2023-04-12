@@ -44,7 +44,6 @@ The above image was generated with the following command:
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 5
 ```
 
-Since A4 is a separate project from A2/A3, I didn't include generator commands as those would be redundant.
 **Note: each time island generator generates cities, cities will be randomly generated. For exact same mesh recall, use seed number to regenerate.**
   
 ## Pathfinder
