@@ -50,21 +50,22 @@ user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s circle -b 
   
 ## Pathfinder
 
-The Pathfinder project is a sub-project within this repository that provides an implementation of a graph-based algorithm to find the shortest path between two nodes in a graph, as well as a general-purpose Graph ADT that represents nodes and edges and an interface to define the public contract of "finding a path between two nodes."
+The Pathfinder project is a sub-project within this repository that provides an implementation of a graph-based algorithm to find the shortest path between two nodes in a graph, as well as a general-purpose Graph ADT that represents nodes and edges, and an interface to define the public contract of "finding a path between two nodes."
 
 ## Rationale
 
-The purpose of this project was to find the shortest path in the city between the hub and every other city. This produces a star network. Therefore, implementing an efficient algorithm for finding the shortest path between two nodes is a valuable addition to this repository. This project can be extended to provide a variety of pathfinding algorithms and be used in various applications that require pathfinding capabilities.
+The purpose of this project was to first, develop a multi-use Graph ADT, and then use this ADT in combination with a pathfinder algorithm to find the shortest path in the city between the hub and every other city in the Island subproject in order to produce a star network. This project can be extended to provide a variety of pathfinding algorithms and be used in various applications that require pathfinding capabilities.
 
 ## Implementation
 
-The Graph ADT is implemented using an adjacency list representation. Each node in the graph is represented by a unique identifier, and edges between nodes contain their respective nodes and a weight property. The graph also allows nodes hold attributes such as elevation and city names.
+The Graph ADT is implemented using an adjacency list representation. Each node in the graph is represented by a unique identifier, and edges between nodes contain their respective nodes and a weight property. The graph also allows nodes to hold attributes such as elevation and city names.
 
-The pathfinder algorithm is an implementation of Dijkstra's algorithm, which is a popular algorithm for finding the shortest path between two nodes in a graph. The algorithm maintains a priority queue of nodes to visit and computes the shortest path to each node from the starting node. The algorithm terminates when the destination node is reached, or when there are no more nodes left to visit.
+The pathfinder algorithm is an implementation of Dijkstra's algorithm, which is a popular algorithm for finding the shortest path between two nodes in a graph. The algorithm maintains a priority queue of nodes to visit, and computes the shortest path to each node from the source node to the target node. The algorithm terminates when the destination node is reached, or when there are no more nodes left to visit.
 
-The Island subproject integrated the algorithm which identified the shortest path by considering the path with the least weight. Essentially, this implies that the path with the shortest segments was selected since the weight was based on the segment's length.
+The Island subproject integrated the algorithm which identified the shortest path by considering the path with the least weight. Essentially, this means that the path with the shortest segments was selected since the weight was based on the segment's length.
 
 ## Extending the Library
+  
 The Pathfinder project can be extended to include additional pathfinding algorithms between a source and target node, by implementing them as separate classes that implement the same pathfinder interface.
 
 Additionally, the Graph ADT can be extended to include additional functionality such as adding or removing nodes and edges, querying attributes of nodes and edges, and more. This would allow the library to be used in a wider range of applications beyond pathfinding.
