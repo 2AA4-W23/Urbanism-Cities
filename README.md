@@ -19,6 +19,8 @@ It creates a jar file for the pathfinder subproject:
 user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle -b tropical -e hills -l 11 -a 5 -r 11 -soil wet -c 10
 ```
 
+-c <arg> is the number of citieto be generated on the island. Note that roads cross lakes via bridges.
+
 ## Pathfinder
 
 The Pathfinder project is a sub-project within this repository that provides an implementation of a graph-based algorithm to find the shortest path between two nodes in a graph, as well as a general-purpose Graph ADT that represents nodes and edges and an interface to define the public contract of "finding a path between two nodes."
