@@ -64,7 +64,7 @@ The pathfinder algorithm is an implementation of Dijkstra's algorithm, which is 
 
 The Island subproject integrated the algorithm which identified the shortest path by considering the path with the least weight. Essentially, this means that the path with the shortest segments was selected since the weight was based on the segment's length.
 
-As for the cities, the bigger the city, the bigger the vertex.
+**As for the cities, the bigger the city, the bigger the vertex. The red vertex is the hub node, and the yellow vertices are the other cities.**
 
 ## Extending the Library
   
