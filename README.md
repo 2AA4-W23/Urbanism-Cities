@@ -8,7 +8,7 @@
 user A4 % mvn install clean package
 ```
 
-It creates a jar file for the generator, visualizer, and pathfinder subproject:
+It creates a jar file for the generator, pathfinder, island, and visualizer subprojects:
 
 1. `generator/generator.jar` to generate a mesh
 2. `pathfinder/pathfinder.jar` to generate pathfinder library
