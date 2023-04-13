@@ -37,6 +37,8 @@ user A4 % java -jar island/island.jar -i input.mesh -o island.mesh -s rectangle 
 user A4 % java -jar visualizer/visualizer.jar -i island.mesh -o output.svg
 ```
 
+**The red vertex is the hub node, and the yellow vertices are the other cities. The bigger the city, the bigger the vertex. Black segments are the roads.**
+
 <img width="710" alt="image" src="https://user-images.githubusercontent.com/13322471/231333519-62f56583-90f8-4c6d-94d5-e5e92bf1de31.png">
 The above image was generated with the following command:
 
@@ -63,8 +65,6 @@ The Graph ADT is implemented using an adjacency list representation. Each node i
 The pathfinder algorithm is an implementation of Dijkstra's algorithm, which is a popular algorithm for finding the shortest path between two nodes in a graph. The algorithm maintains a priority queue of nodes to visit, and computes the shortest path to each node from the source node to the target node. The algorithm terminates when the destination node is reached, or when there are no more nodes left to visit.
 
 The Island subproject integrated the algorithm which identified the shortest path by considering the path with the least weight. Essentially, this means that the path with the shortest segments was selected since the weight was based on the segment's length.
-
-**As for the cities, the bigger the city, the bigger the vertex. The red vertex is the hub node, and the yellow vertices are the other cities.**
 
 ## Extending the Library
   
