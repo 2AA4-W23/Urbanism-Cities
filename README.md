@@ -1,6 +1,7 @@
 # Urbanism (Assignment #4)
 
-- Author: Mankaran Rooprai
+- Authors: Mankaran Singh Rooprai, Mujtaba Zaidi, Amaan Khakiani
+- The authors built the island and its different configurations for Assignment #3 as a group. Each of us did 33% of the work. For this assignment, Assignment #4, Mankaran Singh Rooprai created this alone - the island generator with different cities.
 
 ## How to install?
 
