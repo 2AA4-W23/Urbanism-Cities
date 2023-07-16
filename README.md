@@ -1,7 +1,7 @@
 # Urbanism (Assignment #4)
 
 - Authors: Mankaran Singh Rooprai, Mujtaba Zaidi, Amaan Khakiani
-- In collaboration, the authors created the island and its various configurations for Assignment #3. Each member contributed equally, with each of us dedicating 33% of our efforts. However, for the current assignment, Assignment #4 (Pathfinder), Mankaran Singh Rooprai took sole responsibility in producing the city generator.
+- In collaboration, the authors created the mesh, the island, and its various configurations for Assignments #2 and #3. Each member contributed equally, with each of us dedicating 33% of our efforts. The current assignment, Assignment #4 (Pathfinder), builds on top of Assignments #2 and #3 and Mankaran Singh Rooprai took sole responsibility in producing this city generator.
 
 
 ## How to install?
