@@ -1,7 +1,7 @@
 # Urbanism
 
 - Authors for this project: Mankaran Singh Rooprai
-- Authors for previous aspects of this project (mesh generator, island): Mujtaba Zaidi, Amaan Khakiani
+- Authors for previous aspects of this project (mesh generator, island): Mankaran Singh Rooprai, Mujtaba Zaidi, Amaan Khakiani
 - In collaboration, the authors created the mesh, the island, and its various configurations. Each member contributed equally, with each of us dedicating 33% of our efforts. The current task, Urbanism Pathfinder, builds on top of a mesh and island generator. Mankaran Singh Rooprai takes sole responsibility in producing this city generator.
 
 
